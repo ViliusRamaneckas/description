@@ -28,10 +28,15 @@ function App() {
       const formData = new FormData();
       formData.append('image', selectedImage);
 
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+      const apiUrl = process.env.REACT_APP_API_URL || 'https://description-908s.onrender.com';
+      console.log('Sending request to:', apiUrl);
+      
       const response = await fetch(`${apiUrl}/api/describe`, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
 
       console.log('Response status:', response.status);
