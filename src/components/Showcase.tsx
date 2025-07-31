@@ -2,53 +2,103 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ShowcaseContainer = styled.div`
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 4rem 2rem;
+  background-color: #ffffff;
 `;
 
-const Section = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 2rem;
-
-  @media (max-width: 700px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-`;
-
-const ShowcaseImage = styled.img`
-  width: 300px;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-`;
-
-const ShowcaseText = styled.div`
-  flex: 1;
-  color: #222;
-  font-size: 1.1rem;
-  background: #f7f7fa;
-  border-radius: 8px;
-  padding: 1.2rem 1.5rem;
+const ShowcaseHeader = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
 `;
 
 const ShowcaseTitle = styled.h2`
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
 `;
 
 const ShowcaseSubtitle = styled.p`
+  font-size: 1.125rem;
   color: #6b7280;
-  text-align: center;
-  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+`;
+
+const ShowcaseCard = styled.div`
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background: #f8fafc;
+`;
+
+const ShowcaseImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  
+  ${ShowcaseCard}:hover & {
+    transform: scale(1.05);
+  }
+`;
+
+const CardContent = styled.div`
+  padding: 1.5rem;
+`;
+
+const DescriptionText = styled.div`
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  
+  p {
+    margin-bottom: 0.75rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+`;
+
+const Badge = styled.span`
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
 `;
 
 const showcaseData = [
@@ -76,18 +126,30 @@ The fox is the central focus of the image, its vibrant orange fur illuminated by
 
 const Showcase: React.FC = () => (
   <ShowcaseContainer>
-    <ShowcaseTitle>Showcase of Image Describer</ShowcaseTitle>
-    <ShowcaseSubtitle>See how Image Describer understands images or photos</ShowcaseSubtitle>
-    {showcaseData.map((item, idx) => (
-      <Section key={idx}>
-        <ShowcaseImage src={item.image} alt={`Showcase ${idx + 1}`} />
-        <ShowcaseText>
-          {item.description.split('\n').map((line, i) => (
-            <p key={i}>{line}</p>
-          ))}
-        </ShowcaseText>
-      </Section>
-    ))}
+    <ShowcaseHeader>
+      <ShowcaseTitle>AI Description Examples</ShowcaseTitle>
+      <ShowcaseSubtitle>
+        See how our AI generates detailed, accurate descriptions for different types of images
+      </ShowcaseSubtitle>
+    </ShowcaseHeader>
+    
+    <GridContainer>
+      {showcaseData.map((item, idx) => (
+        <ShowcaseCard key={idx}>
+          <ImageContainer>
+            <ShowcaseImage src={item.image} alt={`Example ${idx + 1}`} />
+          </ImageContainer>
+          <CardContent>
+            <Badge>AI Generated</Badge>
+            <DescriptionText>
+              {item.description.split('\n').map((line, i) => (
+                <p key={i}>{line}</p>
+              ))}
+            </DescriptionText>
+          </CardContent>
+        </ShowcaseCard>
+      ))}
+    </GridContainer>
   </ShowcaseContainer>
 );
 

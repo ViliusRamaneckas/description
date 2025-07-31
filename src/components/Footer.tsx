@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FooterContainer = styled.footer`
-  background-color: #0a0a0a;
-  color: #e5e7eb;
-  padding: 3rem 2rem;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  color: #6b7280;
+  padding: 3rem 2rem 2rem 2rem;
   margin-top: auto;
 `;
 
@@ -28,34 +29,22 @@ const FooterContent = styled.div`
 const FooterSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 `;
 
 const FooterTitle = styled.h3`
-  color: #3b82f6;
-  font-size: 1.2rem;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
 `;
 
 const FooterLink = styled(Link)`
-  color: #e5e7eb;
+  color: #6b7280;
   text-decoration: none;
+  font-size: 0.9rem;
   transition: color 0.2s;
-  &:hover {
-    color: #3b82f6;
-  }
-`;
-
-const SocialLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
-
-const SocialLink = styled.a`
-  color: #e5e7eb;
-  font-size: 1.5rem;
-  transition: color 0.2s;
+  
   &:hover {
     color: #3b82f6;
   }
@@ -63,10 +52,11 @@ const SocialLink = styled.a`
 
 const Copyright = styled.div`
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   padding-top: 2rem;
-  border-top: 1px solid #1f2937;
+  border-top: 1px solid #e5e7eb;
   color: #9ca3af;
+  font-size: 0.9rem;
 `;
 
 const Footer: React.FC = () => {
@@ -77,14 +67,12 @@ const Footer: React.FC = () => {
           <FooterTitle>Product</FooterTitle>
           <FooterLink to="/features">Features</FooterLink>
           <FooterLink to="/pricing">Pricing</FooterLink>
-          <FooterLink to="/blog">Blog</FooterLink>
           <FooterLink to="/updates">Updates</FooterLink>
         </FooterSection>
 
         <FooterSection>
           <FooterTitle>Company</FooterTitle>
           <FooterLink to="/about">About</FooterLink>
-          <FooterLink to="/careers">Careers</FooterLink>
           <FooterLink to="/contact">Contact</FooterLink>
           <FooterLink to="/press">Press</FooterLink>
         </FooterSection>
@@ -94,7 +82,6 @@ const Footer: React.FC = () => {
           <FooterLink to="/documentation">Documentation</FooterLink>
           <FooterLink to="/help">Help Center</FooterLink>
           <FooterLink to="/guides">Guides</FooterLink>
-          <FooterLink to="/api">API</FooterLink>
         </FooterSection>
 
         <FooterSection>
@@ -102,12 +89,11 @@ const Footer: React.FC = () => {
           <FooterLink to="/privacy">Privacy Policy</FooterLink>
           <FooterLink to="/terms">Terms of Service</FooterLink>
           <FooterLink to="/cookies">Cookie Policy</FooterLink>
-          <FooterLink to="/licenses">Licenses</FooterLink>
         </FooterSection>
       </FooterContent>
 
       <Copyright>
-        <p>© 2024 AI Image Describer. All rights reserved.</p>
+        <p>© 2024 AI Image Description Generator. All rights reserved.</p>
       </Copyright>
     </FooterContainer>
   );

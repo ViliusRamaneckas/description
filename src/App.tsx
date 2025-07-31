@@ -7,270 +7,225 @@ import { Routes, Route } from 'react-router-dom';
 import Showcase from './components/Showcase';
 import FeaturesSection from './components/FeaturesSection';
 import FAQSection from './components/FAQSection';
-import AdBanner from './components/AdBanner';
 import { testAWSConnection } from './services/awsService';
 
 const AppContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #0a0a0a;
+  background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 `;
 
 const MainContent = styled.main`
   flex: 1;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
 `;
 
-const Container = styled.div`
-  max-width: 800px;
+const HeroSection = styled.div`
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-`;
-
-const Description = styled.p`
-  font-size: 1.2rem;
-  color: #ccc;
-  margin-bottom: 2rem;
-`;
-
-const UploadContainer = styled.div`
-  border: 2px dashed #444;
-  border-radius: 8px;
-  padding: 2rem;
+  padding: 3rem 2rem;
   text-align: center;
-  transition: border-color 0.3s;
+`;
 
-  &:hover {
-    border-color: #666;
+const HeroTitle = styled.h1`
+  font-size: 2.75rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 2.25rem;
   }
 `;
 
-const UploadBox = styled.div<{ $dragActive: boolean }>`
-  border: ${({ $dragActive }) => ($dragActive ? '2px dashed #666' : '2px dashed #444')};
-  padding: 2rem;
-  border-radius: 8px;
-  transition: border-color 0.3s;
+const HeroSubtitle = styled.p`
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+`;
 
+const UploadSection = styled.div`
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  padding: 0 2rem;
+`;
+
+const UploadCard = styled.div`
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+`;
+
+const DragDropArea = styled.div<{ $dragActive: boolean }>`
+  border: 2px dashed ${({ $dragActive }) => ($dragActive ? '#3b82f6' : '#d1d5db')};
+  background: ${({ $dragActive }) => ($dragActive ? '#eff6ff' : '#f9fafb')};
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  
   &:hover {
-    border-color: #666;
+    border-color: #9ca3af;
+    background: #f3f4f6;
   }
 `;
 
 const UploadIcon = styled.div`
-  font-size: 4rem;
-  color: #666;
+  font-size: 3rem;
+  color: #9ca3af;
   margin-bottom: 1rem;
 `;
 
 const UploadText = styled.p`
-  font-size: 1.2rem;
-  color: #ccc;
+  font-size: 1.1rem;
+  color: #374151;
   margin-bottom: 1rem;
+  font-weight: 500;
 `;
 
-const UploadButton = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
+const UploadSubtext = styled.p`
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+`;
 
+const SelectFileButton = styled.button`
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
   &:hover {
-    background-color: #0056b3;
+    background: #2563eb;
   }
+`;
+
+const PreviewSection = styled.div`
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 `;
 
 const PreviewImage = styled.img`
   max-width: 100%;
-  height: auto;
-  border-radius: 8px;
+  max-height: 300px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const OptionsSection = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+`;
+
+const Select = styled.select`
+  width: 100%;
+  max-width: 300px;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  color: #374151;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+`;
+
+const GenerateButton = styled.button<{ $isLoading: boolean; disabled: boolean }>`
+  width: 100%;
+  background: ${({ $isLoading, disabled }) => 
+    disabled ? '#d1d5db' : $isLoading ? '#9ca3af' : '#10b981'};
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: ${({ $isLoading, disabled }) => 
+      disabled ? '#d1d5db' : $isLoading ? '#9ca3af' : '#059669'};
+  }
 `;
 
 const ErrorMessage = styled.div`
-  color: #ff0000;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-`;
-
-const Button = styled.button<{ $isLoading: boolean }>`
-  padding: 0.75rem 1.5rem;
-  background-color: ${({ $isLoading }) => ($isLoading ? '#666' : '#007bff')};
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 1rem;
-
-  &:hover {
-    background-color: ${({ $isLoading }) => ($isLoading ? '#666' : '#0056b3')};
-  }
-
-  &:disabled {
-    background-color: #666;
-    cursor: not-allowed;
-  }
-`;
-
-const ResultContainer = styled.div`
-  margin-top: 2rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
   padding: 1rem;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
 `;
 
-const ResultTitle = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 700;
+const ResultSection = styled.div`
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+`;
+
+const ResultTitle = styled.h3`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #065f46;
   margin-bottom: 1rem;
 `;
 
 const ResultText = styled.p`
-  font-size: 1.2rem;
-  color: #ccc;
+  font-size: 1rem;
+  color: #374151;
+  line-height: 1.6;
   margin-bottom: 1rem;
+  white-space: pre-wrap;
 `;
 
 const CopyButton = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
-  color: #fff;
+  background: #059669;
+  color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const DescriptionTypeSelect = styled.select`
-  padding: 0.75rem 1.5rem;
-  background-color: #1f2937;
-  color: #e5e7eb;
-  border: 1px solid #374151;
-  border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  width: 100%;
-  max-width: 300px;
-
-  &:focus {
-    outline: none;
-    border-color: #3b82f6;
-  }
-`;
-
-const HeroCard = styled.div`
-  max-width: 900px;
-  margin: 0 auto 2.5rem auto;
-  background: #23272f;
-  border-radius: 18px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.18);
-  padding: 2.5rem 2rem 2rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const HeroTitle = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 0.5rem;
-  text-align: center;
-`;
-
-const HeroDescription = styled.p`
-  font-size: 1.25rem;
-  color: #d1d5db;
-  margin-bottom: 2rem;
-  text-align: center;
-`;
-
-const DragDropArea = styled.div<{ $dragActive: boolean }>`
-  border: 2.5px dashed ${({ $dragActive }) => ($dragActive ? '#3b82f6' : '#444b5a')};
-  background: #23272f;
-  border-radius: 12px;
-  padding: 2.5rem 1.5rem;
-  text-align: center;
-  transition: border-color 0.3s;
-  margin-bottom: 1.5rem;
-  width: 100%;
-  cursor: pointer;
-`;
-
-const UploadIconLarge = styled.div`
-  font-size: 3.5rem;
-  color: #3b82f6;
-  margin-bottom: 1rem;
-`;
-
-const UploadTextLarge = styled.p`
-  font-size: 1.15rem;
-  color: #b0b3b8;
-  margin-bottom: 1rem;
-`;
-
-const UploadButtonLarge = styled.button`
-  padding: 1rem 2.2rem;
-  background-color: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 700;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  
   &:hover {
-    background-color: #2563eb;
+    background: #047857;
   }
-`;
-
-const PreviewImageFrame = styled.div`
-  background: #181a20;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  display: flex;
-  justify-content: center;
-`;
-
-const ErrorMessageModern = styled.div`
-  color: #fff;
-  background: #ef4444;
-  font-size: 1.08rem;
-  margin-bottom: 1.2rem;
-  padding: 0.9rem 1.2rem;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 500;
 `;
 
 function App() {
@@ -282,7 +237,6 @@ function App() {
   const [generatedDescription, setGeneratedDescription] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
   const [descriptionType, setDescriptionType] = useState<string>('detailed');
-  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const handleImageUpload = (file: File) => {
     // Check file size (5MB limit)
@@ -355,13 +309,8 @@ function App() {
     }
   };
 
-  const handleTestConnection = async () => {
-    const result = await testAWSConnection();
-    setTestResult(result);
-  };
-
   return (
-    <>
+    <AppContainer>
       <Navbar />
       <MainContent>
         <Routes>
@@ -369,108 +318,96 @@ function App() {
             path="/"
             element={
               <>
-                <HeroCard>
+                <HeroSection>
                   <HeroTitle>AI Image Description Generator</HeroTitle>
-                  <HeroDescription>
-                    Upload an image and let our AI generate a description for you.
-                  </HeroDescription>
-                  
-                  <Button 
-                    onClick={handleTestConnection}
-                    style={{ marginBottom: '1rem', backgroundColor: '#4CAF50' }}
-                    $isLoading={false}
-                  >
-                    Test AWS Connection
-                  </Button>
-                  
-                  {testResult && (
-                    <div style={{ 
-                      marginBottom: '1rem',
-                      padding: '1rem',
-                      backgroundColor: testResult.success ? '#4CAF50' : '#f44336',
-                      color: 'white',
-                      borderRadius: '4px'
-                    }}>
-                      {testResult.message}
-                    </div>
-                  )}
+                  <HeroSubtitle>
+                    Upload an image and let our AI generate detailed, accurate descriptions for you. 
+                    Perfect for content creators, marketers, and anyone needing image descriptions.
+                  </HeroSubtitle>
+                </HeroSection>
 
-                  <DragDropArea
-                    onDragOver={(e) => {
-                      e.preventDefault();
-                      setDragActive(true);
-                    }}
-                    onDragLeave={() => setDragActive(false)}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      setDragActive(false);
-                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                        handleImageUpload(e.dataTransfer.files[0]);
-                      }
-                    }}
-                    $dragActive={dragActive}
-                    onClick={() => document.getElementById('image-upload')?.click()}
-                  >
-                    {previewUrl ? (
-                      <PreviewImageFrame>
-                        <PreviewImage src={previewUrl} alt="Preview" />
-                      </PreviewImageFrame>
-                    ) : (
-                      <>
-                        <UploadIconLarge>📁</UploadIconLarge>
-                        <UploadTextLarge>
-                          Drag and drop your image here, or click to select
-                        </UploadTextLarge>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => {
-                            if (e.target.files && e.target.files[0]) {
-                              handleImageUpload(e.target.files[0]);
-                            }
-                          }}
-                          style={{ display: 'none' }}
-                          id="image-upload"
-                        />
-                        <UploadButtonLarge>
-                          Select Image
-                        </UploadButtonLarge>
-                      </>
-                    )}
-                  </DragDropArea>
-
-                  {error && <ErrorMessageModern>{error}</ErrorMessageModern>}
-
-                  {selectedFile && (
-                    <DescriptionTypeSelect
-                      value={descriptionType}
-                      onChange={(e) => setDescriptionType(e.target.value)}
+                <UploadSection>
+                  <UploadCard>
+                    <DragDropArea
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setDragActive(true);
+                      }}
+                      onDragLeave={() => setDragActive(false)}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setDragActive(false);
+                        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                          handleImageUpload(e.dataTransfer.files[0]);
+                        }
+                      }}
+                      $dragActive={dragActive}
+                      onClick={() => document.getElementById('image-upload')?.click()}
                     >
-                      <option value="title">Product Title</option>
-                      <option value="brief">Brief Description</option>
-                      <option value="detailed">Detailed Description</option>
-                    </DescriptionTypeSelect>
-                  )}
+                      {previewUrl ? (
+                        <PreviewSection>
+                          <PreviewImage src={previewUrl} alt="Preview" />
+                        </PreviewSection>
+                      ) : (
+                        <>
+                          <UploadIcon>📁</UploadIcon>
+                          <UploadText>Drop your image here, or click to select</UploadText>
+                          <UploadSubtext>Support for PNG, JPG, GIF up to 5MB</UploadSubtext>
+                          <SelectFileButton type="button">
+                            Select Image
+                          </SelectFileButton>
+                        </>
+                      )}
+                    </DragDropArea>
 
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={!selectedFile || isLoading}
-                    $isLoading={isLoading}
-                    style={{ width: '100%', marginTop: '1.2rem' }}
-                  >
-                    {isLoading ? 'Generating...' : 'Generate Description'}
-                  </Button>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          handleImageUpload(e.target.files[0]);
+                        }
+                      }}
+                      style={{ display: 'none' }}
+                      id="image-upload"
+                    />
 
-                  {generatedDescription && (
-                    <ResultContainer>
-                      <ResultTitle>Generated Description:</ResultTitle>
-                      <ResultText>{generatedDescription}</ResultText>
-                      <CopyButton onClick={handleCopy}>
-                        {copied ? 'Copied!' : 'Copy to Clipboard'}
-                      </CopyButton>
-                    </ResultContainer>
-                  )}
-                </HeroCard>
+                    {error && <ErrorMessage>{error}</ErrorMessage>}
+
+                    {selectedFile && (
+                      <OptionsSection>
+                        <Label htmlFor="description-type">Description Type:</Label>
+                        <Select
+                          id="description-type"
+                          value={descriptionType}
+                          onChange={(e) => setDescriptionType(e.target.value)}
+                        >
+                          <option value="title">Product Title</option>
+                          <option value="brief">Brief Description</option>
+                          <option value="detailed">Detailed Description</option>
+                        </Select>
+                      </OptionsSection>
+                    )}
+
+                    <GenerateButton
+                      onClick={handleSubmit}
+                      disabled={!selectedFile || isLoading}
+                      $isLoading={isLoading}
+                    >
+                      {isLoading ? 'Generating Description...' : 'Generate Description'}
+                    </GenerateButton>
+
+                    {generatedDescription && (
+                      <ResultSection>
+                        <ResultTitle>Generated Description:</ResultTitle>
+                        <ResultText>{generatedDescription}</ResultText>
+                        <CopyButton onClick={handleCopy}>
+                          {copied ? 'Copied!' : 'Copy to Clipboard'}
+                        </CopyButton>
+                      </ResultSection>
+                    )}
+                  </UploadCard>
+                </UploadSection>
                 
                 <Showcase />
                 <FeaturesSection />
@@ -481,7 +418,7 @@ function App() {
         </Routes>
       </MainContent>
       <Footer />
-    </>
+    </AppContainer>
   );
 }
 
