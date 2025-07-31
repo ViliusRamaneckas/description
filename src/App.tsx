@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Showcase from './components/Showcase';
-import FeaturesSection from './components/FeaturesSection';
-import FAQSection from './components/FAQSection';
-import { testAWSConnection } from './services/awsService';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -25,7 +21,7 @@ const MainContent = styled.main`
 const HeroSection = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem 3rem 2rem;
   text-align: center;
 `;
 
@@ -63,6 +59,17 @@ const UploadCard = styled.div`
   border-radius: 12px;
   padding: 2.5rem 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+`;
+
+const DataNotice = styled.div`
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #1e40af;
 `;
 
 const DragDropArea = styled.div<{ $dragActive: boolean }>`
@@ -228,6 +235,85 @@ const CopyButton = styled.button`
   }
 `;
 
+const PageContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  line-height: 1.6;
+  color: #374151;
+
+  h1 {
+    color: #1f2937;
+    margin-bottom: 2rem;
+    font-size: 2.25rem;
+    font-weight: 600;
+  }
+
+  h2 {
+    color: #1f2937;
+    margin: 2rem 0 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+`;
+
+const TermsPage: React.FC = () => (
+  <PageContainer>
+    <h1>Terms of Service</h1>
+    <p><strong>Effective Date:</strong> {new Date().toLocaleDateString()}</p>
+    
+    <h2>1. Acceptance of Terms</h2>
+    <p>By using our AI Image Description Generator service, you agree to these Terms of Service.</p>
+    
+    <h2>2. Service Description</h2>
+    <p>Our service provides AI-generated descriptions of uploaded images for legitimate purposes including content creation, marketing, and accessibility.</p>
+    
+    <h2>3. Data Usage</h2>
+    <p>All uploaded images and generated descriptions are automatically deleted after 1 hour. We do not permanently store your data.</p>
+    
+    <h2>4. Acceptable Use</h2>
+    <p>You may not upload illegal, harmful, or inappropriate content. Our service is intended for legitimate business and personal use only.</p>
+    
+    <h2>5. Limitation of Liability</h2>
+    <p>Our service is provided "as is" without warranties. We are not liable for any damages arising from use of our service.</p>
+    
+    <h2>6. Changes to Terms</h2>
+    <p>We may update these terms at any time. Continued use constitutes acceptance of updated terms.</p>
+  </PageContainer>
+);
+
+const PrivacyPage: React.FC = () => (
+  <PageContainer>
+    <h1>Privacy Policy</h1>
+    <p><strong>Effective Date:</strong> {new Date().toLocaleDateString()}</p>
+    
+    <h2>1. Information We Collect</h2>
+    <p>We only collect the images you upload for processing. No personal information is required or stored.</p>
+    
+    <h2>2. How We Use Your Information</h2>
+    <p>Uploaded images are used solely to generate AI descriptions and are automatically deleted after 1 hour.</p>
+    
+    <h2>3. Data Storage and Security</h2>
+    <p>Images are temporarily stored in secure servers during processing. All data is automatically deleted after 1 hour.</p>
+    
+    <h2>4. Data Sharing</h2>
+    <p>We do not share, sell, or transfer your images or data to any third parties.</p>
+    
+    <h2>5. Cookies</h2>
+    <p>We use minimal cookies for basic website functionality. No tracking or analytics cookies are used.</p>
+    
+    <h2>6. Your Rights</h2>
+    <p>Since we automatically delete all data after 1 hour, no personal data is retained that would require deletion requests.</p>
+    
+    <h2>7. Contact</h2>
+    <p>For privacy-related questions, you can contact us through our website.</p>
+  </PageContainer>
+);
+
 function App() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
@@ -311,9 +397,10 @@ function App() {
 
   return (
     <AppContainer>
-      <Navbar />
       <MainContent>
         <Routes>
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
           <Route
             path="/"
             element={
@@ -328,6 +415,10 @@ function App() {
 
                 <UploadSection>
                   <UploadCard>
+                    <DataNotice>
+                      🔒 All uploaded data is deleted after 1 hour
+                    </DataNotice>
+
                     <DragDropArea
                       onDragOver={(e) => {
                         e.preventDefault();
@@ -410,8 +501,6 @@ function App() {
                 </UploadSection>
                 
                 <Showcase />
-                <FeaturesSection />
-                <FAQSection />
               </>
             }
           />
