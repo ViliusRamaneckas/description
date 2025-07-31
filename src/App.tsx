@@ -25,6 +25,13 @@ const HeroSection = styled.div`
   text-align: center;
 `;
 
+const Logo = styled.img`
+  height: 80px;
+  width: auto;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+`;
+
 const HeroTitle = styled.h1`
   font-size: 2.75rem;
   font-weight: 600;
@@ -406,6 +413,7 @@ function App() {
             element={
               <>
                 <HeroSection>
+                  <Logo src="/logo.svg" alt="AI Image Description Generator Logo" />
                   <HeroTitle>AI Image Description Generator</HeroTitle>
                   <HeroSubtitle>
                     Upload an image and let our AI generate detailed, accurate descriptions for you. 
