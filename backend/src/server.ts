@@ -46,7 +46,7 @@ const storage = multer.diskStorage({
 const upload = multer({ 
   storage: storage,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB limit
+    fileSize: 1 * 1024 * 1024 // 1MB limit
   },
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -79,22 +79,45 @@ app.post('/api/describe', upload.single('image'), async (req: Request, res: Resp
       return;
     }
 
-    console.log('File received:', req.file.originalname, 'MIME type:', req.file.mimetype);
+    const descriptionType = req.body.descriptionType || 'detailed';
+    console.log('Description type:', descriptionType);
+
+    console.log('File received:', req.file.originalname, 'MIME type:', req.file.mimetype, 'Size:', req.file.size);
+
+    // Check file size
+    if (req.file.size > 1 * 1024 * 1024) { // 1MB
+      res.status(400).json({ error: 'Image size must be less than 1MB' });
+      return;
+    }
 
     // Convert image to base64
     const imageBuffer = fs.readFileSync(req.file.path);
     const base64Image = imageBuffer.toString('base64');
     console.log('Image converted to base64, length:', base64Image.length);
 
+    // Prepare prompt based on description type
+    let prompt = '';
+    switch (descriptionType) {
+      case 'title':
+        prompt = 'Generate a concise, catchy product title for this image. Keep it under 10 words.';
+        break;
+      case 'brief':
+        prompt = 'Provide a brief, one-paragraph description of this image. Focus on the main elements and purpose.';
+        break;
+      case 'detailed':
+      default:
+        prompt = 'Provide a detailed description of this image, including all notable features, colors, composition, and context.';
+        break;
+    }
+
     console.log('Calling OpenAI API...');
-    // Call OpenAI API
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         {
           role: "user",
           content: [
-            { type: "text", text: "Describe this image in detail." },
+            { type: "text", text: prompt },
             {
               type: "image_url",
               image_url: {
@@ -104,29 +127,23 @@ app.post('/api/describe', upload.single('image'), async (req: Request, res: Resp
           ],
         },
       ],
-      max_tokens: 500,
+      max_tokens: descriptionType === 'title' ? 100 : 500,
     });
-    console.log('OpenAI API response received');
 
-    // Clean up: delete the uploaded file
+    // Clean up the uploaded file
     fs.unlinkSync(req.file.path);
-    console.log('Uploaded file cleaned up');
 
-    // Send the description back to the client
-    res.json({ 
-      description: response.choices[0].message.content 
-    });
-    console.log('Response sent to client');
-
+    const description = response.choices[0]?.message?.content || 'No description generated';
+    res.json({ description });
   } catch (error: any) {
-    console.error('Detailed error:', {
+    console.error('Server Error:', {
       name: error?.name,
       message: error?.message,
-      stack: error?.stack,
-      response: error?.response?.data
+      stack: error?.stack
     });
+    
     res.status(500).json({ 
-      error: 'Failed to generate description',
+      error: 'Failed to process image',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
