@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import OpenAI from 'openai';
 import path from 'path';
 import fs from 'fs';
+import cron from 'node-cron';
 
 dotenv.config();
 
@@ -12,9 +13,9 @@ const app = express();
 const port = process.env.PORT || 5050;
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 
-// CORS configuration
+// CORS configuration - FIXED
 app.use(cors({
-  origin: true, // Allow all origins
+  origin: [frontendUrl, 'http://localhost:3000'], // Restrict to specific origins
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Accept'],
   credentials: true
@@ -29,7 +30,48 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Configure multer for file upload
+// File cleanup utilities
+const cleanupOldFiles = () => {
+  const uploadDir = 'uploads/';
+  const ONE_HOUR = 60 * 60 * 1000; // 1 hour in milliseconds
+  
+  if (!fs.existsSync(uploadDir)) return;
+  
+  try {
+    const files = fs.readdirSync(uploadDir);
+    const now = Date.now();
+    
+    files.forEach(file => {
+      const filePath = path.join(uploadDir, file);
+      const stats = fs.statSync(filePath);
+      
+      // Check if file is older than 1 hour
+      if (now - stats.mtime.getTime() > ONE_HOUR) {
+        try {
+          fs.unlinkSync(filePath);
+          console.log(`Cleaned up old file: ${file}`);
+        } catch (error) {
+          console.error(`Failed to delete file ${file}:`, error);
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error during file cleanup:', error);
+  }
+};
+
+// Schedule cleanup every 30 minutes
+cron.schedule('*/30 * * * *', cleanupOldFiles);
+
+// Clean up files on startup
+cleanupOldFiles();
+
+// Sanitize filename to prevent path traversal
+const sanitizeFilename = (originalname: string): string => {
+  return path.basename(originalname).replace(/[^a-zA-Z0-9.-]/g, '_');
+};
+
+// Configure multer for file upload - FIXED
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = 'uploads/';
@@ -39,21 +81,42 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    // FIXED: Sanitize filename to prevent path traversal
+    const sanitizedName = sanitizeFilename(file.originalname);
+    const fileExt = path.extname(sanitizedName);
+    cb(null, `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`);
   }
 });
+
+// Enhanced file validation
+const validateImageFile = (file: Express.Multer.File): boolean => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  const maxSize = 5 * 1024 * 1024; // 5MB - FIXED: Made consistent
+  
+  // Check MIME type
+  if (!allowedTypes.includes(file.mimetype)) {
+    return false;
+  }
+  
+  // Check file size
+  if (file.size > maxSize) {
+    return false;
+  }
+  
+  // Additional validation could include checking file headers
+  return true;
+};
 
 const upload = multer({ 
   storage: storage,
   limits: {
-    fileSize: 1 * 1024 * 1024 // 1MB limit
+    fileSize: 5 * 1024 * 1024 // FIXED: 5MB limit consistent with frontend
   },
   fileFilter: (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    if (allowedTypes.includes(file.mimetype)) {
+    if (validateImageFile(file)) {
       cb(null, true);
     } else {
-      cb(new Error('Invalid file type. Only JPEG, PNG and GIF are allowed.'));
+      cb(new Error('Invalid file type or size. Only JPEG, PNG and GIF under 5MB are allowed.'));
     }
   }
 });
@@ -69,9 +132,11 @@ app.get('/test', (req: Request, res: Response) => {
   res.json({ message: 'Server is running!' });
 });
 
-// Main route
+// Main route - ENHANCED SECURITY
 app.post('/api/describe', upload.single('image'), async (req: Request, res: Response): Promise<void> => {
   console.log('Describe endpoint hit');
+  let filePath: string | undefined;
+  
   try {
     if (!req.file) {
       console.log('No file received in request');
@@ -79,15 +144,15 @@ app.post('/api/describe', upload.single('image'), async (req: Request, res: Resp
       return;
     }
 
+    filePath = req.file.path; // Store for cleanup
     const descriptionType = req.body.descriptionType || 'detailed';
     console.log('Description type:', descriptionType);
 
     console.log('File received:', req.file.originalname, 'MIME type:', req.file.mimetype, 'Size:', req.file.size);
 
-    // Check file size
-    if (req.file.size > 1 * 1024 * 1024) { // 1MB
-      res.status(400).json({ error: 'Image size must be less than 1MB' });
-      return;
+    // Additional server-side validation
+    if (!validateImageFile(req.file)) {
+      throw new Error('Invalid file type or size');
     }
 
     // Convert image to base64
@@ -130,9 +195,6 @@ app.post('/api/describe', upload.single('image'), async (req: Request, res: Resp
       max_tokens: descriptionType === 'title' ? 100 : 500,
     });
 
-    // Clean up the uploaded file
-    fs.unlinkSync(req.file.path);
-
     const description = response.choices[0]?.message?.content || 'No description generated';
     res.json({ description });
   } catch (error: any) {
@@ -146,6 +208,16 @@ app.post('/api/describe', upload.single('image'), async (req: Request, res: Resp
       error: 'Failed to process image',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
+  } finally {
+    // CRITICAL: Always clean up the uploaded file, even if processing fails
+    if (filePath && fs.existsSync(filePath)) {
+      try {
+        fs.unlinkSync(filePath);
+        console.log(`Cleaned up file: ${filePath}`);
+      } catch (cleanupError) {
+        console.error(`Failed to cleanup file ${filePath}:`, cleanupError);
+      }
+    }
   }
 });
 

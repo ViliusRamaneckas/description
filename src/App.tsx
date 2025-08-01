@@ -4,13 +4,14 @@ import Footer from './components/Footer';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Showcase from './components/Showcase';
+import FAQSection from './components/FAQSection';
 
 const AppContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const MainContent = styled.main`
@@ -21,51 +22,120 @@ const MainContent = styled.main`
 const HeroSection = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem 3rem 2rem;
+  padding: 2rem 2rem 1rem 2rem;
   text-align: center;
-`;
-
-const Logo = styled.img`
-  height: 80px;
-  width: auto;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-`;
-
-const HeroTitle = styled.h1`
-  font-size: 2.75rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1rem;
-  line-height: 1.2;
   
   @media (max-width: 768px) {
-    font-size: 2.25rem;
+    padding: 2rem 1.5rem 1rem 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem 0.5rem 1rem;
   }
 `;
 
-const HeroSubtitle = styled.p`
-  font-size: 1.25rem;
-  color: #6b7280;
-  margin-bottom: 2.5rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
+const Logo = styled.img`
+  height: 60px;
+  width: auto;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  
+  @media (max-width: 768px) {
+    height: 50px;
+    margin-bottom: 0.75rem;
+  }
+  
+  @media (max-width: 480px) {
+    height: 40px;
+    margin-bottom: 0.5rem;
+  }
 `;
+
+const HeroTitle = styled.h1`
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+`;
+
+const InstructionsContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto 1rem auto;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 1rem 0;
+  
+  @media (max-width: 768px) {
+    padding: 0.75rem 0;
+    margin: 0 1rem 1rem 1rem;
+  }
+`;
+
+const InstructionsTitle = styled.h2`
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  text-align: center;
+`;
+
+const InstructionStep = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+`;
+
+const StepNumber = styled.div`
+  background: #3b82f6;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+`;
+
+const StepText = styled.p`
+  color: rgb(0, 0, 0);
+  font-size: 17px;
+  line-height: 24px;
+  margin: 0;
+  font-weight: 400;
+`;
+
+
 
 const UploadSection = styled.div`
   max-width: 800px;
-  margin: 0 auto 4rem auto;
+  margin: 0 auto 2rem auto;
   padding: 0 2rem;
 `;
 
 const UploadCard = styled.div`
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 `;
 
 const DataNotice = styled.div`
@@ -131,9 +201,9 @@ const SelectFileButton = styled.button`
 `;
 
 const PreviewSection = styled.div`
-  background: #f8fafc;
-  border-radius: 8px;
-  padding: 1.5rem;
+  background: transparent;
+  border-radius: 0;
+  padding: 1.5rem 0;
   margin-bottom: 1.5rem;
   text-align: center;
 `;
@@ -177,7 +247,7 @@ const Select = styled.select`
 const GenerateButton = styled.button<{ $isLoading: boolean; disabled: boolean }>`
   width: 100%;
   background: ${({ $isLoading, disabled }) => 
-    disabled ? '#d1d5db' : $isLoading ? '#9ca3af' : '#10b981'};
+    disabled ? '#d1d5db' : $isLoading ? '#9ca3af' : '#3b82f6'};
   color: white;
   border: none;
   border-radius: 6px;
@@ -189,7 +259,7 @@ const GenerateButton = styled.button<{ $isLoading: boolean; disabled: boolean }>
   
   &:hover {
     background: ${({ $isLoading, disabled }) => 
-      disabled ? '#d1d5db' : $isLoading ? '#9ca3af' : '#059669'};
+      disabled ? '#d1d5db' : $isLoading ? '#9ca3af' : '#2563eb'};
   }
 `;
 
@@ -204,8 +274,8 @@ const ErrorMessage = styled.div`
 `;
 
 const ResultSection = styled.div`
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 1.5rem;
   margin-top: 1.5rem;
@@ -214,20 +284,51 @@ const ResultSection = styled.div`
 const ResultTitle = styled.h3`
   font-size: 1.25rem;
   font-weight: 600;
-  color: #065f46;
-  margin-bottom: 1rem;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
 `;
 
-const ResultText = styled.p`
+const AILabel = styled.span`
+  background: #5653fa;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+`;
+
+const ResultText = styled.div`
   font-size: 1rem;
   color: #374151;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   white-space: pre-wrap;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+  border-left: 3px solid #5653fa;
 `;
 
 const CopyButton = styled.button`
-  background: #059669;
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-right: 0.5rem;
+  
+  &:hover {
+    background: #4b5563;
+  }
+`;
+
+const NewImageButton = styled.button`
+  background: #5653fa;
   color: white;
   border: none;
   border-radius: 6px;
@@ -238,7 +339,12 @@ const CopyButton = styled.button`
   transition: background-color 0.2s;
   
   &:hover {
-    background: #047857;
+    background: #4338ca;
+  }
+  
+  &:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
   }
 `;
 
@@ -321,6 +427,48 @@ const PrivacyPage: React.FC = () => (
   </PageContainer>
 );
 
+const InfoSection = styled.div`
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  padding: 0 2rem;
+`;
+
+const InfoCard = styled.div`
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 2.5rem 0;
+  box-shadow: none;
+`;
+
+const InfoTitle = styled.h2`
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  text-align: center;
+`;
+
+const InfoSubtitle = styled.h3`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 2rem 0 1rem 0;
+`;
+
+const InfoText = styled.p`
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+`;
+
+const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 2rem 0;
+`;
+
 function App() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
@@ -402,6 +550,19 @@ function App() {
     }
   };
 
+  const handleUploadNewImage = () => {
+    // Reset all states to initial values
+    setSelectedFile(null);
+    setPreviewUrl('');
+    setGeneratedDescription('');
+    setError('');
+    setCopied(false);
+    setDescriptionType('detailed');
+    
+    // Trigger file input dialog
+    document.getElementById('image-upload')?.click();
+  };
+
   return (
     <AppContainer>
       <MainContent>
@@ -413,12 +574,47 @@ function App() {
             element={
               <>
                 <HeroSection>
-                  <Logo src="/logo.svg" alt="AI Image Description Generator Logo" />
-                  <HeroTitle>AI Image Description Generator</HeroTitle>
-                  <HeroSubtitle>
-                    Upload an image and let our AI generate detailed, accurate descriptions for you. 
-                    Perfect for content creators, marketers, and anyone needing image descriptions.
-                  </HeroSubtitle>
+                  <Logo src="/logo.svg" alt="Free AI Description Generator Logo" />
+                  <HeroTitle>Free AI Description Generator</HeroTitle>
+                  
+                  <InstructionsContainer>
+                    <InstructionsTitle>How to use this tool:</InstructionsTitle>
+                    
+                    <InstructionStep>
+                      <StepNumber>1</StepNumber>
+                      <StepText>
+                        Click the "Select Image" button and choose up to 1 image you wish to describe. You can also drag files to the drop area to start uploading.
+                      </StepText>
+                    </InstructionStep>
+                    
+                    <InstructionStep>
+                      <StepNumber>2</StepNumber>
+                      <StepText>
+                        Choose your description type: Product Title, Brief Description, or Detailed Description based on your needs.
+                      </StepText>
+                    </InstructionStep>
+                    
+                    <InstructionStep>
+                      <StepNumber>3</StepNumber>
+                      <StepText>
+                        Click "Generate Description" and let our AI analyze your image and create an accurate description for you.
+                      </StepText>
+                    </InstructionStep>
+                    
+                    <InstructionStep>
+                      <StepNumber>4</StepNumber>
+                      <StepText>
+                        Copy the generated description to your clipboard and use it for your content, marketing, or accessibility needs.
+                      </StepText>
+                    </InstructionStep>
+                    
+                    <InstructionStep>
+                      <StepNumber>5</StepNumber>
+                      <StepText>
+                        Want to analyze another image? Click "Upload New Image" to start over with a fresh photo and generate a new description.
+                      </StepText>
+                    </InstructionStep>
+                  </InstructionsContainer>
                 </HeroSection>
 
                 <UploadSection>
@@ -445,7 +641,7 @@ function App() {
                     >
                       {previewUrl ? (
                         <PreviewSection>
-                          <PreviewImage src={previewUrl} alt="Preview" />
+                          <PreviewImage src={previewUrl} alt="Uploaded image preview for AI description generation" />
                         </PreviewSection>
                       ) : (
                         <>
@@ -498,16 +694,83 @@ function App() {
 
                     {generatedDescription && (
                       <ResultSection>
-                        <ResultTitle>Generated Description:</ResultTitle>
+                        <ResultTitle>
+                          Generated Description
+                        </ResultTitle>
                         <ResultText>{generatedDescription}</ResultText>
                         <CopyButton onClick={handleCopy}>
                           {copied ? 'Copied!' : 'Copy to Clipboard'}
                         </CopyButton>
+                        <NewImageButton
+                          onClick={handleUploadNewImage}
+                          disabled={isLoading}
+                        >
+                          Upload New Image
+                        </NewImageButton>
                       </ResultSection>
                     )}
                   </UploadCard>
                 </UploadSection>
+
+                <InfoSection>
+                  <InfoCard>
+                    <InfoTitle>Free AI Description Generator</InfoTitle>
+                    
+                    <InfoText>
+                      Our free AI description generator transforms any image into detailed, professional descriptions in seconds. Whether you need product descriptions for e-commerce, image descriptions for accessibility, or content for marketing materials, this powerful image describer tool has you covered.
+                    </InfoText>
+                    
+                    <InfoText>
+                      This free description generator uses advanced artificial intelligence to analyze uploaded images and create accurate, detailed descriptions. From product photos to complex scenes, our AI description generator provides clear, readable summaries perfect for any use case.
+                    </InfoText>
+                    
+                    <Divider />
+                    
+                    <InfoSubtitle>Why use our free AI description generator?</InfoSubtitle>
+                    
+                    <InfoText>
+                      As a free description generator, this tool helps content creators, marketers, and business owners save time while improving their content quality. Product descriptions boost e-commerce sales, while detailed image descriptions improve SEO and make content accessible to visually impaired users.
+                    </InfoText>
+                    
+                    <InfoText>
+                      Our AI product description generator is perfect for e-commerce businesses looking to create compelling product descriptions quickly. The tool also serves as an image describer for organizing photo libraries, creating alt text, and supporting educational materials.
+                    </InfoText>
+                    
+                    <InfoText>
+                      Whether you're running an online store, managing social media, or creating accessible content, this free AI description generator streamlines your workflow while maintaining professional quality standards.
+                    </InfoText>
+                    
+                    <Divider />
+                    
+                    <InfoSubtitle>How to use this free description generator</InfoSubtitle>
+                    
+                    <InfoText>
+                      Using our AI description generator is simple: upload your image using the "Select Image" button or drag and drop your files. You can upload up to one file at once, and our description generator will process it instantly.
+                    </InfoText>
+                    
+                    <InfoText>
+                      Once uploaded, our AI description generator scans each image and produces a detailed written description. The generated description appears below your image preview, ready to copy to your clipboard or use directly in your projects.
+                    </InfoText>
+                    
+                    <InfoText>
+                      For multiple images, simply repeat the process. This free description generator has no usage limits, making it perfect for businesses and individuals who need consistent, high-quality descriptions.
+                    </InfoText>
+                    
+                    <Divider />
+                    
+                    <InfoSubtitle>Is this description generator really free and secure?</InfoSubtitle>
+                    
+                    <InfoText>
+                      Yes! Our AI description generator is completely free to use with no hidden costs or subscription requirements. Your images and generated descriptions remain private and secure, with all uploaded files automatically deleted within one hour.
+                    </InfoText>
+                    
+                    <InfoText>
+                      This free description generator ensures your data privacy while delivering professional-quality results, making it a trusted choice for businesses and individuals alike.
+                    </InfoText>
+                  </InfoCard>
+                </InfoSection>
                 
+                <FAQSection />
                 <Showcase />
               </>
             }

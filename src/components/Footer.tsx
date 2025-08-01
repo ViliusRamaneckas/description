@@ -8,6 +8,7 @@ const FooterContainer = styled.footer`
   color: #6b7280;
   padding: 2rem 2rem 1.5rem 2rem;
   margin-top: auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const FooterContent = styled.div`
@@ -49,7 +50,7 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <FooterContent>
         <Copyright>
-          <p>© 2024 AI Image Description Generator. All rights reserved.</p>
+          <p>© 2025 AI Image Description Generator. All rights reserved.</p>
         </Copyright>
         
         <LegalLinks>

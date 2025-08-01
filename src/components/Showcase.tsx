@@ -6,6 +6,7 @@ const ShowcaseContainer = styled.div`
   margin: 0 auto;
   padding: 4rem 2rem;
   background-color: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const ShowcaseHeader = styled.div`
@@ -108,19 +109,22 @@ const showcaseData = [
 
 The Earth's curvature is visible, and a large portion of the planet's surface is covered in swirling white clouds. The clouds cast shadows on the ocean below, creating a pattern of light and dark blue. The ocean takes up most of the frame, with a smaller portion of land visible in the distance.
 
-Part of the spacecraft is visible in the foreground, including a robotic arm and some of the spacecraft's body. The spacecraft is silhouetted against the blackness of space, which fills the top portion of the image.`
+Part of the spacecraft is visible in the foreground, including a robotic arm and some of the spacecraft's body. The spacecraft is silhouetted against the blackness of space, which fills the top portion of the image.`,
+    altText: "AI generated description example - Earth from space with spacecraft visible"
   },
   {
     image: '/showcase/cars.jpg',
     description: `The picture captures two race cars drifting around a corner on a track.
 
-A black BMW is in the foreground, angled sharply to the left as it slides through the turn. A green Nissan is close behind, also drifting and kicking up a cloud of white tire smoke. Both cars are heavily modified with racing decals and aftermarket parts such as spoilers and diffusers. The track is a dark grey asphalt and lined with concrete barriers.`
+A black BMW is in the foreground, angled sharply to the left as it slides through the turn. A green Nissan is close behind, also drifting and kicking up a cloud of white tire smoke. Both cars are heavily modified with racing decals and aftermarket parts such as spoilers and diffusers. The track is a dark grey asphalt and lined with concrete barriers.`,
+    altText: "AI generated description example - Racing cars drifting on track"
   },
   {
     image: '/showcase/fox.jpg',
     description: `The picture is a close-up portrait of a red fox standing in the snow.
 
-The fox is the central focus of the image, its vibrant orange fur illuminated by the golden light of sunrise or sunset. It stands alert, with its ears perked and its gaze directed off-camera. The snow around the fox is pristine and white, with a bluish tint reflecting the cool colors of the sky. The background is a soft blur of blue and grey, creating a sense of depth and emphasizing the fox as the primary subject.`
+The fox is the central focus of the image, its vibrant orange fur illuminated by the golden light of sunrise or sunset. It stands alert, with its ears perked and its gaze directed off-camera. The snow around the fox is pristine and white, with a bluish tint reflecting the cool colors of the sky. The background is a soft blur of blue and grey, creating a sense of depth and emphasizing the fox as the primary subject.`,
+    altText: "AI generated description example - Red fox in winter snow"
   }
 ];
 
@@ -137,7 +141,7 @@ const Showcase: React.FC = () => (
       {showcaseData.map((item, idx) => (
         <ShowcaseCard key={idx}>
           <ImageContainer>
-            <ShowcaseImage src={item.image} alt={`Example ${idx + 1}`} />
+            <ShowcaseImage src={item.image} alt={item.altText} />
           </ImageContainer>
           <CardContent>
             <Badge>AI Generated</Badge>
