@@ -514,10 +514,9 @@ function App() {
     try {
       const formData = new FormData();
       formData.append('image', selectedFile);
-      formData.append('descriptionType', descriptionType);
 
       console.log('Sending request to backend...');
-      const response = await fetch(`${API_BASE_URL}/api/describe`, {
+      const response = await fetch(`${API_BASE_URL}/api/describe?descriptionType=${descriptionType}`, {
         method: 'POST',
         body: formData,
       });

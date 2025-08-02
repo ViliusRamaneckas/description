@@ -122,23 +122,9 @@ fastify.post('/api/describe', async (request, reply) => {
       return reply.status(400).send({ error: 'No image file provided' });
     }
 
-    // Get description type from the form data - try multiple approaches
-    let descriptionType = 'detailed';
-    
-    // Try to get from request body first
-    if (request.body && request.body.descriptionType) {
-      descriptionType = request.body.descriptionType;
-    }
-    // Try to get from form fields
-    else if (data.fields && data.fields.descriptionType) {
-      descriptionType = data.fields.descriptionType.value || data.fields.descriptionType;
-    }
-    // Try to get from query parameters
-    else if (request.query && request.query.descriptionType) {
-      descriptionType = request.query.descriptionType;
-    }
-    
-    fastify.log.info('Description type:', descriptionType);
+    // Get description type from query parameters
+    const descriptionType = request.query?.descriptionType || 'detailed';
+    fastify.log.info('Description type received:', descriptionType);
 
     fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', data.file.bytesRead);
 
