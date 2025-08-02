@@ -1,6 +1,6 @@
-import express, { Request, Response, NextFunction } from 'express';
-import cors from 'cors';
-import multer from 'multer';
+import Fastify from 'fastify';
+import cors from '@fastify/cors';
+import multipart from '@fastify/multipart';
 import dotenv from 'dotenv';
 import OpenAI from 'openai';
 import path from 'path';
@@ -9,26 +9,12 @@ import cron from 'node-cron';
 
 dotenv.config();
 
-const app = express();
-const port = process.env.PORT || 5050;
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
-
-// CORS configuration - FIXED
-app.use(cors({
-  origin: [frontendUrl, 'http://localhost:3000'], // Restrict to specific origins
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Accept'],
-  credentials: true
-}));
-
-// Basic middleware
-app.use(express.json());
-
-// Request logging middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  next();
+const fastify = Fastify({
+  logger: true
 });
+
+const port = parseInt(process.env.PORT || '5050');
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 // File cleanup utilities
 const cleanupOldFiles = () => {
@@ -49,179 +35,182 @@ const cleanupOldFiles = () => {
       if (now - stats.mtime.getTime() > ONE_HOUR) {
         try {
           fs.unlinkSync(filePath);
-          console.log(`Cleaned up old file: ${file}`);
+          fastify.log.info(`Cleaned up old file: ${file}`);
         } catch (error) {
-          console.error(`Failed to delete file ${file}:`, error);
+          fastify.log.error(`Failed to delete file ${file}:`, error);
         }
       }
     });
   } catch (error) {
-    console.error('Error during file cleanup:', error);
+    fastify.log.error('Error during file cleanup:', error);
   }
 };
-
-// Schedule cleanup every 30 minutes
-cron.schedule('*/30 * * * *', cleanupOldFiles);
-
-// Clean up files on startup
-cleanupOldFiles();
 
 // Sanitize filename to prevent path traversal
 const sanitizeFilename = (originalname: string): string => {
   return path.basename(originalname).replace(/[^a-zA-Z0-9.-]/g, '_');
 };
 
-// Configure multer for file upload - FIXED
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = 'uploads/';
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    // FIXED: Sanitize filename to prevent path traversal
-    const sanitizedName = sanitizeFilename(file.originalname);
-    const fileExt = path.extname(sanitizedName);
-    cb(null, `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`);
-  }
-});
-
 // Enhanced file validation
-const validateImageFile = (file: Express.Multer.File): boolean => {
+const validateImageFile = (mimetype: string, size: number): boolean => {
   const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-  const maxSize = 5 * 1024 * 1024; // 5MB - FIXED: Made consistent
+  const maxSize = 5 * 1024 * 1024; // 5MB
   
   // Check MIME type
-  if (!allowedTypes.includes(file.mimetype)) {
+  if (!allowedTypes.includes(mimetype)) {
     return false;
   }
   
   // Check file size
-  if (file.size > maxSize) {
+  if (size > maxSize) {
     return false;
   }
   
-  // Additional validation could include checking file headers
   return true;
 };
-
-const upload = multer({ 
-  storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024 // FIXED: 5MB limit consistent with frontend
-  },
-  fileFilter: (req, file, cb) => {
-    if (validateImageFile(file)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Invalid file type or size. Only JPEG, PNG and GIF under 5MB are allowed.'));
-    }
-  }
-});
 
 // Initialize OpenAI
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// Test route
-app.get('/test', (req: Request, res: Response) => {
-  console.log('Test endpoint hit');
-  res.json({ message: 'Server is running!' });
-});
-
-// Main route - ENHANCED SECURITY
-app.post('/api/describe', upload.single('image'), async (req: Request, res: Response): Promise<void> => {
-  console.log('Describe endpoint hit');
-  let filePath: string | undefined;
-  
+// Start server
+const start = async () => {
   try {
-    if (!req.file) {
-      console.log('No file received in request');
-      res.status(400).json({ error: 'No image file provided' });
-      return;
-    }
+    // Register plugins
+    await fastify.register(cors, {
+      origin: [frontendUrl, 'http://localhost:3000'],
+      methods: ['GET', 'POST', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Accept'],
+      credentials: true
+    });
 
-    filePath = req.file.path; // Store for cleanup
-    const descriptionType = req.body.descriptionType || 'detailed';
-    console.log('Description type:', descriptionType);
+    await fastify.register(multipart, {
+      limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB
+      }
+    });
 
-    console.log('File received:', req.file.originalname, 'MIME type:', req.file.mimetype, 'Size:', req.file.size);
+    // Schedule cleanup every 30 minutes
+    cron.schedule('*/30 * * * *', cleanupOldFiles);
 
-    // Additional server-side validation
-    if (!validateImageFile(req.file)) {
-      throw new Error('Invalid file type or size');
-    }
+    // Clean up files on startup
+    cleanupOldFiles();
 
-    // Convert image to base64
-    const imageBuffer = fs.readFileSync(req.file.path);
-    const base64Image = imageBuffer.toString('base64');
-    console.log('Image converted to base64, length:', base64Image.length);
+    // Test route
+    fastify.get('/test', async (request, reply) => {
+      fastify.log.info('Test endpoint hit');
+      return { message: 'Server is running!' };
+    });
 
-    // Prepare prompt based on description type
-    let prompt = '';
-    switch (descriptionType) {
-      case 'title':
-        prompt = 'Generate a concise, catchy product title for this image. Keep it under 10 words.';
-        break;
-      case 'brief':
-        prompt = 'Provide a brief, one-paragraph description of this image. Focus on the main elements and purpose.';
-        break;
-      case 'detailed':
-      default:
-        prompt = 'Provide a detailed description of this image, including all notable features, colors, composition, and context.';
-        break;
-    }
+    // Main route - ENHANCED SECURITY
+    fastify.post('/api/describe', async (request, reply) => {
+      fastify.log.info('Describe endpoint hit');
+      let filePath: string | undefined;
+      
+      try {
+        const data = await request.file();
+        
+        if (!data) {
+          fastify.log.info('No file received in request');
+          return reply.status(400).send({ error: 'No image file provided' });
+        }
 
-    console.log('Calling OpenAI API...');
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "user",
-          content: [
-            { type: "text", text: prompt },
+        const descriptionType = (request.body as any)?.descriptionType || 'detailed';
+        fastify.log.info('Description type:', descriptionType);
+
+        fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', data.file.bytesRead);
+
+        // Additional server-side validation
+        if (!validateImageFile(data.mimetype || '', data.file.bytesRead)) {
+          throw new Error('Invalid file type or size');
+        }
+
+        // Save file temporarily
+        const uploadDir = 'uploads/';
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        const sanitizedName = sanitizeFilename(data.filename || 'image');
+        const fileExt = path.extname(sanitizedName);
+        filePath = path.join(uploadDir, `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`);
+
+        // Save file
+        const buffer = await data.toBuffer();
+        fs.writeFileSync(filePath, buffer);
+
+        // Convert image to base64
+        const base64Image = buffer.toString('base64');
+        fastify.log.info('Image converted to base64, length:', base64Image.length);
+
+        // Prepare prompt based on description type
+        let prompt = '';
+        switch (descriptionType) {
+          case 'title':
+            prompt = 'Generate a concise, catchy product title for this image. Keep it under 10 words.';
+            break;
+          case 'brief':
+            prompt = 'Provide a brief, one-paragraph description of this image. Focus on the main elements and purpose.';
+            break;
+          case 'detailed':
+          default:
+            prompt = 'Provide a detailed description of this image, including all notable features, colors, composition, and context.';
+            break;
+        }
+
+        fastify.log.info('Calling OpenAI API...');
+        const response = await openai.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
             {
-              type: "image_url",
-              image_url: {
-                url: `data:${req.file.mimetype};base64,${base64Image}`,
-              },
+              role: "user",
+              content: [
+                { type: "text", text: prompt },
+                {
+                  type: "image_url",
+                  image_url: {
+                    url: `data:${data.mimetype};base64,${base64Image}`,
+                  },
+                },
+              ],
             },
           ],
-        },
-      ],
-      max_tokens: descriptionType === 'title' ? 100 : 500,
-    });
+          max_tokens: descriptionType === 'title' ? 100 : 500,
+        });
 
-    const description = response.choices[0]?.message?.content || 'No description generated';
-    res.json({ description });
-  } catch (error: any) {
-    console.error('Server Error:', {
-      name: error?.name,
-      message: error?.message,
-      stack: error?.stack
-    });
-    
-    res.status(500).json({ 
-      error: 'Failed to process image',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    });
-  } finally {
-    // CRITICAL: Always clean up the uploaded file, even if processing fails
-    if (filePath && fs.existsSync(filePath)) {
-      try {
-        fs.unlinkSync(filePath);
-        console.log(`Cleaned up file: ${filePath}`);
-      } catch (cleanupError) {
-        console.error(`Failed to cleanup file ${filePath}:`, cleanupError);
+        const description = response.choices[0]?.message?.content || 'No description generated';
+        return { description };
+      } catch (error: any) {
+        fastify.log.error('Server Error:', {
+          name: error?.name,
+          message: error?.message,
+          stack: error?.stack
+        });
+        
+        return reply.status(500).send({ 
+          error: 'Failed to process image',
+          details: error instanceof Error ? error.message : 'Unknown error'
+        });
+      } finally {
+        // CRITICAL: Always clean up the uploaded file, even if processing fails
+        if (filePath && fs.existsSync(filePath)) {
+          try {
+            fs.unlinkSync(filePath);
+            fastify.log.info(`Cleaned up file: ${filePath}`);
+          } catch (cleanupError) {
+            fastify.log.error(`Failed to cleanup file ${filePath}:`, cleanupError);
+          }
+        }
       }
-    }
-  }
-});
+    });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-}); 
+    await fastify.listen({ port, host: '0.0.0.0' });
+    fastify.log.info(`Server is running on port ${port}`);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
