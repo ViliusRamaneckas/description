@@ -1,0 +1,189 @@
+const express = require('express');
+const cors = require('cors');
+const { S3Client, ListBucketsCommand, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { LambdaClient, InvokeCommand } = require('@aws-sdk/client-lambda');
+const path = require('path');
+const multer = require('multer');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
+const app = express();
+
+// FIXED: Restrict CORS to specific origins
+app.use(cors({
+  origin: ['http://localhost:3000', process.env.FRONTEND_URL || 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Accept'],
+  credentials: true
+}));
+
+app.use(express.json());
+
+// Enhanced file validation
+const validateImageFile = (file) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  
+  if (!allowedTypes.includes(file.mimetype)) {
+    return false;
+  }
+  
+  if (file.size > maxSize) {
+    return false;
+  }
+  
+  return true;
+};
+
+// Configure multer for memory storage with enhanced validation
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    if (validateImageFile(file)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type or size. Only JPEG, PNG and GIF under 5MB are allowed.'));
+    }
+  }
+});
+
+// Validate required environment variables
+const requiredEnvVars = ['AWS_REGION', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY'];
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+
+if (missingEnvVars.length > 0) {
+  console.error('Missing required environment variables:', missingEnvVars);
+  process.exit(1);
+}
+
+// REMOVED: Debug logs that expose sensitive configuration
+
+// AWS Configuration - Optimized for performance
+const awsConfig = {
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  }
+};
+
+// Create clients once and reuse (better performance)
+const s3Client = new S3Client(awsConfig);
+const lambdaClient = new LambdaClient(awsConfig);
+
+// Test endpoint
+app.get('/api/test', async (req, res) => {
+  try {
+    console.log('Attempting to list S3 buckets...');
+    const command = new ListBucketsCommand({});
+    const response = await s3Client.send(command);
+    console.log('Successfully listed buckets:', response.Buckets.map(b => b.Name));
+    
+    res.json({ 
+      success: true, 
+      message: 'AWS connection successful',
+      buckets: response.Buckets.map(b => b.Name)
+    });
+  } catch (error) {
+    console.error('AWS Error Details:', {
+      message: error.message,
+      name: error.name,
+      requestId: error.$metadata?.requestId,
+      httpStatusCode: error.$metadata?.httpStatusCode
+    });
+    
+    res.status(500).json({ 
+      success: false, 
+      message: `AWS Error: ${error.message}`,
+      details: {
+        name: error.name,
+        requestId: error.$metadata?.requestId
+      }
+    });
+  }
+});
+
+// Upload endpoint
+app.post('/api/upload', async (req, res) => {
+  try {
+    const { imageUrl } = req.body;
+    // Here you would implement the image upload logic
+    res.json({ 
+      success: true, 
+      message: 'Image uploaded successfully' 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: `Upload Error: ${error.message}` 
+    });
+  }
+});
+
+// Describe endpoint
+app.post('/api/describe', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: 'No image file provided'
+      });
+    }
+
+    const descriptionType = req.body.descriptionType || 'detailed';
+    console.log('Generating description for image with type:', descriptionType);
+
+    // Convert the image buffer to base64
+    const imageBase64 = req.file.buffer.toString('base64');
+    const imageUrl = `data:${req.file.mimetype};base64,${imageBase64}`;
+
+    // Call Lambda function to generate description
+    const command = new InvokeCommand({
+      FunctionName: 'image-description-generator',
+      InvocationType: 'RequestResponse',
+      Payload: JSON.stringify({ 
+        imageUrl,
+        descriptionType 
+      })
+    });
+
+    const lambdaResponse = await lambdaClient.send(command);
+    console.log('Lambda Response received');
+    // Optimized: Direct buffer to string conversion (faster than TextDecoder)
+    const responsePayload = JSON.parse(Buffer.from(lambdaResponse.Payload).toString('utf8'));
+    console.log('Parsed Response Payload:', JSON.stringify(responsePayload, null, 2));
+
+    if (lambdaResponse.FunctionError) {
+      throw new Error(responsePayload.errorMessage || 'Lambda function error');
+    }
+
+    // Parse the body if it exists, otherwise use the payload directly
+    const description = responsePayload.body 
+      ? JSON.parse(responsePayload.body).description 
+      : responsePayload.description;
+
+    if (!description) {
+      throw new Error('No description received from Lambda function');
+    }
+
+    const response = {
+      success: true,
+      description: description
+    };
+    console.log('Sending response to client:', JSON.stringify(response, null, 2));
+    res.json(response);
+  } catch (error) {
+    console.error('Description Generation Error:', error);
+    res.status(500).json({
+      success: false,
+      message: `Failed to generate description: ${error.message}`
+    });
+  }
+});
+
+const PORT = process.env.PORT || 5050;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+}); 
