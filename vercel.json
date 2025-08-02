@@ -8,5 +8,8 @@
       "source": "/api/:path*",
       "destination": "https://your-render-backend-url.onrender.com/api/:path*"
     }
-  ]
+  ],
+  "env": {
+    "REACT_APP_API_URL": "https://your-render-backend-url.onrender.com"
+  }
 } 

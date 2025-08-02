@@ -5,6 +5,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Showcase from './components/Showcase';
 import FAQSection from './components/FAQSection';
+import { API_BASE_URL } from './config/api';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -516,7 +517,7 @@ function App() {
       formData.append('descriptionType', descriptionType);
 
       console.log('Sending request to backend...');
-      const response = await fetch('http://localhost:5050/api/describe', {
+      const response = await fetch(`${API_BASE_URL}/api/describe`, {
         method: 'POST',
         body: formData,
       });
