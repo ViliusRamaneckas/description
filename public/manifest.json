@@ -1,27 +1,11 @@
 {
-  "short_name": "AI Description Generator",
-  "name": "Free AI Description Generator - Create Product & Image Descriptions",
-  "description": "Free AI description generator that creates detailed product descriptions and image descriptions instantly",
+  "short_name": "Image Description",
+  "name": "AI Image Description Generator",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "32x32",
+      "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
-    },
-    {
-      "src": "favicon-16x16.png",
-      "type": "image/png",
-      "sizes": "16x16"
-    },
-    {
-      "src": "favicon-32x32.png",
-      "type": "image/png",
-      "sizes": "32x32"
-    },
-    {
-      "src": "favicon.png",
-      "type": "image/png",
-      "sizes": "64x64"
     },
     {
       "src": "logo192.png",
@@ -36,8 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#5653fa",
-  "background_color": "#ffffff",
-  "categories": ["business", "productivity", "utilities"],
-  "lang": "en"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }

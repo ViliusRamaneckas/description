@@ -1,8 +1,8 @@
-const AWS = require('aws-sdk');
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 const axios = require('axios');
 
-// Initialize AWS SDK
-const s3 = new AWS.S3();
+// Initialize AWS SDK v3 client
+const s3Client = new S3Client({ region: process.env.AWS_REGION });
 
 exports.handler = async (event) => {
     try {
