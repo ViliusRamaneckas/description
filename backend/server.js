@@ -18,15 +18,12 @@ const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 // Register plugins
 fastify.register(cors, {
-  origin: [
-    frontendUrl, 
-    'http://localhost:3000',
-    'https://www.freeimagedescriber.com',
-    'https://freeimagedescriber.com'
-  ],
+  origin: true, // Allow all origins for now to debug
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Accept'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 });
 
 fastify.register(multipart, {
@@ -103,6 +100,13 @@ const openai = new OpenAI({
 fastify.get('/test', async (request, reply) => {
   fastify.log.info('Test endpoint hit');
   return { message: 'Server is running!' };
+});
+
+// CORS test route
+fastify.get('/cors-test', async (request, reply) => {
+  fastify.log.info('CORS test endpoint hit');
+  reply.header('Access-Control-Allow-Origin', '*');
+  return { message: 'CORS test successful', timestamp: new Date().toISOString() };
 });
 
 // Main route - ENHANCED SECURITY
