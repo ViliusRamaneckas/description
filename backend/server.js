@@ -115,30 +115,35 @@ fastify.post('/api/describe', async (request, reply) => {
   let filePath;
   
   try {
-    // Process all parts of the multipart request
-    const parts = request.parts();
-    let imageFile = null;
-    let descriptionType = 'detailed';
+    const data = await request.file();
     
-    for await (const part of parts) {
-      if (part.type === 'file') {
-        imageFile = part;
-      } else if (part.type === 'field' && part.name === 'descriptionType') {
-        descriptionType = part.value;
-      }
-    }
-    
-    if (!imageFile) {
+    if (!data) {
       fastify.log.info('No file received in request');
       return reply.status(400).send({ error: 'No image file provided' });
     }
 
+    // Get description type from the form data - try multiple approaches
+    let descriptionType = 'detailed';
+    
+    // Try to get from request body first
+    if (request.body && request.body.descriptionType) {
+      descriptionType = request.body.descriptionType;
+    }
+    // Try to get from form fields
+    else if (data.fields && data.fields.descriptionType) {
+      descriptionType = data.fields.descriptionType.value || data.fields.descriptionType;
+    }
+    // Try to get from query parameters
+    else if (request.query && request.query.descriptionType) {
+      descriptionType = request.query.descriptionType;
+    }
+    
     fastify.log.info('Description type:', descriptionType);
 
-    fastify.log.info('File received:', imageFile.filename, 'MIME type:', imageFile.mimetype, 'Size:', imageFile.file.bytesRead);
+    fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', data.file.bytesRead);
 
     // Additional server-side validation
-    if (!validateImageFile(imageFile.mimetype || '', imageFile.file.bytesRead)) {
+    if (!validateImageFile(data.mimetype || '', data.file.bytesRead)) {
       throw new Error('Invalid file type or size');
     }
 
@@ -148,12 +153,12 @@ fastify.post('/api/describe', async (request, reply) => {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
 
-    const sanitizedName = sanitizeFilename(imageFile.filename || 'image');
+    const sanitizedName = sanitizeFilename(data.filename || 'image');
     const fileExt = path.extname(sanitizedName);
     filePath = path.join(uploadDir, `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`);
 
     // Save file
-    const buffer = await imageFile.toBuffer();
+    const buffer = await data.toBuffer();
     fs.writeFileSync(filePath, buffer);
 
     // Convert image to base64
@@ -186,7 +191,7 @@ fastify.post('/api/describe', async (request, reply) => {
             {
               type: "image_url",
               image_url: {
-                url: `data:${imageFile.mimetype};base64,${base64Image}`,
+                url: `data:${data.mimetype};base64,${base64Image}`,
               },
             },
           ],
