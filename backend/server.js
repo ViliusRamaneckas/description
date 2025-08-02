@@ -115,20 +115,30 @@ fastify.post('/api/describe', async (request, reply) => {
   let filePath;
   
   try {
-    const data = await request.file();
+    // Process all parts of the multipart request
+    const parts = request.parts();
+    let imageFile = null;
+    let descriptionType = 'detailed';
     
-    if (!data) {
+    for await (const part of parts) {
+      if (part.type === 'file') {
+        imageFile = part;
+      } else if (part.type === 'field' && part.name === 'descriptionType') {
+        descriptionType = part.value;
+      }
+    }
+    
+    if (!imageFile) {
       fastify.log.info('No file received in request');
       return reply.status(400).send({ error: 'No image file provided' });
     }
 
-    const descriptionType = request.body?.descriptionType || 'detailed';
     fastify.log.info('Description type:', descriptionType);
 
-    fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', data.file.bytesRead);
+    fastify.log.info('File received:', imageFile.filename, 'MIME type:', imageFile.mimetype, 'Size:', imageFile.file.bytesRead);
 
     // Additional server-side validation
-    if (!validateImageFile(data.mimetype || '', data.file.bytesRead)) {
+    if (!validateImageFile(imageFile.mimetype || '', imageFile.file.bytesRead)) {
       throw new Error('Invalid file type or size');
     }
 
@@ -138,12 +148,12 @@ fastify.post('/api/describe', async (request, reply) => {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
 
-    const sanitizedName = sanitizeFilename(data.filename || 'image');
+    const sanitizedName = sanitizeFilename(imageFile.filename || 'image');
     const fileExt = path.extname(sanitizedName);
     filePath = path.join(uploadDir, `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`);
 
     // Save file
-    const buffer = await data.toBuffer();
+    const buffer = await imageFile.toBuffer();
     fs.writeFileSync(filePath, buffer);
 
     // Convert image to base64
@@ -176,7 +186,7 @@ fastify.post('/api/describe', async (request, reply) => {
             {
               type: "image_url",
               image_url: {
-                url: `data:${data.mimetype};base64,${base64Image}`,
+                url: `data:${imageFile.mimetype};base64,${base64Image}`,
               },
             },
           ],
