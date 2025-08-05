@@ -324,9 +324,16 @@ const CopyButton = styled.button`
   cursor: pointer;
   transition: background-color 0.2s;
   margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
   
   &:hover {
     background: #4b5563;
+  }
+  
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 0.75rem;
+    width: 100%;
   }
 `;
 
@@ -348,6 +355,10 @@ const NewImageButton = styled.button`
   &:disabled {
     background: #d1d5db;
     cursor: not-allowed;
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
