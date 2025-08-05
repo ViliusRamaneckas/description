@@ -5,6 +5,8 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Showcase from './components/Showcase';
 import FAQSection from './components/FAQSection';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import { API_BASE_URL } from './config/api';
 
 const AppContainer = styled.div`
@@ -567,6 +569,8 @@ function App() {
     <AppContainer>
       <MainContent>
         <Routes>
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:postId" element={<BlogPost />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route

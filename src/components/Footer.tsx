@@ -54,6 +54,7 @@ const Footer: React.FC = () => {
         </Copyright>
         
         <LegalLinks>
+          <FooterLink to="/blog">Blog</FooterLink>
           <FooterLink to="/terms">Terms of Service</FooterLink>
           <FooterLink to="/privacy">Privacy Policy</FooterLink>
         </LegalLinks>
