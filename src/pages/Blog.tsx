@@ -9,26 +9,6 @@ const BlogContainer = styled.div`
   min-height: 80vh;
 `;
 
-const BackButton = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #5653fa;
-  text-decoration: none;
-  font-weight: 500;
-  margin-bottom: 2rem;
-  padding: 0.75rem 1.5rem;
-  border: 2px solid #5653fa;
-  border-radius: 8px;
-  transition: all 0.2s;
-  
-  &:hover {
-    background-color: #5653fa;
-    color: white;
-    transform: translateY(-1px);
-  }
-`;
-
 const BlogHeader = styled.div`
   text-align: center;
   margin-bottom: 3rem;
@@ -105,38 +85,34 @@ const blogPosts = [
     title: '10 Tips for Writing Better AI-Generated Image Descriptions',
     excerpt: 'Learn how to get the most out of AI image description tools and create compelling, accurate descriptions for your content.',
     date: 'January 15, 2025',
-    readTime: '8 min read'
+    readTime: '5 min read'
   },
   {
     id: 'accessibility-in-digital-content',
     title: 'Making Digital Content Accessible: The Power of Image Descriptions',
     excerpt: 'Discover how proper image descriptions can make your digital content more accessible to users with visual impairments.',
     date: 'January 10, 2025',
-    readTime: '7 min read'
+    readTime: '4 min read'
   },
   {
     id: 'ecommerce-product-descriptions',
     title: 'Boost Your E-commerce Sales with AI-Generated Product Descriptions',
     excerpt: 'How AI-powered image descriptions can help increase conversion rates and improve the shopping experience for your customers.',
     date: 'January 5, 2025',
-    readTime: '9 min read'
+    readTime: '6 min read'
   },
   {
     id: 'social-media-content-strategy',
     title: 'Social Media Content Strategy: Using AI Descriptions for Better Engagement',
     excerpt: 'Strategies for using AI-generated descriptions to improve your social media content and increase engagement.',
     date: 'December 30, 2024',
-    readTime: '10 min read'
+    readTime: '7 min read'
   }
 ];
 
 const Blog: React.FC = () => {
   return (
     <BlogContainer>
-      <BackButton to="/">
-        ← Back to App
-      </BackButton>
-      
       <BlogHeader>
         <BlogTitle>Blog</BlogTitle>
         <BlogSubtitle>
