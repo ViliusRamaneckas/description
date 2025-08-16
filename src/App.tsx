@@ -75,12 +75,13 @@ const HeroTitle = styled.h1`
 
 const HeroDescription = styled.p`
   font-size: 1.125rem;
-  color: #6b7280;
+  color: #374151;
   margin-bottom: 2rem;
   line-height: 1.6;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
   
   @media (max-width: 768px) {
     font-size: 1rem;
