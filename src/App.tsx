@@ -58,17 +58,39 @@ const HeroTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   line-height: 1.2;
+  font-family: 'Syne', sans-serif;
   
   @media (max-width: 768px) {
     font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
   
   @media (max-width: 480px) {
     font-size: 1.5rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+`;
+
+const HeroDescription = styled.p`
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -591,6 +613,9 @@ function App() {
                 <HeroSection>
                   <Logo src="/logo.svg" alt="Free AI Description Generator Logo" />
                   <HeroTitle>Free AI Description Generator</HeroTitle>
+                  <HeroDescription>
+                    This Free AI Description Generator lets you upload any photo or image and instantly receive a detailed description. Unlike other services, it requires no login or email, is completely free to use, and works quickly and easily.
+                  </HeroDescription>
                   
                   <InstructionsContainer>
                     <InstructionsTitle>How to use this tool:</InstructionsTitle>
