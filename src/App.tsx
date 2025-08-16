@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Footer from './components/Footer';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
 import Showcase from './components/Showcase';
@@ -8,6 +9,7 @@ import FAQSection from './components/FAQSection';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import { API_BASE_URL } from './config/api';
+import { useTranslation } from 'react-i18next';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -20,6 +22,48 @@ const AppContainer = styled.div`
 const MainContent = styled.main`
   flex: 1;
   width: 100%;
+`;
+
+const Header = styled.header`
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+`;
+
+const HeaderContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const HeaderNav = styled.nav`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+`;
+
+const HeaderLink = styled(Link)`
+  color: #6b7280;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #5653fa;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const HeroSection = styled.div`
@@ -507,6 +551,7 @@ const Divider = styled.hr`
 `;
 
 function App() {
+  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -601,6 +646,16 @@ function App() {
 
   return (
     <AppContainer>
+      <Header>
+        <HeaderContainer>
+          <HeaderLink to="/">{t('header.title')}</HeaderLink>
+          <HeaderNav>
+            <HeaderLink to="/">{t('header.nav.home')}</HeaderLink>
+            <HeaderLink to="/blog">{t('header.nav.blog')}</HeaderLink>
+            <LanguageSwitcher />
+          </HeaderNav>
+        </HeaderContainer>
+      </Header>
       <MainContent>
         <Routes>
           <Route path="/blog" element={<Blog />} />
@@ -612,40 +667,40 @@ function App() {
             element={
               <>
                 <HeroSection>
-                  <Logo src="/logo.svg" alt="Free AI Description Generator Logo" />
-                  <HeroTitle>Free AI Description Generator</HeroTitle>
+                  <Logo src="/logo.svg" alt={t('hero.title')} />
+                  <HeroTitle>{t('hero.title')}</HeroTitle>
                   <HeroDescription>
-                    This Free AI Description Generator lets you upload any photo or image and instantly receive a detailed description. Unlike other services, it requires no login or email, is completely free to use, and works quickly and easily.
+                    {t('hero.description')}
                   </HeroDescription>
                   
                   <InstructionsContainer>
-                    <InstructionsTitle>How to use this tool:</InstructionsTitle>
+                    <InstructionsTitle>{t('hero.instructions.title')}</InstructionsTitle>
                     
                     <InstructionStep>
                       <StepNumber>1</StepNumber>
                       <StepText>
-                        Click the "Select Image" button and choose up to 1 image you wish to describe. You can also drag files to the drop area to start uploading.
+                        {t('hero.instructions.step1')}
                       </StepText>
                     </InstructionStep>
                     
                     <InstructionStep>
                       <StepNumber>2</StepNumber>
                       <StepText>
-                        Choose your description type: Product Title, Brief Description, or Detailed Description based on your needs.
+                        {t('hero.instructions.step2')}
                       </StepText>
                     </InstructionStep>
                     
                     <InstructionStep>
                       <StepNumber>3</StepNumber>
                       <StepText>
-                        Click "Generate Description" and let our AI analyze your image and create an accurate description for you.
+                        {t('hero.instructions.step3')}
                       </StepText>
                     </InstructionStep>
                     
                     <InstructionStep>
                       <StepNumber>4</StepNumber>
                       <StepText>
-                        Copy the generated description to your clipboard and use it for your content, marketing, or accessibility needs.
+                        {t('hero.instructions.step4')}
                       </StepText>
                     </InstructionStep>
                     

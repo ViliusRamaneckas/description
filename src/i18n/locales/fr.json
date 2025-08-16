@@ -1,0 +1,94 @@
+{
+  "header": {
+    "title": "Générateur Gratuit de Descriptions IA",
+    "nav": {
+      "home": "Accueil",
+      "blog": "Blog",
+      "terms": "Conditions",
+      "privacy": "Confidentialité"
+    }
+  },
+  "hero": {
+    "title": "Générateur Gratuit de Descriptions IA",
+    "description": "Ce Générateur Gratuit de Descriptions IA vous permet de télécharger n'importe quelle photo ou image et de recevoir instantanément une description détaillée. Contrairement aux autres services, il ne nécessite aucune connexion ni email, est complètement gratuit et fonctionne rapidement et facilement.",
+    "instructions": {
+      "title": "Comment utiliser cet outil :",
+      "step1": "Cliquez sur le bouton \"Sélectionner Image\" et choisissez jusqu'à 1 image que vous souhaitez décrire. Vous pouvez également faire glisser des fichiers vers la zone de téléchargement.",
+      "step2": "Choisissez votre type de description : Titre de Produit, Description Brève ou Description Détaillée selon vos besoins.",
+      "step3": "Cliquez sur \"Générer Description\" et laissez notre IA analyser votre image et créer une description précise pour vous.",
+      "step4": "Copiez la description générée dans votre presse-papiers et utilisez-la pour votre contenu, marketing ou besoins d'accessibilité."
+    }
+  },
+  "upload": {
+    "title": "Téléchargez votre Image",
+    "dragDrop": "Glissez-déposez votre image ici, ou cliquez pour sélectionner",
+    "fileTypes": "Supporte JPG, PNG, GIF jusqu'à 10MB",
+    "selectImage": "Sélectionner Image",
+    "uploading": "Téléchargement..."
+  },
+  "descriptionType": {
+    "label": "Type de Description",
+    "productTitle": "Titre de Produit",
+    "brief": "Description Brève",
+    "detailed": "Description Détaillée"
+  },
+  "generate": {
+    "button": "Générer Description",
+    "generating": "Génération...",
+    "uploadNew": "Télécharger Nouvelle Image"
+  },
+  "result": {
+    "title": "Description Générée",
+    "copy": "Copier dans le Presse-papiers",
+    "copied": "Copié !"
+  },
+  "errors": {
+    "fileRequired": "Veuillez d'abord sélectionner un fichier image.",
+    "fileTooLarge": "La taille du fichier doit être inférieure à 10MB.",
+    "invalidFileType": "Veuillez sélectionner un fichier image valide (JPG, PNG, GIF).",
+    "uploadFailed": "Échec du téléchargement de l'image. Veuillez réessayer.",
+    "generationFailed": "Échec de la génération de description. Veuillez réessayer."
+  },
+  "showcase": {
+    "title": "Voir le Générateur de Descriptions IA en Action",
+    "subtitle": "Exemples de descriptions précises générées par notre IA pour différents types d'images"
+  },
+  "faq": {
+    "title": "Questions Fréquemment Posées",
+    "questions": {
+      "whatIs": {
+        "question": "Qu'est-ce que le Générateur Gratuit de Descriptions IA ?",
+        "answer": "Notre Générateur Gratuit de Descriptions IA est un outil qui utilise l'intelligence artificielle pour analyser les images et créer des descriptions détaillées et précises. Il est parfait pour les créateurs de contenu, les spécialistes du marketing et toute personne ayant besoin de descriptions d'images professionnelles."
+      },
+      "howAccurate": {
+        "question": "Quelle est la précision des descriptions générées par l'IA ?",
+        "answer": "Notre modèle d'IA est entraîné sur des millions d'images et fournit des descriptions très précises. Bien qu'aucune IA ne soit parfaite, notre outil fournit constamment des descriptions de qualité qui capturent les éléments clés, les couleurs, la composition et le contexte de vos images."
+      },
+      "whatTypes": {
+        "question": "Quels types d'images fonctionnent le mieux ?",
+        "answer": "Notre IA fonctionne bien avec tous les types d'images, y compris les produits, paysages, personnes, nourriture, œuvres d'art et plus encore. Pour de meilleurs résultats, utilisez des images claires, bien éclairées et de bonne résolution."
+      },
+      "isItFree": {
+        "question": "Cet outil est-il vraiment gratuit ?",
+        "answer": "Oui ! Notre Générateur de Descriptions IA est entièrement gratuit. Pas d'inscription, pas de frais cachés, pas de carte de crédit requise. Nous pensons que tout le monde devrait avoir accès à des outils d'IA de qualité."
+      },
+      "privacyPolicy": {
+        "question": "Qu'arrive-t-il à mes images téléchargées ?",
+        "answer": "Nous respectons votre vie privée. Les images sont traitées de manière sécurisée et ne sont pas stockées de façon permanente sur nos serveurs. Elles sont automatiquement supprimées après traitement."
+      }
+    }
+  },
+  "footer": {
+    "description": "Outil gratuit alimenté par l'IA pour générer des descriptions d'images précises. Parfait pour la création de contenu, le SEO et l'accessibilité.",
+    "links": {
+      "terms": "Conditions de Service",
+      "privacy": "Politique de Confidentialité",
+      "blog": "Blog"
+    },
+    "copyright": "© 2024 Générateur Gratuit de Descriptions IA. Tous droits réservés."
+  },
+  "language": {
+    "selector": "Langue",
+    "current": "Français"
+  }
+}

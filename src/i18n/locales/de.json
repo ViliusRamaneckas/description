@@ -1,0 +1,33 @@
+{
+  "header": {
+    "title": "Kostenloser KI-Beschreibungsgenerator",
+    "nav": {
+      "home": "Startseite",
+      "blog": "Blog",
+      "terms": "Bedingungen",
+      "privacy": "Datenschutz"
+    }
+  },
+  "hero": {
+    "title": "Kostenloser KI-Beschreibungsgenerator",
+    "description": "Dieser kostenlose KI-Beschreibungsgenerator ermöglicht es Ihnen, jedes Foto oder Bild hochzuladen und sofort eine detaillierte Beschreibung zu erhalten. Im Gegensatz zu anderen Diensten erfordert er keine Anmeldung oder E-Mail, ist völlig kostenlos und funktioniert schnell und einfach.",
+    "instructions": {
+      "title": "So verwenden Sie dieses Tool:",
+      "step1": "Klicken Sie auf \"Bild auswählen\" und wählen Sie bis zu 1 Bild aus, das Sie beschreiben möchten.",
+      "step2": "Wählen Sie Ihren Beschreibungstyp: Produkttitel, Kurze Beschreibung oder Detaillierte Beschreibung.",
+      "step3": "Klicken Sie auf \"Beschreibung generieren\" und lassen Sie unsere KI Ihr Bild analysieren.",
+      "step4": "Kopieren Sie die generierte Beschreibung und verwenden Sie sie für Ihre Inhalte."
+    }
+  },
+  "upload": {
+    "title": "Bild hochladen",
+    "dragDrop": "Ziehen Sie Ihr Bild hierher oder klicken Sie zum Auswählen",
+    "selectImage": "Bild auswählen"
+  },
+  "generate": {
+    "button": "Beschreibung generieren"
+  },
+  "language": {
+    "current": "Deutsch"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "header": {
+    "title": "Generador Gratuito de Descripciones con IA",
+    "nav": {
+      "home": "Inicio",
+      "blog": "Blog",
+      "terms": "Términos",
+      "privacy": "Privacidad"
+    }
+  },
+  "hero": {
+    "title": "Generador Gratuito de Descripciones con IA",
+    "description": "Este Generador Gratuito de Descripciones con IA te permite subir cualquier foto o imagen y recibir instantáneamente una descripción detallada. A diferencia de otros servicios, no requiere registro ni email, es completamente gratuito y funciona de manera rápida y fácil.",
+    "instructions": {
+      "title": "Cómo usar esta herramienta:",
+      "step1": "Haz clic en el botón \"Seleccionar Imagen\" y elige hasta 1 imagen que desees describir. También puedes arrastrar archivos al área de carga.",
+      "step2": "Elige tu tipo de descripción: Título de Producto, Descripción Breve o Descripción Detallada según tus necesidades.",
+      "step3": "Haz clic en \"Generar Descripción\" y deja que nuestra IA analice tu imagen y cree una descripción precisa para ti.",
+      "step4": "Copia la descripción generada a tu portapapeles y úsala para tu contenido, marketing o necesidades de accesibilidad."
+    }
+  },
+  "upload": {
+    "title": "Sube tu Imagen",
+    "dragDrop": "Arrastra y suelta tu imagen aquí, o haz clic para seleccionar",
+    "fileTypes": "Soporta JPG, PNG, GIF hasta 10MB",
+    "selectImage": "Seleccionar Imagen",
+    "uploading": "Subiendo..."
+  },
+  "descriptionType": {
+    "label": "Tipo de Descripción",
+    "productTitle": "Título de Producto",
+    "brief": "Descripción Breve",
+    "detailed": "Descripción Detallada"
+  },
+  "generate": {
+    "button": "Generar Descripción",
+    "generating": "Generando...",
+    "uploadNew": "Subir Nueva Imagen"
+  },
+  "result": {
+    "title": "Descripción Generada",
+    "copy": "Copiar al Portapapeles",
+    "copied": "¡Copiado!"
+  },
+  "errors": {
+    "fileRequired": "Por favor selecciona primero un archivo de imagen.",
+    "fileTooLarge": "El tamaño del archivo debe ser menor a 10MB.",
+    "invalidFileType": "Por favor selecciona un archivo de imagen válido (JPG, PNG, GIF).",
+    "uploadFailed": "Error al subir la imagen. Por favor intenta de nuevo.",
+    "generationFailed": "Error al generar la descripción. Por favor intenta de nuevo."
+  },
+  "showcase": {
+    "title": "Ve el Generador de Descripciones con IA en Acción",
+    "subtitle": "Ejemplos de descripciones precisas generadas por nuestra IA para diferentes tipos de imágenes"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "questions": {
+      "whatIs": {
+        "question": "¿Qué es el Generador Gratuito de Descripciones con IA?",
+        "answer": "Nuestro Generador Gratuito de Descripciones con IA es una herramienta que utiliza inteligencia artificial para analizar imágenes y crear descripciones detalladas y precisas. Es perfecto para creadores de contenido, especialistas en marketing y cualquiera que necesite descripciones profesionales de imágenes."
+      },
+      "howAccurate": {
+        "question": "¿Qué tan precisas son las descripciones generadas por IA?",
+        "answer": "Nuestro modelo de IA está entrenado con millones de imágenes y proporciona descripciones altamente precisas. Aunque ninguna IA es perfecta, nuestra herramienta entrega consistentemente descripciones de calidad que capturan los elementos clave, colores, composición y contexto de tus imágenes."
+      },
+      "whatTypes": {
+        "question": "¿Qué tipos de imágenes funcionan mejor?",
+        "answer": "Nuestra IA funciona bien con todos los tipos de imágenes incluyendo productos, paisajes, personas, comida, arte y más. Para mejores resultados, usa imágenes claras, bien iluminadas y con buena resolución."
+      },
+      "isItFree": {
+        "question": "¿Esta herramienta es realmente gratuita?",
+        "answer": "¡Sí! Nuestro Generador de Descripciones con IA es completamente gratuito. Sin registro, sin tarifas ocultas, sin tarjeta de crédito requerida. Creemos que todos deberían tener acceso a herramientas de IA de calidad."
+      },
+      "privacyPolicy": {
+        "question": "¿Qué pasa con mis imágenes subidas?",
+        "answer": "Respetamos tu privacidad. Las imágenes se procesan de manera segura y no se almacenan permanentemente en nuestros servidores. Se eliminan automáticamente después del procesamiento."
+      }
+    }
+  },
+  "footer": {
+    "description": "Herramienta gratuita con IA para generar descripciones precisas de imágenes. Perfecta para creación de contenido, SEO y accesibilidad.",
+    "links": {
+      "terms": "Términos de Servicio",
+      "privacy": "Política de Privacidad",
+      "blog": "Blog"
+    },
+    "copyright": "© 2024 Generador Gratuito de Descripciones con IA. Todos los derechos reservados."
+  },
+  "language": {
+    "selector": "Idioma",
+    "current": "Español"
+  }
+}

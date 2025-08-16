@@ -1,0 +1,33 @@
+{
+  "header": {
+    "title": "Gerador Gratuito de Descrições com IA",
+    "nav": {
+      "home": "Início",
+      "blog": "Blog",
+      "terms": "Termos",
+      "privacy": "Privacidade"
+    }
+  },
+  "hero": {
+    "title": "Gerador Gratuito de Descrições com IA",
+    "description": "Este Gerador Gratuito de Descrições com IA permite que você carregue qualquer foto ou imagem e receba instantaneamente uma descrição detalhada. Ao contrário de outros serviços, não requer login ou email, é completamente gratuito e funciona de forma rápida e fácil.",
+    "instructions": {
+      "title": "Como usar esta ferramenta:",
+      "step1": "Clique no botão \"Selecionar Imagem\" e escolha até 1 imagem que deseja descrever.",
+      "step2": "Escolha seu tipo de descrição: Título do Produto, Descrição Breve ou Descrição Detalhada.",
+      "step3": "Clique em \"Gerar Descrição\" e deixe nossa IA analisar sua imagem.",
+      "step4": "Copie a descrição gerada e use-a para seu conteúdo."
+    }
+  },
+  "upload": {
+    "title": "Carregar Imagem",
+    "dragDrop": "Arraste sua imagem aqui ou clique para selecionar",
+    "selectImage": "Selecionar Imagem"
+  },
+  "generate": {
+    "button": "Gerar Descrição"
+  },
+  "language": {
+    "current": "Português"
+  }
+}
