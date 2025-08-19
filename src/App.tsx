@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Footer from './components/Footer';
-import LanguageSwitcher from './components/LanguageSwitcher';
+import Navbar from './components/Navbar';
+import SEOHead from './components/SEOHead';
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
 import Showcase from './components/Showcase';
 import FAQSection from './components/FAQSection';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import { API_BASE_URL } from './config/api';
-import { useTranslation } from 'react-i18next';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -22,48 +25,6 @@ const AppContainer = styled.div`
 const MainContent = styled.main`
   flex: 1;
   width: 100%;
-`;
-
-const Header = styled.header`
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-`;
-
-const HeaderContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const HeaderNav = styled.nav`
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  
-  @media (max-width: 768px) {
-    gap: 1rem;
-  }
-`;
-
-const HeaderLink = styled(Link)`
-  color: #6b7280;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-  
-  &:hover {
-    color: #5653fa;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-  }
 `;
 
 const HeroSection = styled.div`
@@ -102,35 +63,34 @@ const HeroTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   line-height: 1.2;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   
   @media (max-width: 768px) {
     font-size: 1.75rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
   }
   
   @media (max-width: 480px) {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 `;
 
-const HeroDescription = styled.p`
+const IntroDescription = styled.p`
   font-size: 1.125rem;
   color: #374151;
-  margin-bottom: 2rem;
   line-height: 1.6;
+  margin-bottom: 2rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  text-align: left;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   
   @media (max-width: 768px) {
     font-size: 1rem;
     margin-bottom: 1.5rem;
-    padding: 0 1rem;
   }
   
   @media (max-width: 480px) {
@@ -160,6 +120,7 @@ const InstructionsTitle = styled.h2`
   color: #1f2937;
   margin-bottom: 0.5rem;
   text-align: center;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const InstructionStep = styled.div`
@@ -356,6 +317,7 @@ const ResultTitle = styled.h3`
   font-weight: 600;
   color: #1f2937;
   margin-bottom: 0.5rem;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const AILabel = styled.span`
@@ -528,6 +490,7 @@ const InfoTitle = styled.h2`
   color: #1f2937;
   margin-bottom: 1.5rem;
   text-align: center;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const InfoSubtitle = styled.h3`
@@ -535,6 +498,7 @@ const InfoSubtitle = styled.h3`
   font-weight: 600;
   color: #1f2937;
   margin: 2rem 0 1rem 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const InfoText = styled.p`
@@ -646,20 +610,14 @@ function App() {
 
   return (
     <AppContainer>
-      <Header>
-        <HeaderContainer>
-          <HeaderLink to="/">{t('header.title')}</HeaderLink>
-          <HeaderNav>
-            <HeaderLink to="/">{t('header.nav.home')}</HeaderLink>
-            <HeaderLink to="/blog">{t('header.nav.blog')}</HeaderLink>
-            <LanguageSwitcher />
-          </HeaderNav>
-        </HeaderContainer>
-      </Header>
+      <SEOHead />
+      <Navbar />
       <MainContent>
         <Routes>
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:postId" element={<BlogPost />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route
@@ -667,11 +625,10 @@ function App() {
             element={
               <>
                 <HeroSection>
-                  <Logo src="/logo.svg" alt={t('hero.title')} />
                   <HeroTitle>{t('hero.title')}</HeroTitle>
-                  <HeroDescription>
-                    {t('hero.description')}
-                  </HeroDescription>
+                  <IntroDescription>
+                    {t('hero.intro')}
+                  </IntroDescription>
                   
                   <InstructionsContainer>
                     <InstructionsTitle>{t('hero.instructions.title')}</InstructionsTitle>
@@ -707,7 +664,7 @@ function App() {
                     <InstructionStep>
                       <StepNumber>5</StepNumber>
                       <StepText>
-                        Want to analyze another image? Click "Upload New Image" to start over with a fresh photo and generate a new description.
+                        {t('hero.instructions.step5')}
                       </StepText>
                     </InstructionStep>
                   </InstructionsContainer>
@@ -742,10 +699,10 @@ function App() {
                       ) : (
                         <>
                           <UploadIcon>📁</UploadIcon>
-                          <UploadText>Drop your image here, or click to select</UploadText>
-                          <UploadSubtext>Support for PNG, JPG, GIF up to 5MB</UploadSubtext>
+                          <UploadText>{t('upload.dragDrop')}</UploadText>
+                          <UploadSubtext>{t('upload.fileTypes')}</UploadSubtext>
                           <SelectFileButton type="button">
-                            Select Image
+                            {t('upload.selectImage')}
                           </SelectFileButton>
                         </>
                       )}
@@ -767,15 +724,15 @@ function App() {
 
                     {selectedFile && (
                       <OptionsSection>
-                        <Label htmlFor="description-type">Description Type:</Label>
+                        <Label htmlFor="description-type">{t('descriptionType.label')}:</Label>
                         <Select
                           id="description-type"
                           value={descriptionType}
                           onChange={(e) => setDescriptionType(e.target.value)}
                         >
-                          <option value="title">Product Title</option>
-                          <option value="brief">Brief Description</option>
-                          <option value="detailed">Detailed Description</option>
+                          <option value="title">{t('descriptionType.productTitle')}</option>
+                          <option value="brief">{t('descriptionType.brief')}</option>
+                          <option value="detailed">{t('descriptionType.detailed')}</option>
                         </Select>
                       </OptionsSection>
                     )}
@@ -785,23 +742,23 @@ function App() {
                       disabled={!selectedFile || isLoading}
                       $isLoading={isLoading}
                     >
-                      {isLoading ? 'Generating Description...' : 'Generate Description'}
+                      {isLoading ? t('generate.generating') : t('generate.button')}
                     </GenerateButton>
 
                     {generatedDescription && (
                       <ResultSection>
                         <ResultTitle>
-                          Generated Description
+                          {t('result.title')}
                         </ResultTitle>
                         <ResultText>{generatedDescription}</ResultText>
                         <CopyButton onClick={handleCopy}>
-                          {copied ? 'Copied!' : 'Copy to Clipboard'}
+                          {copied ? t('result.copied') : t('result.copy')}
                         </CopyButton>
                         <NewImageButton
                           onClick={handleUploadNewImage}
                           disabled={isLoading}
                         >
-                          Upload New Image
+                          {t('generate.uploadNew')}
                         </NewImageButton>
                       </ResultSection>
                     )}
@@ -810,58 +767,58 @@ function App() {
 
                 <InfoSection>
                   <InfoCard>
-                    <InfoTitle>Free AI Description Generator</InfoTitle>
+                    <InfoTitle>{t('info.title')}</InfoTitle>
                     
                     <InfoText>
-                      Our free AI description generator transforms any image into detailed, professional descriptions in seconds. Whether you need product descriptions for e-commerce, image descriptions for accessibility, or content for marketing materials, this powerful image describer tool has you covered.
+                      {t('info.description1')}
                     </InfoText>
                     
                     <InfoText>
-                      This free description generator uses advanced artificial intelligence to analyze uploaded images and create accurate, detailed descriptions. From product photos to complex scenes, our AI description generator provides clear, readable summaries perfect for any use case.
-                    </InfoText>
-                    
-                    <Divider />
-                    
-                    <InfoSubtitle>Why use our free AI description generator?</InfoSubtitle>
-                    
-                    <InfoText>
-                      As a free description generator, this tool helps content creators, marketers, and business owners save time while improving their content quality. Product descriptions boost e-commerce sales, while detailed image descriptions improve SEO and make content accessible to visually impaired users.
-                    </InfoText>
-                    
-                    <InfoText>
-                      Our AI product description generator is perfect for e-commerce businesses looking to create compelling product descriptions quickly. The tool also serves as an image describer for organizing photo libraries, creating alt text, and supporting educational materials.
-                    </InfoText>
-                    
-                    <InfoText>
-                      Whether you're running an online store, managing social media, or creating accessible content, this free AI description generator streamlines your workflow while maintaining professional quality standards.
+                      {t('info.description2')}
                     </InfoText>
                     
                     <Divider />
                     
-                    <InfoSubtitle>How to use this free description generator</InfoSubtitle>
+                    <InfoSubtitle>{t('info.whyUse.title')}</InfoSubtitle>
                     
                     <InfoText>
-                      Using our AI description generator is simple: upload your image using the "Select Image" button or drag and drop your files. You can upload up to one file at once, and our description generator will process it instantly.
+                      {t('info.whyUse.description1')}
                     </InfoText>
                     
                     <InfoText>
-                      Once uploaded, our AI description generator scans each image and produces a detailed written description. The generated description appears below your image preview, ready to copy to your clipboard or use directly in your projects.
+                      {t('info.whyUse.description2')}
                     </InfoText>
                     
                     <InfoText>
-                      For multiple images, simply repeat the process. This free description generator has no usage limits, making it perfect for businesses and individuals who need consistent, high-quality descriptions.
+                      {t('info.whyUse.description3')}
                     </InfoText>
                     
                     <Divider />
                     
-                    <InfoSubtitle>Is this description generator really free and secure?</InfoSubtitle>
+                    <InfoSubtitle>{t('info.howToUse.title')}</InfoSubtitle>
                     
                     <InfoText>
-                      Yes! Our AI description generator is completely free to use with no hidden costs or subscription requirements. Your images and generated descriptions remain private and secure, with all uploaded files automatically deleted within one hour.
+                      {t('info.howToUse.description1')}
                     </InfoText>
                     
                     <InfoText>
-                      This free description generator ensures your data privacy while delivering professional-quality results, making it a trusted choice for businesses and individuals alike.
+                      {t('info.howToUse.description2')}
+                    </InfoText>
+                    
+                    <InfoText>
+                      {t('info.howToUse.description3')}
+                    </InfoText>
+                    
+                    <Divider />
+                    
+                    <InfoSubtitle>{t('info.security.title')}</InfoSubtitle>
+                    
+                    <InfoText>
+                      {t('info.security.description1')}
+                    </InfoText>
+                    
+                    <InfoText>
+                      {t('info.security.description2')}
                     </InfoText>
                   </InfoCard>
                 </InfoSection>
@@ -869,50 +826,50 @@ function App() {
                 {/* Benefits Section for Better SEO and User Understanding */}
                 <InfoSection>
                   <InfoCard>
-                    <InfoTitle>Powerful AI Image Description Features</InfoTitle>
+                    <InfoTitle>{t('info.features.title')}</InfoTitle>
                     
                     <InfoText>
-                      <strong>Multiple Description Types:</strong> Choose from Product Title (concise branding), Brief Description (one-paragraph overview), or Detailed Description (comprehensive analysis) to match your specific needs.
+                      <strong>Multiple Description Types:</strong> {t('info.features.types')}
                     </InfoText>
                     
                     <InfoText>
-                      <strong>Advanced AI Technology:</strong> Our free AI description generator uses GPT-4 Vision technology to identify objects, people, colors, composition, and context with remarkable accuracy. Perfect for e-commerce product descriptions, accessibility alt text, and content creation.
+                      <strong>Advanced AI Technology:</strong> {t('info.features.technology')}
                     </InfoText>
                     
                     <InfoText>
-                      <strong>Instant Results:</strong> Upload any JPEG, PNG, or GIF image up to 5MB and receive professional descriptions in seconds. No waiting, no queues - just immediate, accurate descriptions for your images.
+                      <strong>Instant Results:</strong> {t('info.features.instant')}
                     </InfoText>
                     
                     <InfoText>
-                      <strong>SEO-Optimized Descriptions:</strong> Generated descriptions are naturally keyword-rich and perfect for improving your content's search engine visibility. Ideal for e-commerce websites, blog posts, and social media content.
+                      <strong>SEO-Optimized Descriptions:</strong> {t('info.features.seo')}
                     </InfoText>
                     
                     <InfoText>
-                      <strong>Privacy & Security:</strong> All uploaded images are automatically deleted within 1 hour. We never store your images permanently or share them with third parties, ensuring complete privacy protection.
+                      <strong>Privacy & Security:</strong> {t('info.features.privacy')}
                     </InfoText>
                     
                     <InfoText>
-                      <strong>100% Free & Unlimited:</strong> No registration required, no hidden costs, no usage limits. Our AI image describer remains completely free for personal and commercial use, making it accessible to everyone.
+                      <strong>100% Free & Unlimited:</strong> {t('info.features.free')}
                     </InfoText>
                     
                     <Divider />
                     
-                    <InfoSubtitle>Who Benefits from Our AI Description Generator?</InfoSubtitle>
+                    <InfoSubtitle>{t('info.benefits.title')}</InfoSubtitle>
                     
                     <InfoText>
-                      <strong>E-commerce Businesses:</strong> Create compelling product descriptions that boost conversion rates and improve SEO rankings. Our AI product description generator helps online stores save time while maintaining professional quality. <Link to="/blog/ecommerce-product-descriptions" style={{color: '#5653fa', textDecoration: 'none'}}>Learn more about e-commerce optimization →</Link>
+                      <strong>E-commerce Businesses:</strong> {t('info.benefits.ecommerce')} <Link to="/blog/ecommerce-product-descriptions" style={{color: '#5653fa', textDecoration: 'none'}}>Learn more about e-commerce optimization →</Link>
                     </InfoText>
                     
                     <InfoText>
-                      <strong>Content Creators & Marketers:</strong> Generate engaging descriptions for social media posts, blog content, and marketing materials. Perfect for creating accessible content that reaches wider audiences. <Link to="/blog/social-media-content-strategy" style={{color: '#5653fa', textDecoration: 'none'}}>Discover social media strategies →</Link>
+                      <strong>Content Creators & Marketers:</strong> {t('info.benefits.creators')} <Link to="/blog/social-media-content-strategy" style={{color: '#5653fa', textDecoration: 'none'}}>Discover social media strategies →</Link>
                     </InfoText>
                     
                     <InfoText>
-                      <strong>Web Developers & Designers:</strong> Quickly generate alt text for images to improve website accessibility and SEO. Essential for creating ADA-compliant websites that serve all users effectively. <Link to="/blog/accessibility-in-digital-content" style={{color: '#5653fa', textDecoration: 'none'}}>Read accessibility best practices →</Link>
+                      <strong>Web Developers & Designers:</strong> {t('info.benefits.developers')} <Link to="/blog/accessibility-in-digital-content" style={{color: '#5653fa', textDecoration: 'none'}}>Read accessibility best practices →</Link>
                     </InfoText>
                     
                     <InfoText>
-                      <strong>Educational Professionals:</strong> Create detailed image descriptions for educational materials, making content accessible to students with visual impairments while enhancing learning experiences.
+                      <strong>Educational Professionals:</strong> {t('info.benefits.educators')}
                     </InfoText>
                   </InfoCard>
                 </InfoSection>

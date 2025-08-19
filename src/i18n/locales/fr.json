@@ -3,6 +3,8 @@
     "title": "Générateur Gratuit de Descriptions IA",
     "nav": {
       "home": "Accueil",
+      "about": "À Propos",
+      "contact": "Contact",
       "blog": "Blog",
       "terms": "Conditions",
       "privacy": "Confidentialité"
@@ -11,12 +13,14 @@
   "hero": {
     "title": "Générateur Gratuit de Descriptions IA",
     "description": "Ce Générateur Gratuit de Descriptions IA vous permet de télécharger n'importe quelle photo ou image et de recevoir instantanément une description détaillée. Contrairement aux autres services, il ne nécessite aucune connexion ni email, est complètement gratuit et fonctionne rapidement et facilement.",
+    "intro": "Ce Générateur Gratuit de Descriptions IA vous permet de télécharger n'importe quelle photo ou image et de recevoir instantanément une description détaillée. Contrairement aux autres services, il ne nécessite aucune connexion ni email, est complètement gratuit et fonctionne rapidement et facilement.",
     "instructions": {
       "title": "Comment utiliser cet outil :",
       "step1": "Cliquez sur le bouton \"Sélectionner Image\" et choisissez jusqu'à 1 image que vous souhaitez décrire. Vous pouvez également faire glisser des fichiers vers la zone de téléchargement.",
       "step2": "Choisissez votre type de description : Titre de Produit, Description Brève ou Description Détaillée selon vos besoins.",
       "step3": "Cliquez sur \"Générer Description\" et laissez notre IA analyser votre image et créer une description précise pour vous.",
-      "step4": "Copiez la description générée dans votre presse-papiers et utilisez-la pour votre contenu, marketing ou besoins d'accessibilité."
+      "step4": "Copiez la description générée dans votre presse-papiers et utilisez-la pour votre contenu, marketing ou besoins d'accessibilité.",
+      "step5": "Voulez-vous analyser une autre image ? Cliquez sur \"Télécharger Nouvelle Image\" pour recommencer avec une nouvelle photo et générer une nouvelle description."
     }
   },
   "upload": {
@@ -34,7 +38,7 @@
   },
   "generate": {
     "button": "Générer Description",
-    "generating": "Génération...",
+    "generating": "Génération de Description...",
     "uploadNew": "Télécharger Nouvelle Image"
   },
   "result": {
@@ -90,5 +94,124 @@
   "language": {
     "selector": "Langue",
     "current": "Français"
+  },
+  "about": {
+    "title": "À Propos du Générateur Gratuit de Descriptions IA",
+    "mission": "Fournir des outils IA gratuits et accessibles qui aident les créateurs de contenu, les entreprises et les particuliers à générer des descriptions d'images professionnelles instantanément.",
+    "whatWeDo": {
+      "title": "Ce Que Nous Faisons",
+      "description1": "Le Générateur Gratuit de Descriptions IA est une application web de pointe qui utilise l'intelligence artificielle avancée pour analyser les images et créer des descriptions détaillées et précises. Notre outil est conçu pour être entièrement gratuit, ne nécessitant aucune inscription ou abonnement, rendant la technologie IA professionnelle accessible à tous.",
+      "description2": "Que vous soyez propriétaire d'une entreprise e-commerce nécessitant des descriptions de produits, un créateur de contenu travaillant sur l'accessibilité, ou un spécialiste marketing développant du contenu engageant, notre solution alimentée par l'IA livre des descriptions de haute qualité en quelques secondes."
+    },
+    "technology": {
+      "title": "Notre Technologie",
+      "description": "Nous exploitons des modèles de vision par ordinateur et de traitement du langage naturel de pointe pour comprendre et décrire les images. Notre IA peut identifier les objets, personnes, couleurs, compositions, émotions et contextes avec une précision remarquable.",
+      "features": {
+        "ai": {
+          "title": "IA Avancée",
+          "description": "Alimenté par la dernière technologie GPT-4 Vision pour une précision inégalée dans l'analyse d'images et la génération de descriptions."
+        },
+        "multilingual": {
+          "title": "Support Multilingue",
+          "description": "Générez des descriptions en 10 langues incluant l'anglais, l'espagnol, le français, l'allemand, le portugais, l'italien, le russe, le japonais, le coréen et le chinois."
+        },
+        "privacy": {
+          "title": "Confidentialité d'Abord",
+          "description": "Toutes les images téléchargées sont automatiquement supprimées dans l'heure. Nous ne stockons jamais votre contenu de manière permanente ni ne le partageons avec des tiers."
+        },
+        "free": {
+          "title": "Entièrement Gratuit",
+          "description": "Aucun frais caché, aucune inscription requise, aucune limite d'utilisation. Nous croyons que tout le monde devrait avoir accès à des outils IA de qualité."
+        }
+      }
+    },
+    "perfectFor": {
+      "title": "Parfait Pour",
+      "ecommerce": "Entreprises E-commerce : Créez des descriptions de produits convaincantes qui augmentent les taux de conversion et améliorent le classement SEO. Notre générateur de descriptions de produits IA aide les boutiques en ligne à économiser du temps tout en maintenant une qualité professionnelle.",
+      "creators": "Créateurs de Contenu et Marketers : Générez des descriptions engageantes pour les publications sur réseaux sociaux, le contenu de blog et les matériaux marketing. Parfait pour créer du contenu accessible qui atteint des audiences plus larges.",
+      "developers": "Développeurs Web et Designers : Générez rapidement du texte alternatif pour les images afin d'améliorer l'accessibilité web et le SEO. Essentiel pour créer des sites web conformes ADA qui servent tous les utilisateurs efficacement.",
+      "educators": "Professionnels de l'Éducation : Créez des descriptions d'images détaillées pour les matériaux éducatifs, rendant le contenu accessible aux étudiants avec des déficiences visuelles tout en améliorant les expériences d'apprentissage."
+    },
+    "commitment": {
+      "title": "Notre Engagement",
+      "description1": "Nous nous engageons à démocratiser la technologie IA en fournissant des outils puissants qui sont gratuits, rapides et conviviaux. Notre objectif est d'aider les particuliers et les entreprises à exploiter la puissance de l'intelligence artificielle sans barrières.",
+      "description2": "Alors que la technologie IA continue d'évoluer, nous nous dédions à améliorer notre service, ajouter de nouvelles fonctionnalités et maintenir les plus hauts standards de confidentialité et sécurité pour nos utilisateurs.",
+      "cta": "Prêt à l'essayer ? Téléchargez votre première image et découvrez la puissance des descriptions générées par IA. C'est gratuit, rapide et ne nécessite aucune inscription !"
+    }
+  },
+  "contact": {
+    "title": "Contactez-Nous",
+    "intro": "Nous aimerions avoir de vos nouvelles ! Que vous ayez des questions sur notre générateur de descriptions IA, besoin de support technique, souhaitiez suggérer de nouvelles fonctionnalités, ou soyez intéressé par des partenariats, nous sommes là pour vous aider.",
+    "getInTouch": "Prendre Contact",
+    "email": "info@freeimagedescriber.com",
+    "copyEmail": "Copier Email",
+    "copied": "✓ Copié !",
+    "whatContact": "À Propos de Quoi Vous Pouvez Nous Contacter",
+    "support": {
+      "title": "Support Technique",
+      "description": "Vous rencontrez des difficultés avec le générateur de descriptions IA ? Besoin d'aide avec les téléchargements ou descriptions ? Nous sommes là pour vous aider !"
+    },
+    "features": {
+      "title": "Demandes de Fonctionnalités",
+      "description": "Vous avez une idée pour une nouvelle fonctionnalité ? Vous voulez voir des langues supplémentaires ou des types de description ? Nous adorons entendre vos suggestions !"
+    },
+    "business": {
+      "title": "Partenariats d'Affaires",
+      "description": "Intéressé par l'intégration de notre technologie IA dans votre plateforme ? Vous voulez discuter d'opportunités d'affaires ? Parlons-en !"
+    },
+    "feedback": {
+      "title": "Commentaires Généraux",
+      "description": "Vous adorez notre outil ? Vous avez trouvé quelque chose qui pourrait être amélioré ? Vos commentaires nous aident à améliorer l'expérience pour tous."
+    },
+    "responseTime": {
+      "title": "Temps de Réponse",
+      "description": "Nous répondons généralement aux emails dans les 24-48 heures pendant les jours ouvrables. Pour les problèmes techniques urgents, veuillez inclure \"URGENT\" dans l'objet."
+    },
+    "beforeContact": {
+      "title": "Avant de Nous Contacter",
+      "technical": "Pour les problèmes techniques : Veuillez essayer de rafraîchir votre navigateur et vous assurer d'avoir une connexion internet stable. La plupart des problèmes se résolvent avec un simple rafraîchissement.",
+      "privacy": "Pour les questions sur la confidentialité : Consultez notre page Politique de Confidentialité pour des informations détaillées sur comment nous gérons vos données.",
+      "general": "Pour les questions générales : Notre section FAQ couvre de nombreuses questions communes sur le fonctionnement du générateur de descriptions IA."
+    },
+    "note": "Nous sommes une petite équipe passionnée par rendre la technologie IA accessible à tous. Bien que nous ne puissions pas toujours implémenter chaque suggestion immédiatement, nous lisons et considérons chaque email que nous recevons."
+  },
+  "info": {
+    "title": "Générateur Gratuit de Descriptions IA",
+    "description1": "Notre générateur gratuit de descriptions IA transforme n'importe quelle image en descriptions détaillées et professionnelles en quelques secondes. Que vous ayez besoin de descriptions de produits pour l'e-commerce, de descriptions d'images pour l'accessibilité, ou de contenu pour des matériaux marketing, cet outil descripteur d'images puissant vous couvre.",
+    "description2": "Ce générateur gratuit de descriptions utilise l'intelligence artificielle avancée pour analyser les images téléchargées et créer des descriptions précises et détaillées. Des photos de produits aux scènes complexes, notre générateur de descriptions IA fournit des résumés clairs et lisibles parfaits pour tout cas d'usage.",
+    "whyUse": {
+      "title": "Pourquoi utiliser notre générateur gratuit de descriptions IA ?",
+      "description1": "En tant que générateur gratuit de descriptions, cet outil aide les créateurs de contenu, les spécialistes marketing et les propriétaires d'entreprises à économiser du temps tout en améliorant la qualité de leur contenu. Les descriptions de produits stimulent les ventes e-commerce, tandis que les descriptions d'images détaillées améliorent le SEO et rendent le contenu accessible aux utilisateurs malvoyants.",
+      "description2": "Notre générateur de descriptions de produits IA est parfait pour les entreprises e-commerce cherchant à créer rapidement des descriptions de produits convaincantes. L'outil sert également de descripteur d'images pour organiser les bibliothèques photo, créer du texte alternatif et soutenir les matériaux éducatifs.",
+      "description3": "Que vous gériez une boutique en ligne, des réseaux sociaux, ou créiez du contenu accessible, ce générateur gratuit de descriptions IA rationalise votre flux de travail tout en maintenant des standards de qualité professionnelle."
+    },
+    "howToUse": {
+      "title": "Comment utiliser ce générateur gratuit de descriptions",
+      "description1": "Utiliser notre générateur de descriptions IA est simple : téléchargez votre image en utilisant le bouton \"Sélectionner Image\" ou glissez-déposez vos fichiers. Vous pouvez télécharger jusqu'à un fichier à la fois, et notre générateur de descriptions le traitera instantanément.",
+      "description2": "Une fois téléchargé, notre générateur de descriptions IA scanne chaque image et produit une description écrite détaillée. La description générée apparaît sous l'aperçu de votre image, prête à être copiée dans votre presse-papiers ou utilisée directement dans vos projets.",
+      "description3": "Pour plusieurs images, répétez simplement le processus. Ce générateur gratuit de descriptions n'a pas de limites d'utilisation, le rendant parfait pour les entreprises et particuliers qui ont besoin de descriptions cohérentes et de haute qualité."
+    },
+    "security": {
+      "title": "Ce générateur de descriptions est-il vraiment gratuit et sécurisé ?",
+      "description1": "Oui ! Notre générateur de descriptions IA est entièrement gratuit à utiliser sans coûts cachés ou exigences d'abonnement. Vos images et descriptions générées restent privées et sécurisées, avec tous les fichiers téléchargés automatiquement supprimés dans l'heure.",
+      "description2": "Ce générateur gratuit de descriptions assure la confidentialité de vos données tout en livrant des résultats de qualité professionnelle, en faisant un choix de confiance pour les entreprises et particuliers."
+    },
+    "features": {
+      "title": "Fonctionnalités Puissantes du Générateur de Descriptions d'Images IA",
+      "types": "Types de Descriptions Multiples : Choisissez parmi Titre de Produit (marque concise), Description Brève (aperçu d'un paragraphe), ou Description Détaillée (analyse complète) pour correspondre à vos besoins spécifiques.",
+      "technology": "Technologie IA Avancée : Notre générateur gratuit de descriptions IA utilise la technologie GPT-4 Vision pour identifier objets, personnes, couleurs, composition et contexte avec une précision remarquable. Parfait pour les descriptions de produits e-commerce, le texte alternatif d'accessibilité et la création de contenu.",
+      "instant": "Résultats Instantanés : Téléchargez n'importe quelle image JPEG, PNG ou GIF jusqu'à 5MB et recevez des descriptions professionnelles en secondes. Pas d'attente, pas de files - juste des descriptions immédiates et précises pour vos images.",
+      "seo": "Descriptions Optimisées SEO : Les descriptions générées sont naturellement riches en mots-clés et parfaites pour améliorer la visibilité de votre contenu dans les moteurs de recherche. Idéal pour les sites web e-commerce, articles de blog et contenu réseaux sociaux.",
+      "privacy": "Confidentialité et Sécurité : Toutes les images téléchargées sont automatiquement supprimées dans l'heure. Nous ne stockons jamais vos images de manière permanente ni ne les partageons avec des tiers, assurant une protection complète de la confidentialité.",
+      "free": "100% Gratuit et Illimité : Aucune inscription requise, aucun coût caché, aucune limite d'utilisation. Notre descripteur d'images IA reste entièrement gratuit pour usage personnel et commercial, le rendant accessible à tous."
+    },
+    "benefits": {
+      "title": "Qui Bénéficie de Notre Générateur de Descriptions IA ?",
+      "ecommerce": "Entreprises E-commerce : Créez des descriptions de produits convaincantes qui augmentent les taux de conversion et améliorent le classement SEO. Notre générateur de descriptions de produits IA aide les boutiques en ligne à économiser du temps tout en maintenant une qualité professionnelle.",
+      "creators": "Créateurs de Contenu et Marketers : Générez des descriptions engageantes pour les publications réseaux sociaux, contenu de blog et matériaux marketing. Parfait pour créer du contenu accessible qui atteint des audiences plus larges.",
+      "developers": "Développeurs Web et Designers : Générez rapidement du texte alternatif pour les images afin d'améliorer l'accessibilité web et le SEO. Essentiel pour créer des sites web conformes ADA qui servent tous les utilisateurs efficacement.",
+      "educators": "Professionnels de l'Éducation : Créez des descriptions d'images détaillées pour les matériaux éducatifs, rendant le contenu accessible aux étudiants avec des déficiences visuelles tout en améliorant les expériences d'apprentissage."
+    }
   }
 }
+

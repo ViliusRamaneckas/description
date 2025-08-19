@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface MobileMenuProps {
   $isOpen: boolean;
@@ -64,36 +66,9 @@ const NavLink = styled(Link)`
   }
 `;
 
-const LanguageSelect = styled.select`
-  background-color: #f9fafb;
-  color: #374151;
-  border: 1px solid #d1d5db;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  
-  &:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-`;
 
-const LoginButton = styled(Link)`
-  background-color: #3b82f6;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: background-color 0.2s;
-  
-  &:hover {
-    background-color: #2563eb;
-  }
-`;
+
+
 
 const MobileMenuButton = styled.button`
   display: none;
@@ -154,27 +129,21 @@ const CloseButton = styled.button`
 `;
 
 const Navbar: React.FC = () => {
+  const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <Nav>
       <NavContainer>
         <Logo to="/">
-          AI Description
+          <LogoImage src="/IMAGE (1) (1).svg" alt="Free AI Description Generator" />
         </Logo>
         
         <NavLinks>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/pricing">Pricing</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-          <LanguageSelect>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-          </LanguageSelect>
-          <LoginButton to="/login">Sign In</LoginButton>
+          <NavLink to="/">{t('header.nav.home')}</NavLink>
+          <NavLink to="/about">{t('header.nav.about')}</NavLink>
+          <NavLink to="/contact">{t('header.nav.contact')}</NavLink>
+          <LanguageSwitcher />
         </NavLinks>
 
         <MobileMenuButton onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -185,17 +154,12 @@ const Navbar: React.FC = () => {
           <CloseButton onClick={() => setIsMobileMenuOpen(false)}>
             ×
           </CloseButton>
-          <MobileNavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</MobileNavLink>
-          <MobileNavLink to="/pricing" onClick={() => setIsMobileMenuOpen(false)}>Pricing</MobileNavLink>
-          <MobileNavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</MobileNavLink>
-          <MobileNavLink to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</MobileNavLink>
-          <MobileNavLink to="/login" onClick={() => setIsMobileMenuOpen(false)}>Sign In</MobileNavLink>
-          <LanguageSelect style={{ marginTop: '1rem', width: '100%' }}>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-          </LanguageSelect>
+          <MobileNavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.home')}</MobileNavLink>
+          <MobileNavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.about')}</MobileNavLink>
+          <MobileNavLink to="/contact" onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.contact')}</MobileNavLink>
+          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
+            <LanguageSwitcher />
+          </div>
         </MobileMenu>
       </NavContainer>
     </Nav>

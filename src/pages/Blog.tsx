@@ -14,12 +14,31 @@ const BlogHeader = styled.div`
   margin-bottom: 3rem;
 `;
 
+const HomeButton = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #5653fa;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #4338ca;
+    color: white;
+  }
+`;
+
 const BlogTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 1rem;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const BlogSubtitle = styled.p`
@@ -51,7 +70,7 @@ const PostTitle = styled.h2`
   font-weight: 600;
   color: #1f2937;
   margin-bottom: 0.5rem;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 const PostExcerpt = styled.p`
@@ -80,6 +99,13 @@ const ReadMoreLink = styled(Link)`
 `;
 
 const blogPosts = [
+  {
+    id: 'multilingual-ai-descriptions',
+    title: 'Breaking Language Barriers: AI Descriptions in Multiple Languages',
+    excerpt: 'Explore how multilingual AI image descriptions can help you reach global audiences and make your content accessible worldwide.',
+    date: 'January 20, 2025',
+    readTime: '6 min read'
+  },
   {
     id: 'ai-image-description-tips',
     title: '10 Tips for Writing Better AI-Generated Image Descriptions',
@@ -113,6 +139,9 @@ const blogPosts = [
 const Blog: React.FC = () => {
   return (
     <BlogContainer>
+      <HomeButton to="/">
+        ← Back to Home
+      </HomeButton>
       <BlogHeader>
         <BlogTitle>Blog</BlogTitle>
         <BlogSubtitle>

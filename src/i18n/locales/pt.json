@@ -3,6 +3,8 @@
     "title": "Gerador Gratuito de Descrições com IA",
     "nav": {
       "home": "Início",
+      "about": "Sobre Nós",
+      "contact": "Contato",
       "blog": "Blog",
       "terms": "Termos",
       "privacy": "Privacidade"
@@ -11,23 +13,205 @@
   "hero": {
     "title": "Gerador Gratuito de Descrições com IA",
     "description": "Este Gerador Gratuito de Descrições com IA permite que você carregue qualquer foto ou imagem e receba instantaneamente uma descrição detalhada. Ao contrário de outros serviços, não requer login ou email, é completamente gratuito e funciona de forma rápida e fácil.",
+    "intro": "Este Gerador Gratuito de Descrições com IA permite que você carregue qualquer foto ou imagem e receba instantaneamente uma descrição detalhada. Ao contrário de outros serviços, não requer login ou email, é completamente gratuito e funciona de forma rápida e fácil.",
     "instructions": {
       "title": "Como usar esta ferramenta:",
-      "step1": "Clique no botão \"Selecionar Imagem\" e escolha até 1 imagem que deseja descrever.",
-      "step2": "Escolha seu tipo de descrição: Título do Produto, Descrição Breve ou Descrição Detalhada.",
-      "step3": "Clique em \"Gerar Descrição\" e deixe nossa IA analisar sua imagem.",
-      "step4": "Copie a descrição gerada e use-a para seu conteúdo."
+      "step1": "Clique no botão \"Selecionar Imagem\" e escolha até 1 imagem que deseja descrever. Você também pode arrastar arquivos para a área de upload.",
+      "step2": "Escolha seu tipo de descrição: Título do Produto, Descrição Breve ou Descrição Detalhada de acordo com suas necessidades.",
+      "step3": "Clique em \"Gerar Descrição\" e deixe nossa IA analisar sua imagem e criar uma descrição precisa para você.",
+      "step4": "Copie a descrição gerada para sua área de transferência e use-a para seu conteúdo, marketing ou necessidades de acessibilidade.",
+      "step5": "Quer analisar outra imagem? Clique em \"Carregar Nova Imagem\" para começar novamente com uma nova foto e gerar uma nova descrição."
     }
   },
   "upload": {
-    "title": "Carregar Imagem",
-    "dragDrop": "Arraste sua imagem aqui ou clique para selecionar",
-    "selectImage": "Selecionar Imagem"
+    "title": "Carregue Sua Imagem",
+    "dragDrop": "Arraste e solte sua imagem aqui, ou clique para selecionar",
+    "fileTypes": "Suporta JPG, PNG, GIF até 10MB",
+    "selectImage": "Selecionar Imagem",
+    "uploading": "Carregando..."
+  },
+  "descriptionType": {
+    "label": "Tipo de Descrição",
+    "productTitle": "Título do Produto",
+    "brief": "Descrição Breve",
+    "detailed": "Descrição Detalhada"
   },
   "generate": {
-    "button": "Gerar Descrição"
+    "button": "Gerar Descrição",
+    "generating": "Gerando Descrição...",
+    "uploadNew": "Carregar Nova Imagem"
+  },
+  "result": {
+    "title": "Descrição Gerada",
+    "copy": "Copiar para Área de Transferência",
+    "copied": "Copiado!"
+  },
+  "errors": {
+    "fileRequired": "Por favor, selecione primeiro um arquivo de imagem.",
+    "fileTooLarge": "O tamanho do arquivo deve ser menor que 10MB.",
+    "invalidFileType": "Por favor, selecione um arquivo de imagem válido (JPG, PNG, GIF).",
+    "uploadFailed": "Falha ao carregar a imagem. Tente novamente.",
+    "generationFailed": "Falha ao gerar a descrição. Tente novamente."
+  },
+  "showcase": {
+    "title": "Veja o Gerador de Descrições IA em Ação",
+    "subtitle": "Exemplos de descrições precisas geradas por nossa IA para diferentes tipos de imagens"
+  },
+  "faq": {
+    "title": "Perguntas Frequentes",
+    "questions": {
+      "whatIs": {
+        "question": "O que é o Gerador Gratuito de Descrições com IA?",
+        "answer": "Nosso Gerador Gratuito de Descrições com IA é uma ferramenta que usa inteligência artificial para analisar imagens e criar descrições detalhadas e precisas. É perfeito para criadores de conteúdo, profissionais de marketing e qualquer pessoa que precise de descrições profissionais de imagens."
+      },
+      "howAccurate": {
+        "question": "Quão precisas são as descrições geradas por IA?",
+        "answer": "Nosso modelo de IA é treinado com milhões de imagens e fornece descrições altamente precisas. Embora nenhuma IA seja perfeita, nossa ferramenta entrega consistentemente descrições de qualidade que capturam os elementos-chave, cores, composição e contexto de suas imagens."
+      },
+      "whatTypes": {
+        "question": "Que tipos de imagens funcionam melhor?",
+        "answer": "Nossa IA funciona bem com todos os tipos de imagens, incluindo produtos, paisagens, pessoas, comida, arte e muito mais. Para melhores resultados, use imagens claras e bem iluminadas com boa resolução."
+      },
+      "isItFree": {
+        "question": "Esta ferramenta é realmente gratuita?",
+        "answer": "Sim! Nosso Gerador de Descrições IA é completamente gratuito para usar. Sem registro, sem taxas ocultas, sem cartão de crédito necessário. Acreditamos que todos devem ter acesso a ferramentas de IA de qualidade."
+      },
+      "privacyPolicy": {
+        "question": "O que acontece com minhas imagens carregadas?",
+        "answer": "Respeitamos sua privacidade. As imagens são processadas com segurança e não são armazenadas permanentemente em nossos servidores. Elas são automaticamente excluídas após o processamento."
+      }
+    }
+  },
+  "footer": {
+    "description": "Ferramenta gratuita alimentada por IA para gerar descrições precisas de imagens. Perfeita para criação de conteúdo, SEO e acessibilidade.",
+    "links": {
+      "terms": "Termos de Serviço",
+      "privacy": "Política de Privacidade",
+      "blog": "Blog"
+    },
+    "copyright": "© 2024 Gerador Gratuito de Descrições com IA. Todos os direitos reservados."
   },
   "language": {
+    "selector": "Idioma",
     "current": "Português"
+  },
+  "about": {
+    "title": "Sobre o Gerador Gratuito de Descrições com IA",
+    "mission": "Fornecer ferramentas gratuitas e acessíveis alimentadas por IA que ajudem criadores de conteúdo, empresas e indivíduos a gerar descrições profissionais de imagens instantaneamente.",
+    "whatWeDo": {
+      "title": "O Que Fazemos",
+      "description1": "O Gerador Gratuito de Descrições com IA é uma aplicação web de ponta que usa inteligência artificial avançada para analisar imagens e criar descrições detalhadas e precisas.",
+      "description2": "Seja você um proprietário de negócio de e-commerce precisando de descrições de produtos, um criador de conteúdo trabalhando em acessibilidade, ou um especialista em marketing desenvolvendo conteúdo envolvente, nossa solução alimentada por IA entrega descrições de alta qualidade em segundos."
+    },
+    "technology": {
+      "title": "Nossa Tecnologia",
+      "description": "Aproveitamos modelos de visão computacional e processamento de linguagem natural de última geração para entender e descrever imagens.",
+      "features": {
+        "ai": {
+          "title": "IA Avançada",
+          "description": "Alimentada pela mais recente tecnologia GPT-4 Vision para precisão incomparável na análise de imagens e geração de descrições."
+        },
+        "multilingual": {
+          "title": "Suporte Multilíngue",
+          "description": "Gere descrições em 10 idiomas incluindo inglês, espanhol, francês, alemão, português, italiano, russo, japonês, coreano e chinês."
+        },
+        "privacy": {
+          "title": "Privacidade em Primeiro Lugar",
+          "description": "Todas as imagens carregadas são automaticamente excluídas em 1 hora. Nunca armazenamos seu conteúdo permanentemente ou o compartilhamos com terceiros."
+        },
+        "free": {
+          "title": "Completamente Gratuito",
+          "description": "Sem taxas ocultas, sem registro necessário, sem limites de uso. Acreditamos que todos devem ter acesso a ferramentas de IA de qualidade."
+        }
+      }
+    },
+    "perfectFor": {
+      "title": "Perfeito Para",
+      "ecommerce": "Negócios de E-commerce: Crie descrições de produtos convincentes que aumentem as taxas de conversão e melhorem os rankings de SEO.",
+      "creators": "Criadores de Conteúdo e Profissionais de Marketing: Gere descrições envolventes para posts de mídia social, conteúdo de blog e materiais de marketing.",
+      "developers": "Desenvolvedores Web e Designers: Gere rapidamente texto alternativo para imagens para melhorar a acessibilidade web e SEO.",
+      "educators": "Profissionais da Educação: Crie descrições detalhadas de imagens para materiais educacionais."
+    },
+    "commitment": {
+      "title": "Nosso Compromisso",
+      "description1": "Estamos comprometidos em democratizar a tecnologia IA fornecendo ferramentas poderosas que são gratuitas, rápidas e fáceis de usar.",
+      "description2": "À medida que a tecnologia IA continua a evoluir, estamos dedicados a melhorar nosso serviço, adicionar novos recursos e manter os mais altos padrões de privacidade e segurança para nossos usuários.",
+      "cta": "Pronto para experimentar? Carregue sua primeira imagem e experimente o poder das descrições geradas por IA. É gratuito, rápido e não requer inscrição!"
+    }
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "intro": "Adoraríamos ouvir de você! Seja se você tem perguntas sobre nosso gerador de descrições IA, precisa de suporte técnico, quer sugerir novos recursos, ou está interessado em parcerias, estamos aqui para ajudar.",
+    "getInTouch": "Entrar em Contato",
+    "email": "info@freeimagedescriber.com",
+    "copyEmail": "Copiar Email",
+    "copied": "✓ Copiado!",
+    "whatContact": "Sobre o Que Você Pode Nos Contatar",
+    "support": {
+      "title": "Suporte Técnico",
+      "description": "Tendo problemas com o gerador de descrições IA? Precisa de ajuda com uploads ou descrições? Estamos aqui para ajudar!"
+    },
+    "features": {
+      "title": "Solicitações de Recursos",
+      "description": "Tem uma ideia para um novo recurso? Quer ver idiomas adicionais ou tipos de descrição? Adoramos ouvir suas sugestões!"
+    },
+    "business": {
+      "title": "Parcerias Comerciais",
+      "description": "Interessado em integrar nossa tecnologia IA em sua plataforma? Quer discutir oportunidades de negócio? Vamos conversar!"
+    },
+    "feedback": {
+      "title": "Feedback Geral",
+      "description": "Ama nossa ferramenta? Encontrou algo que poderia ser melhor? Seu feedback nos ajuda a melhorar a experiência para todos."
+    },
+    "responseTime": {
+      "title": "Tempo de Resposta",
+      "description": "Normalmente respondemos a emails em 24-48 horas durante dias úteis. Para questões técnicas urgentes, inclua \"URGENTE\" na linha de assunto."
+    },
+    "beforeContact": {
+      "title": "Antes de Nos Contatar",
+      "technical": "Para questões técnicas: Tente atualizar seu navegador e certifique-se de ter uma conexão de internet estável.",
+      "privacy": "Para perguntas sobre privacidade: Confira nossa página de Política de Privacidade para informações detalhadas sobre como lidamos com seus dados.",
+      "general": "Para perguntas gerais: Nossa seção de FAQ cobre muitas perguntas comuns sobre como o gerador de descrições IA funciona."
+    },
+    "note": "Somos uma pequena equipe apaixonada por tornar a tecnologia IA acessível a todos."
+  },
+  "info": {
+    "title": "Gerador Gratuito de Descrições com IA",
+    "description1": "Nosso gerador gratuito de descrições IA transforma qualquer imagem em descrições detalhadas e profissionais em segundos.",
+    "description2": "Este gerador gratuito de descrições usa inteligência artificial avançada para analisar imagens carregadas e criar descrições precisas e detalhadas.",
+    "whyUse": {
+      "title": "Por que usar nosso gerador gratuito de descrições IA?",
+      "description1": "Como um gerador gratuito de descrições, esta ferramenta ajuda criadores de conteúdo, profissionais de marketing e proprietários de negócios a economizar tempo.",
+      "description2": "Nosso gerador de descrições de produtos IA é perfeito para negócios de e-commerce procurando criar descrições de produtos convincentes rapidamente.",
+      "description3": "Seja gerenciando uma loja online, administrando mídia social ou criando conteúdo acessível, este gerador gratuito de descrições IA simplifica seu fluxo de trabalho."
+    },
+    "howToUse": {
+      "title": "Como usar este gerador gratuito de descrições",
+      "description1": "Usar nosso gerador de descrições IA é simples: carregue sua imagem usando o botão \"Selecionar Imagem\" ou arraste e solte seus arquivos.",
+      "description2": "Uma vez carregado, nosso gerador de descrições IA escaneia cada imagem e produz uma descrição escrita detalhada.",
+      "description3": "Para múltiplas imagens, simplesmente repita o processo. Este gerador gratuito de descrições não tem limites de uso."
+    },
+    "security": {
+      "title": "Este gerador de descrições é realmente gratuito e seguro?",
+      "description1": "Sim! Nosso gerador de descrições IA é completamente gratuito para usar sem custos ocultos ou requisitos de assinatura.",
+      "description2": "Este gerador gratuito de descrições garante a privacidade dos seus dados enquanto entrega resultados de qualidade profissional."
+    },
+    "features": {
+      "title": "Recursos Poderosos do Gerador de Descrições de Imagens IA",
+      "types": "Múltiplos Tipos de Descrição: Escolha entre Título do Produto, Descrição Breve, ou Descrição Detalhada para atender suas necessidades específicas.",
+      "technology": "Tecnologia IA Avançada: Nosso gerador gratuito de descrições IA usa tecnologia GPT-4 Vision.",
+      "instant": "Resultados Instantâneos: Carregue qualquer imagem JPEG, PNG ou GIF até 5MB e receba descrições profissionais em segundos.",
+      "seo": "Descrições Otimizadas para SEO: As descrições geradas são naturalmente ricas em palavras-chave.",
+      "privacy": "Privacidade e Segurança: Todas as imagens carregadas são automaticamente excluídas em 1 hora.",
+      "free": "100% Gratuito e Ilimitado: Sem registro necessário, sem custos ocultos, sem limites de uso."
+    },
+    "benefits": {
+      "title": "Quem Se Beneficia do Nosso Gerador de Descrições IA?",
+      "ecommerce": "Negócios de E-commerce: Crie descrições de produtos convincentes que aumentem as taxas de conversão e melhorem os rankings de SEO.",
+      "creators": "Criadores de Conteúdo e Profissionais de Marketing: Gere descrições envolventes para posts de mídia social, conteúdo de blog e materiais de marketing.",
+      "developers": "Desenvolvedores Web e Designers: Gere rapidamente texto alternativo para imagens para melhorar a acessibilidade web e SEO.",
+      "educators": "Profissionais da Educação: Crie descrições detalhadas de imagens para materiais educacionais."
+    }
   }
 }
+

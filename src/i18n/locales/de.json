@@ -3,6 +3,8 @@
     "title": "Kostenloser KI-Beschreibungsgenerator",
     "nav": {
       "home": "Startseite",
+      "about": "Über Uns",
+      "contact": "Kontakt",
       "blog": "Blog",
       "terms": "Bedingungen",
       "privacy": "Datenschutz"
@@ -11,23 +13,205 @@
   "hero": {
     "title": "Kostenloser KI-Beschreibungsgenerator",
     "description": "Dieser kostenlose KI-Beschreibungsgenerator ermöglicht es Ihnen, jedes Foto oder Bild hochzuladen und sofort eine detaillierte Beschreibung zu erhalten. Im Gegensatz zu anderen Diensten erfordert er keine Anmeldung oder E-Mail, ist völlig kostenlos und funktioniert schnell und einfach.",
+    "intro": "Dieser kostenlose KI-Beschreibungsgenerator ermöglicht es Ihnen, jedes Foto oder Bild hochzuladen und sofort eine detaillierte Beschreibung zu erhalten. Im Gegensatz zu anderen Diensten erfordert er keine Anmeldung oder E-Mail, ist völlig kostenlos und funktioniert schnell und einfach.",
     "instructions": {
       "title": "So verwenden Sie dieses Tool:",
-      "step1": "Klicken Sie auf \"Bild auswählen\" und wählen Sie bis zu 1 Bild aus, das Sie beschreiben möchten.",
-      "step2": "Wählen Sie Ihren Beschreibungstyp: Produkttitel, Kurze Beschreibung oder Detaillierte Beschreibung.",
-      "step3": "Klicken Sie auf \"Beschreibung generieren\" und lassen Sie unsere KI Ihr Bild analysieren.",
-      "step4": "Kopieren Sie die generierte Beschreibung und verwenden Sie sie für Ihre Inhalte."
+      "step1": "Klicken Sie auf \"Bild auswählen\" und wählen Sie bis zu 1 Bild aus, das Sie beschreiben möchten. Sie können Dateien auch in den Upload-Bereich ziehen.",
+      "step2": "Wählen Sie Ihren Beschreibungstyp: Produkttitel, Kurze Beschreibung oder Detaillierte Beschreibung je nach Ihren Bedürfnissen.",
+      "step3": "Klicken Sie auf \"Beschreibung generieren\" und lassen Sie unsere KI Ihr Bild analysieren und eine genaue Beschreibung für Sie erstellen.",
+      "step4": "Kopieren Sie die generierte Beschreibung in Ihre Zwischenablage und verwenden Sie sie für Ihre Inhalte, Marketing oder Barrierefreiheits-Bedürfnisse.",
+      "step5": "Möchten Sie ein anderes Bild analysieren? Klicken Sie auf \"Neues Bild hochladen\", um mit einem neuen Foto von vorne zu beginnen und eine neue Beschreibung zu generieren."
     }
   },
   "upload": {
-    "title": "Bild hochladen",
+    "title": "Ihr Bild hochladen",
     "dragDrop": "Ziehen Sie Ihr Bild hierher oder klicken Sie zum Auswählen",
-    "selectImage": "Bild auswählen"
+    "fileTypes": "Unterstützt JPG, PNG, GIF bis zu 10MB",
+    "selectImage": "Bild auswählen",
+    "uploading": "Lade hoch..."
+  },
+  "descriptionType": {
+    "label": "Beschreibungstyp",
+    "productTitle": "Produkttitel",
+    "brief": "Kurze Beschreibung",
+    "detailed": "Detaillierte Beschreibung"
   },
   "generate": {
-    "button": "Beschreibung generieren"
+    "button": "Beschreibung generieren",
+    "generating": "Beschreibung wird generiert...",
+    "uploadNew": "Neues Bild hochladen"
+  },
+  "result": {
+    "title": "Generierte Beschreibung",
+    "copy": "In Zwischenablage kopieren",
+    "copied": "Kopiert!"
+  },
+  "errors": {
+    "fileRequired": "Bitte wählen Sie zuerst eine Bilddatei aus.",
+    "fileTooLarge": "Die Dateigröße muss weniger als 10MB betragen.",
+    "invalidFileType": "Bitte wählen Sie eine gültige Bilddatei (JPG, PNG, GIF).",
+    "uploadFailed": "Fehler beim Hochladen des Bildes. Bitte versuchen Sie es erneut.",
+    "generationFailed": "Fehler beim Generieren der Beschreibung. Bitte versuchen Sie es erneut."
+  },
+  "showcase": {
+    "title": "Sehen Sie den KI-Beschreibungsgenerator in Aktion",
+    "subtitle": "Beispiele genauer Beschreibungen, die von unserer KI für verschiedene Bildtypen generiert wurden"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "questions": {
+      "whatIs": {
+        "question": "Was ist der kostenlose KI-Beschreibungsgenerator?",
+        "answer": "Unser kostenloser KI-Beschreibungsgenerator ist ein Tool, das künstliche Intelligenz nutzt, um Bilder zu analysieren und detaillierte, genaue Beschreibungen zu erstellen. Es ist perfekt für Content-Ersteller, Vermarkter und alle, die professionelle Bildbeschreibungen benötigen."
+      },
+      "howAccurate": {
+        "question": "Wie genau sind die KI-generierten Beschreibungen?",
+        "answer": "Unser KI-Modell ist mit Millionen von Bildern trainiert und bietet hochpräzise Beschreibungen. Obwohl keine KI perfekt ist, liefert unser Tool konsistent qualitativ hochwertige Beschreibungen, die die wichtigsten Elemente, Farben, Komposition und den Kontext Ihrer Bilder erfassen."
+      },
+      "whatTypes": {
+        "question": "Welche Bildtypen funktionieren am besten?",
+        "answer": "Unsere KI funktioniert gut mit allen Bildtypen, einschließlich Produkten, Landschaften, Menschen, Essen, Kunstwerken und mehr. Für beste Ergebnisse verwenden Sie klare, gut beleuchtete Bilder mit guter Auflösung."
+      },
+      "isItFree": {
+        "question": "Ist dieses Tool wirklich kostenlos?",
+        "answer": "Ja! Unser KI-Beschreibungsgenerator ist völlig kostenlos zu verwenden. Keine Registrierung, keine versteckten Gebühren, keine Kreditkarte erforderlich. Wir glauben, dass jeder Zugang zu qualitativ hochwertigen KI-Tools haben sollte."
+      },
+      "privacyPolicy": {
+        "question": "Was passiert mit meinen hochgeladenen Bildern?",
+        "answer": "Wir respektieren Ihre Privatsphäre. Bilder werden sicher verarbeitet und nicht dauerhaft auf unseren Servern gespeichert. Sie werden nach der Verarbeitung automatisch gelöscht."
+      }
+    }
+  },
+  "footer": {
+    "description": "Kostenloses KI-gestütztes Tool zur Generierung genauer Bildbeschreibungen. Perfekt für Content-Erstellung, SEO und Barrierefreiheit.",
+    "links": {
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutzrichtlinie",
+      "blog": "Blog"
+    },
+    "copyright": "© 2024 Kostenloser KI-Beschreibungsgenerator. Alle Rechte vorbehalten."
   },
   "language": {
+    "selector": "Sprache",
     "current": "Deutsch"
+  },
+  "about": {
+    "title": "Über den kostenlosen KI-Beschreibungsgenerator",
+    "mission": "Kostenlose, zugängliche KI-gestützte Tools bereitzustellen, die Content-Erstellern, Unternehmen und Einzelpersonen helfen, professionelle Bildbeschreibungen sofort zu generieren.",
+    "whatWeDo": {
+      "title": "Was wir tun",
+      "description1": "Der kostenlose KI-Beschreibungsgenerator ist eine hochmoderne Webanwendung, die fortgeschrittene künstliche Intelligenz nutzt, um Bilder zu analysieren und detaillierte, genaue Beschreibungen zu erstellen.",
+      "description2": "Ob Sie ein E-Commerce-Geschäftsinhaber sind, der Produktbeschreibungen benötigt, ein Content-Ersteller, der an Barrierefreiheit arbeitet, oder ein Marketing-Spezialist, der ansprechende Inhalte entwickelt, unsere KI-gestützte Lösung liefert hochwertige Beschreibungen in Sekundenschnelle."
+    },
+    "technology": {
+      "title": "Unsere Technologie",
+      "description": "Wir nutzen modernste Computer-Vision- und natürliche Sprachverarbeitungsmodelle, um Bilder zu verstehen und zu beschreiben.",
+      "features": {
+        "ai": {
+          "title": "Fortgeschrittene KI",
+          "description": "Angetrieben von der neuesten GPT-4 Vision-Technologie für unübertroffene Genauigkeit bei der Bildanalyse und Beschreibungsgenerierung."
+        },
+        "multilingual": {
+          "title": "Mehrsprachige Unterstützung",
+          "description": "Generieren Sie Beschreibungen in 10 Sprachen, einschließlich Englisch, Spanisch, Französisch, Deutsch, Portugiesisch, Italienisch, Russisch, Japanisch, Koreanisch und Chinesisch."
+        },
+        "privacy": {
+          "title": "Datenschutz zuerst",
+          "description": "Alle hochgeladenen Bilder werden automatisch innerhalb einer Stunde gelöscht. Wir speichern Ihre Inhalte niemals dauerhaft oder teilen sie mit Dritten."
+        },
+        "free": {
+          "title": "Völlig kostenlos",
+          "description": "Keine versteckten Gebühren, keine Registrierung erforderlich, keine Nutzungsbeschränkungen. Wir glauben, dass jeder Zugang zu qualitativ hochwertigen KI-Tools haben sollte."
+        }
+      }
+    },
+    "perfectFor": {
+      "title": "Perfekt für",
+      "ecommerce": "E-Commerce-Unternehmen: Erstellen Sie überzeugende Produktbeschreibungen, die Konversionsraten steigern und SEO-Rankings verbessern.",
+      "creators": "Content-Ersteller und Vermarkter: Generieren Sie ansprechende Beschreibungen für Social-Media-Posts, Blog-Inhalte und Marketing-Materialien.",
+      "developers": "Webentwickler und Designer: Generieren Sie schnell Alt-Text für Bilder, um Web-Barrierefreiheit und SEO zu verbessern.",
+      "educators": "Bildungsfachkräfte: Erstellen Sie detaillierte Bildbeschreibungen für Bildungsmaterialien."
+    },
+    "commitment": {
+      "title": "Unser Engagement",
+      "description1": "Wir sind der Demokratisierung der KI-Technologie verpflichtet, indem wir leistungsstarke Tools bereitstellen, die kostenlos, schnell und benutzerfreundlich sind.",
+      "description2": "Da sich die KI-Technologie weiterentwickelt, sind wir der Verbesserung unseres Services, dem Hinzufügen neuer Funktionen und der Aufrechterhaltung der höchsten Standards für Datenschutz und Sicherheit für unsere Benutzer verpflichtet.",
+      "cta": "Bereit es auszuprobieren? Laden Sie Ihr erstes Bild hoch und erleben Sie die Macht der KI-generierten Beschreibungen. Es ist kostenlos, schnell und erfordert keine Anmeldung!"
+    }
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "intro": "Wir würden gerne von Ihnen hören! Ob Sie Fragen zu unserem KI-Beschreibungsgenerator haben, technischen Support benötigen, neue Funktionen vorschlagen möchten oder an Partnerschaften interessiert sind, wir sind hier, um zu helfen.",
+    "getInTouch": "Kontakt aufnehmen",
+    "email": "info@freeimagedescriber.com",
+    "copyEmail": "E-Mail kopieren",
+    "copied": "✓ Kopiert!",
+    "whatContact": "Worüber Sie uns kontaktieren können",
+    "support": {
+      "title": "Technischer Support",
+      "description": "Haben Sie Probleme mit dem KI-Beschreibungsgenerator? Benötigen Sie Hilfe beim Hochladen oder bei Beschreibungen? Wir sind hier, um zu helfen!"
+    },
+    "features": {
+      "title": "Funktionswünsche",
+      "description": "Haben Sie eine Idee für eine neue Funktion? Möchten Sie zusätzliche Sprachen oder Beschreibungstypen sehen? Wir hören gerne Ihre Vorschläge!"
+    },
+    "business": {
+      "title": "Geschäftspartnerschaften",
+      "description": "Interessiert an der Integration unserer KI-Technologie in Ihre Plattform? Möchten Sie Geschäftsmöglichkeiten besprechen? Lassen Sie uns sprechen!"
+    },
+    "feedback": {
+      "title": "Allgemeines Feedback",
+      "description": "Lieben Sie unser Tool? Haben Sie etwas gefunden, das verbessert werden könnte? Ihr Feedback hilft uns, die Erfahrung für alle zu verbessern."
+    },
+    "responseTime": {
+      "title": "Antwortzeit",
+      "description": "Wir antworten normalerweise innerhalb von 24-48 Stunden an Werktagen auf E-Mails. Bei dringenden technischen Problemen fügen Sie bitte \"DRINGEND\" in die Betreffzeile ein."
+    },
+    "beforeContact": {
+      "title": "Bevor Sie uns kontaktieren",
+      "technical": "Bei technischen Problemen: Bitte versuchen Sie, Ihren Browser zu aktualisieren und stellen Sie sicher, dass Sie eine stabile Internetverbindung haben.",
+      "privacy": "Bei Fragen zum Datenschutz: Schauen Sie sich unsere Datenschutzrichtlinien-Seite für detaillierte Informationen darüber an, wie wir Ihre Daten handhaben.",
+      "general": "Bei allgemeinen Fragen: Unser FAQ-Bereich behandelt viele häufige Fragen zur Funktionsweise des KI-Beschreibungsgenerators."
+    },
+    "note": "Wir sind ein kleines Team, das leidenschaftlich daran arbeitet, KI-Technologie für alle zugänglich zu machen."
+  },
+  "info": {
+    "title": "Kostenloser KI-Beschreibungsgenerator",
+    "description1": "Unser kostenloser KI-Beschreibungsgenerator verwandelt jedes Bild in detaillierte, professionelle Beschreibungen in Sekundenschnelle.",
+    "description2": "Dieser kostenlose Beschreibungsgenerator nutzt fortgeschrittene künstliche Intelligenz, um hochgeladene Bilder zu analysieren und genaue, detaillierte Beschreibungen zu erstellen.",
+    "whyUse": {
+      "title": "Warum unseren kostenlosen KI-Beschreibungsgenerator verwenden?",
+      "description1": "Als kostenloser Beschreibungsgenerator hilft dieses Tool Content-Erstellern, Vermarktern und Geschäftsinhabern, Zeit zu sparen und gleichzeitig ihre Inhaltsqualität zu verbessern.",
+      "description2": "Unser KI-Produktbeschreibungsgenerator ist perfekt für E-Commerce-Unternehmen, die schnell überzeugende Produktbeschreibungen erstellen möchten.",
+      "description3": "Ob Sie einen Online-Shop betreiben, soziale Medien verwalten oder barrierefreie Inhalte erstellen, dieser kostenlose KI-Beschreibungsgenerator rationalisiert Ihren Workflow."
+    },
+    "howToUse": {
+      "title": "Wie man diesen kostenlosen Beschreibungsgenerator verwendet",
+      "description1": "Die Verwendung unseres KI-Beschreibungsgenerators ist einfach: Laden Sie Ihr Bild mit dem \"Bild auswählen\"-Button hoch oder ziehen Sie Ihre Dateien per Drag & Drop.",
+      "description2": "Nach dem Hochladen scannt unser KI-Beschreibungsgenerator jedes Bild und erstellt eine detaillierte schriftliche Beschreibung.",
+      "description3": "Für mehrere Bilder wiederholen Sie einfach den Vorgang. Dieser kostenlose Beschreibungsgenerator hat keine Nutzungsbeschränkungen."
+    },
+    "security": {
+      "title": "Ist dieser Beschreibungsgenerator wirklich kostenlos und sicher?",
+      "description1": "Ja! Unser KI-Beschreibungsgenerator ist völlig kostenlos zu verwenden, ohne versteckte Kosten oder Abonnement-Anforderungen.",
+      "description2": "Dieser kostenlose Beschreibungsgenerator gewährleistet Ihre Datenprivatsphäre und liefert gleichzeitig professionelle Ergebnisse."
+    },
+    "features": {
+      "title": "Leistungsstarke KI-Bildbeschreibungs-Funktionen",
+      "types": "Mehrere Beschreibungstypen: Wählen Sie zwischen Produkttitel, kurzer Beschreibung oder detaillierter Beschreibung.",
+      "technology": "Fortgeschrittene KI-Technologie: Unser kostenloser KI-Beschreibungsgenerator nutzt GPT-4 Vision-Technologie.",
+      "instant": "Sofortige Ergebnisse: Laden Sie jedes JPEG-, PNG- oder GIF-Bild bis zu 5MB hoch und erhalten Sie professionelle Beschreibungen in Sekundenschnelle.",
+      "seo": "SEO-optimierte Beschreibungen: Generierte Beschreibungen sind natürlich schlüsselwortreich.",
+      "privacy": "Datenschutz und Sicherheit: Alle hochgeladenen Bilder werden automatisch innerhalb einer Stunde gelöscht.",
+      "free": "100% kostenlos und unbegrenzt: Keine Registrierung erforderlich, keine versteckten Kosten, keine Nutzungsbeschränkungen."
+    },
+    "benefits": {
+      "title": "Wer profitiert von unserem KI-Beschreibungsgenerator?",
+      "ecommerce": "E-Commerce-Unternehmen: Erstellen Sie überzeugende Produktbeschreibungen, die Konversionsraten steigern und SEO-Rankings verbessern.",
+      "creators": "Content-Ersteller und Vermarkter: Generieren Sie ansprechende Beschreibungen für Social-Media-Posts, Blog-Inhalte und Marketing-Materialien.",
+      "developers": "Webentwickler und Designer: Generieren Sie schnell Alt-Text für Bilder, um Web-Barrierefreiheit und SEO zu verbessern.",
+      "educators": "Bildungsfachkräfte: Erstellen Sie detaillierte Bildbeschreibungen für Bildungsmaterialien."
+    }
   }
 }
+
