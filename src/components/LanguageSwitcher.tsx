@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LanguageSwitcherContainer = styled.div`
@@ -100,12 +101,19 @@ const languages = [
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n, t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
   
   const handleLanguageChange = (languageCode: string) => {
-    i18n.changeLanguage(languageCode);
+    // Extract current path without language prefix
+    const pathWithoutLang = location.pathname.replace(/^\/[a-z]{2}/, '') || '';
+    
+    // Navigate to new language URL
+    const newPath = `/${languageCode}${pathWithoutLang}${location.search}${location.hash}`;
+    navigate(newPath);
     setIsOpen(false);
   };
   

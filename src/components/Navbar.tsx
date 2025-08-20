@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -130,7 +130,14 @@ const CloseButton = styled.button`
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
+  const { lang } = useParams<{ lang: string }>();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Get current language for navigation links
+  const currentLang = lang || 'en';
+  
+  // Helper function to create language-aware links
+  const createLink = (path: string) => `/${currentLang}${path}`;
 
   return (
     <Nav>
@@ -140,9 +147,9 @@ const Navbar: React.FC = () => {
         </Logo>
         
         <NavLinks>
-          <NavLink to="/">{t('header.nav.home')}</NavLink>
-          <NavLink to="/about">{t('header.nav.about')}</NavLink>
-          <NavLink to="/contact">{t('header.nav.contact')}</NavLink>
+          <NavLink to={createLink('')}>{t('header.nav.home')}</NavLink>
+          <NavLink to={createLink('/about')}>{t('header.nav.about')}</NavLink>
+          <NavLink to={createLink('/contact')}>{t('header.nav.contact')}</NavLink>
           <LanguageSwitcher />
         </NavLinks>
 
@@ -154,9 +161,9 @@ const Navbar: React.FC = () => {
           <CloseButton onClick={() => setIsMobileMenuOpen(false)}>
             ×
           </CloseButton>
-          <MobileNavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.home')}</MobileNavLink>
-          <MobileNavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.about')}</MobileNavLink>
-          <MobileNavLink to="/contact" onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.contact')}</MobileNavLink>
+          <MobileNavLink to={createLink('')} onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.home')}</MobileNavLink>
+          <MobileNavLink to={createLink('/about')} onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.about')}</MobileNavLink>
+          <MobileNavLink to={createLink('/contact')} onClick={() => setIsMobileMenuOpen(false)}>{t('header.nav.contact')}</MobileNavLink>
           <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
             <LanguageSwitcher />
           </div>
