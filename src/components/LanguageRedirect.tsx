@@ -7,6 +7,11 @@ const DEFAULT_LANGUAGE = 'en';
 const LanguageRedirect: React.FC = () => {
   const location = useLocation();
 
+  // Only redirect if we're at the root path
+  if (location.pathname !== '/') {
+    return <Navigate to="/" replace />;
+  }
+
   const detectUserLanguage = (): string => {
     // Check localStorage first (user preference)
     const savedLanguage = localStorage.getItem('i18nextLng');
@@ -25,10 +30,7 @@ const LanguageRedirect: React.FC = () => {
   };
 
   const targetLanguage = detectUserLanguage();
-  
-  // Preserve the current path but add language prefix
-  const currentPath = location.pathname === '/' ? '' : location.pathname;
-  const redirectPath = `/${targetLanguage}${currentPath}${location.search}${location.hash}`;
+  const redirectPath = `/${targetLanguage}${location.search}${location.hash}`;
 
   return <Navigate to={redirectPath} replace />;
 };

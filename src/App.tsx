@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <Route path="/" element={<LanguageRedirect />} />
       
       {/* Language-based routes */}
-      <Route path="/:lang" element={<LanguageWrapper />}>
+      <Route path="/:lang/*" element={<LanguageWrapper />}>
         <Route path="*" element={<AppContent />} />
       </Route>
         </Routes>
