@@ -28,6 +28,42 @@ const PageContainer = styled.div`
   p {
     margin-bottom: 1rem;
     font-size: 1.1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+    
+    h1 {
+      font-size: 1.875rem;
+    }
+    
+    h2 {
+      font-size: 1.25rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem;
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+      font-size: 1.125rem;
+      margin: 1.5rem 0 0.75rem 0;
+    }
+    
+    p {
+      font-size: 0.95rem;
+    }
   }
 `;
 
@@ -39,6 +75,17 @@ const ContactCard = styled.div`
   margin: 2rem 0;
   text-align: center;
   box-shadow: 0 10px 25px rgba(86, 83, 250, 0.3);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
 `;
 
 const EmailLink = styled.a`
@@ -50,10 +97,26 @@ const EmailLink = styled.a`
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
+  word-break: break-all;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
   
   &:hover {
     color: #f0f9ff;
     transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    word-break: break-word;
+    text-align: center;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
   }
 `;
 
