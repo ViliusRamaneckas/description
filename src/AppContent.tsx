@@ -253,6 +253,7 @@ const PreviewSection = styled.div`
   max-width: 600px;
   margin: 0 auto 1.5rem auto;
   padding: 0 2rem;
+  text-align: center;
   
   @media (max-width: 768px) {
     padding: 0 1.5rem;
@@ -266,11 +267,12 @@ const PreviewSection = styled.div`
 `;
 
 const PreviewImage = styled.img`
+  display: block;
   max-width: 100%;
   max-height: 400px;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto;
   
   @media (max-width: 768px) {
     max-height: 300px;

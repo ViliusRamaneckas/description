@@ -18,9 +18,13 @@ const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 // Register plugins
 fastify.register(cors, {
-  origin: true, // Allow all origins for now to debug
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+  origin: [
+    'http://localhost:3000',
+    'https://www.freeimagedescriber.com',
+    'https://freeimagedescriber.com'
+  ],
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Accept', 'Authorization', 'X-Requested-With'],
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204
