@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FooterContainer = styled.footer`
@@ -46,6 +46,9 @@ const FooterLink = styled(Link)`
 `;
 
 const Footer: React.FC = () => {
+  const { lang } = useParams<{ lang: string }>();
+  const currentLang = lang || 'en';
+
   return (
     <FooterContainer>
       <FooterContent>
@@ -54,9 +57,11 @@ const Footer: React.FC = () => {
         </Copyright>
         
         <LegalLinks>
-          <FooterLink to="/blog">Blog</FooterLink>
-          <FooterLink to="/terms">Terms of Service</FooterLink>
-          <FooterLink to="/privacy">Privacy Policy</FooterLink>
+          <FooterLink to={`/${currentLang}/blog`}>Blog</FooterLink>
+          <FooterLink to={`/${currentLang}/about`}>About</FooterLink>
+          <FooterLink to={`/${currentLang}/contact`}>Contact</FooterLink>
+          <FooterLink to={`/${currentLang}/terms`}>Terms of Service</FooterLink>
+          <FooterLink to={`/${currentLang}/privacy`}>Privacy Policy</FooterLink>
         </LegalLinks>
       </FooterContent>
     </FooterContainer>

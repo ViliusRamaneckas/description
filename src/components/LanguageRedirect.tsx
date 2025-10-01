@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 const SUPPORTED_LANGUAGES = ['en', 'es', 'fr', 'de', 'pt'];

@@ -100,6 +100,13 @@ const ReadMoreLink = styled(Link)`
 
 const blogPosts = [
   {
+    id: 'future-of-ai-accessibility-2025',
+    title: 'The Future of AI-Powered Accessibility: Trends and Innovations in 2025',
+    excerpt: 'Discover the latest developments in AI accessibility technology and how they are transforming digital inclusion for millions of users worldwide.',
+    date: 'January 23, 2025',
+    readTime: '8 min read'
+  },
+  {
     id: 'multilingual-ai-descriptions',
     title: 'Breaking Language Barriers: AI Descriptions in Multiple Languages',
     excerpt: 'Explore how multilingual AI image descriptions can help you reach global audiences and make your content accessible worldwide.',

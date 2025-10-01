@@ -1,13 +1,27 @@
-# https://www.robotstxt.org/robotstxt.html
+# Robots.txt for freeimagedescriber.com
+# AI Image Description Generator by MB Topvesta
+
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://www.freeimagedescriber.com/sitemap.xml
+# Allow crawling of all language versions
+Allow: /en/
+Allow: /lt/
+Allow: /ru/
 
-# Crawl delay (optional)
-Crawl-delay: 1
+# Allow important pages
+Allow: /en/about
+Allow: /en/contact
+Allow: /en/terms
+Allow: /en/privacy
+Allow: /en/blog
 
-# Disallow admin or private areas (if any)
+# Disallow admin or sensitive areas (if any)
 # Disallow: /admin/
-# Disallow: /private/
+# Disallow: /api/
+
+# Sitemap location
+Sitemap: https://freeimagedescriber.com/sitemap.xml
+
+# Crawl delay (optional - be respectful to smaller servers)
+Crawl-delay: 1

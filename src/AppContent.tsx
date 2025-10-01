@@ -13,6 +13,8 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
 import { API_BASE_URL } from './config/api';
 
 // All the existing styled components from App.tsx
@@ -174,12 +176,12 @@ const UploadSection = styled.div`
   }
 `;
 
-const UploadArea = styled.div<{ isDragOver: boolean }>`
-  border: 2px dashed ${props => props.isDragOver ? '#5653fa' : '#d1d5db'};
+const UploadArea = styled.div<{ $isDragOver: boolean }>`
+  border: 2px dashed ${props => props.$isDragOver ? '#5653fa' : '#d1d5db'};
   border-radius: 12px;
   padding: 2rem;
   text-align: center;
-  background: ${props => props.isDragOver ? '#f8fafc' : '#f9fafb'};
+  background: ${props => props.$isDragOver ? '#f8fafc' : '#f9fafb'};
   transition: all 0.3s ease;
   cursor: pointer;
   
@@ -469,8 +471,8 @@ const ResultText = styled.p`
   }
 `;
 
-const CopyButton = styled.button<{ copied: boolean }>`
-  background: ${props => props.copied ? '#10b981' : '#5653fa'};
+const CopyButton = styled.button<{ $copied: boolean }>`
+  background: ${props => props.$copied ? '#10b981' : '#5653fa'};
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -481,7 +483,7 @@ const CopyButton = styled.button<{ copied: boolean }>`
   transition: background-color 0.3s;
   
   &:hover {
-    background: ${props => props.copied ? '#059669' : '#4338ca'};
+    background: ${props => props.$copied ? '#059669' : '#4338ca'};
   }
   
   @media (max-width: 480px) {
@@ -562,20 +564,7 @@ const InfoText = styled.p`
   }
 `;
 
-// Terms and Privacy placeholder components
-const TermsPage = () => (
-  <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-    <h1>Terms of Service</h1>
-    <p>Terms of service content will be added here.</p>
-  </div>
-);
 
-const PrivacyPage = () => (
-  <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-    <h1>Privacy Policy</h1>
-    <p>Privacy policy content will be added here.</p>
-  </div>
-);
 
 const AppContent: React.FC = () => {
   const { lang } = useParams<{ lang: string }>();
@@ -590,16 +579,37 @@ const AppContent: React.FC = () => {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
   const handleFileSelect = (file: File) => {
-    if (file && file.type.startsWith('image/')) {
-      setSelectedFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
+    // Clear previous errors
       setError('');
       setGeneratedDescription('');
       setCopied(false);
-    } else {
-      setError(t('errors.invalidFileType'));
+    
+    if (!file) {
+      setError(t('errors.fileRequired'));
+      return;
     }
+    
+    // Check file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    const fileType = file.type.toLowerCase();
+    
+    if (!allowedTypes.includes(fileType)) {
+      setError(`${t('errors.invalidFileType')} (${file.type || 'unknown type'})`);
+      return;
+    }
+    
+    // Check file size (5MB limit)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      const fileSizeMB = Math.round(file.size / 1024 / 1024 * 100) / 100;
+      setError(`${t('errors.fileTooLarge')} File size: ${fileSizeMB}MB`);
+      return;
+    }
+    
+    // File is valid
+    setSelectedFile(file);
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -643,20 +653,43 @@ const AppContent: React.FC = () => {
       formData.append('image', selectedFile);
       formData.append('type', descriptionType);
 
+      // Add performance timing
+      const startTime = Date.now();
+
       const response = await fetch(`${API_BASE_URL}/api/describe`, {
         method: 'POST',
         body: formData,
+        // Add timeout for better error handling
+        signal: AbortSignal.timeout(30000) // 30 second timeout
       });
 
       if (!response.ok) {
-        throw new Error('Failed to generate description');
+        const errorData = await response.json().catch(() => ({}));
+        
+        // Handle specific error codes from server
+        if (errorData.code === 'INVALID_FILE_TYPE') {
+          throw new Error(errorData.message || t('errors.invalidFileType'));
+        } else if (errorData.code === 'FILE_TOO_LARGE') {
+          throw new Error(errorData.message || t('errors.fileTooLarge'));
+        } else {
+          throw new Error(errorData.message || 'Failed to generate description');
+        }
       }
 
       const data = await response.json();
+      const endTime = Date.now();
+      const clientTime = endTime - startTime;
+      
+      console.log(`Description generation completed in ${clientTime}ms (client-side total)`);
+      if (data.processingTime) {
+        console.log(`Server processing time: ${data.processingTime}ms`);
+      }
+      
       setGeneratedDescription(data.description);
     } catch (err) {
       console.error('Error generating description:', err);
-      setError(t('errors.generationFailed'));
+      const errorMessage = err instanceof Error ? err.message : t('errors.generationFailed');
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -746,7 +779,7 @@ const AppContent: React.FC = () => {
                 {!previewUrl && (
                   <UploadSection>
                     <UploadArea
-                      isDragOver={isDragOver}
+                      $isDragOver={isDragOver}
                       onDrop={handleDrop}
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
@@ -762,7 +795,7 @@ const AppContent: React.FC = () => {
                     <FileInput
                       id="image-upload"
                       type="file"
-                      accept="image/*"
+                      accept="image/jpeg,image/jpg,image/png,image/gif"
                       onChange={handleFileInputChange}
                     />
                   </UploadSection>
@@ -824,7 +857,7 @@ const AppContent: React.FC = () => {
                         <AILabel>AI</AILabel>
                       </ResultTitle>
                       <ResultText>{generatedDescription}</ResultText>
-                      <CopyButton copied={copied} onClick={handleCopy}>
+                      <CopyButton $copied={copied} onClick={handleCopy}>
                         {copied ? t('result.copied') : t('result.copy')}
                       </CopyButton>
                     </ResultContainer>

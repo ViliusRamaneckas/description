@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   // Default SEO values based on current language
   const defaultTitle = t('header.title');
   const defaultDescription = t('hero.description');
-  const defaultKeywords = 'AI description generator, free description generator, AI product description generator, image describer, description generator, product description tool, image to text, multilingual AI descriptions';
+  const defaultKeywords = 'free image describer, image describer, AI image describer, free image description generator, image description tool, AI image description, free image analyzer, image to text describer, multilingual image describer';
   
   const pageTitle = title || defaultTitle;
   const pageDescription = description || defaultDescription;

@@ -33,7 +33,7 @@ const LanguageButton = styled.button`
   }
 `;
 
-const LanguageDropdown = styled.div<{ isOpen: boolean }>`
+const LanguageDropdown = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
@@ -43,17 +43,17 @@ const LanguageDropdown = styled.div<{ isOpen: boolean }>`
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   z-index: 50;
   min-width: 180px;
-  display: ${props => props.isOpen ? 'block' : 'none'};
+  display: ${props => props.$isOpen ? 'block' : 'none'};
   margin-top: 0.25rem;
 `;
 
-const LanguageOption = styled.button<{ isActive: boolean }>`
+const LanguageOption = styled.button<{ $isActive: boolean }>`
   width: 100%;
   text-align: left;
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
   color: #374151;
-  background: ${props => props.isActive ? '#f8fafc' : 'transparent'};
+  background: ${props => props.$isActive ? '#f8fafc' : 'transparent'};
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -79,8 +79,8 @@ const LanguageFlag = styled.span`
   width: 20px;
 `;
 
-const ChevronIcon = styled.span<{ isOpen: boolean }>`
-  transform: ${props => props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};
+const ChevronIcon = styled.span<{ $isOpen: boolean }>`
+  transform: ${props => props.$isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: transform 0.2s ease;
   font-size: 0.8rem;
   color: #9ca3af;
@@ -100,7 +100,7 @@ const languages = [
 ];
 
 const LanguageSwitcher: React.FC = () => {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -135,14 +135,14 @@ const LanguageSwitcher: React.FC = () => {
       <LanguageButton onClick={() => setIsOpen(!isOpen)}>
         <LanguageFlag>{currentLanguage.flag}</LanguageFlag>
         {currentLanguage.name}
-        <ChevronIcon isOpen={isOpen}>▼</ChevronIcon>
+        <ChevronIcon $isOpen={isOpen}>▼</ChevronIcon>
       </LanguageButton>
       
-      <LanguageDropdown isOpen={isOpen}>
+      <LanguageDropdown $isOpen={isOpen}>
         {languages.map((language) => (
           <LanguageOption
             key={language.code}
-            isActive={language.code === i18n.language}
+            $isActive={language.code === i18n.language}
             onClick={() => handleLanguageChange(language.code)}
           >
             <LanguageFlag>{language.flag}</LanguageFlag>

@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "Generador Gratuito de Descripciones con IA",
+    "title": "Descriptor de Imágenes Gratuito - Generador de Descripciones con IA",
     "nav": {
       "home": "Inicio",
       "about": "Acerca de",
@@ -11,14 +11,14 @@
     }
   },
   "hero": {
-    "title": "Generador Gratuito de Descripciones con IA",
-    "description": "Este Generador Gratuito de Descripciones con IA te permite subir cualquier foto o imagen y recibir instantáneamente una descripción detallada. A diferencia de otros servicios, no requiere registro ni email, es completamente gratuito y funciona de manera rápida y fácil.",
-    "intro": "Este Generador Gratuito de Descripciones con IA te permite subir cualquier foto o imagen y recibir instantáneamente una descripción detallada. A diferencia de otros servicios, no requiere registro ni email, es completamente gratuito y funciona de manera rápida y fácil.",
+    "title": "Descriptor de Imágenes Gratuito - Herramienta de Descripción con IA",
+    "description": "Este Descriptor de Imágenes Gratuito te permite subir cualquier foto o imagen y recibir instantáneamente una descripción detallada. Nuestro descriptor de imágenes usa IA avanzada para analizar tus imágenes - completamente gratuito, sin registro requerido, funciona rápida y fácilmente.",
+    "intro": "Este Descriptor de Imágenes Gratuito te permite subir cualquier foto o imagen y recibir instantáneamente una descripción detallada. Nuestro descriptor de imágenes usa IA avanzada para analizar tus imágenes - completamente gratuito, sin registro requerido, funciona rápida y fácilmente.",
     "instructions": {
       "title": "Cómo usar esta herramienta:",
       "step1": "Haz clic en el botón \"Seleccionar Imagen\" y elige hasta 1 imagen que desees describir. También puedes arrastrar archivos al área de carga.",
       "step2": "Elige tu tipo de descripción: Título de Producto, Descripción Breve o Descripción Detallada según tus necesidades.",
-      "step3": "Haz clic en \"Generar Descripción\" y deja que nuestra IA analice tu imagen y cree una descripción precisa para ti.",
+      "step3": "Haz clic en \"Generar Descripción\" y deja que nuestro descriptor de imágenes gratuito analice tu imagen y cree una descripción precisa para ti.",
       "step4": "Copia la descripción generada a tu portapapeles y úsala para tu contenido, marketing o necesidades de accesibilidad.",
       "step5": "¿Quieres analizar otra imagen? Haz clic en \"Subir Nueva Imagen\" para empezar de nuevo con una foto fresca y generar una nueva descripción."
     }
@@ -141,9 +141,32 @@
   },
   "contact": {
     "title": "Contáctanos",
-    "intro": "¡Nos encantaría saber de ti! Ya sea que tengas preguntas sobre nuestro generador de descripciones con IA, necesites soporte técnico, quieras sugerir nuevas características, o estés interesado en asociaciones, estamos aquí para ayudar.",
+    "intro": "¡Nos encantaría saber de ti! Ya sea que tengas preguntas sobre nuestro descriptor de imágenes gratuito, necesites soporte técnico, quieras sugerir nuevas características, o estés interesado en asociaciones, estamos aquí para ayudar.",
+    "responseTime": "Normalmente respondemos a los emails dentro de 24-48 horas durante días laborables. Para problemas técnicos urgentes, por favor incluye \"URGENTE\" en el asunto.",
+    "email": {
+      "title": "Soporte por Email"
+    },
+    "chat": {
+      "title": "Chat en Vivo",
+      "description": "Disponible durante horario de oficina para asistencia inmediata"
+    },
+    "global": {
+      "title": "Soporte Global",
+      "description": "Proporcionamos soporte mundial en múltiples idiomas"
+    },
+    "form": {
+      "title": "Envíanos un Mensaje",
+      "name": "Tu Nombre",
+      "email": "Dirección de Email",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "submit": "Enviar Mensaje"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "description": "Consulta nuestra sección de FAQ para respuestas rápidas a preguntas comunes sobre nuestro descriptor de imágenes gratuito."
+    },
     "getInTouch": "Ponte en Contacto",
-    "email": "info@freeimagedescriber.com",
     "copyEmail": "Copiar Email",
     "copied": "✓ ¡Copiado!",
     "whatContact": "Sobre Qué Puedes Contactarnos",

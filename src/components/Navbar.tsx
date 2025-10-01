@@ -143,7 +143,7 @@ const Navbar: React.FC = () => {
     <Nav>
       <NavContainer>
         <Logo to="/">
-          <LogoImage src="/IMAGE (1) (1).svg" alt="Free AI Description Generator" />
+          <LogoImage src="/IMAGE (1) (1).svg" alt="Free Image Describer" />
         </Logo>
         
         <NavLinks>

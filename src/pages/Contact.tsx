@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
@@ -28,153 +28,101 @@ const PageContainer = styled.div`
   p {
     margin-bottom: 1rem;
     font-size: 1.1rem;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
   }
-  
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
-    
-    h1 {
-      font-size: 1.875rem;
-    }
-    
-    h2 {
-      font-size: 1.25rem;
-    }
-    
-    p {
-      font-size: 1rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    padding: 1.5rem 1rem;
-    
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    h2 {
-      font-size: 1.125rem;
-      margin: 1.5rem 0 0.75rem 0;
-    }
-    
-    p {
-      font-size: 0.95rem;
-    }
-  }
-`;
 
-const ContactCard = styled.div`
-  background: linear-gradient(135deg, #5653fa 0%, #4338ca 100%);
-  color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  margin: 2rem 0;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(86, 83, 250, 0.3);
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  
-  @media (max-width: 768px) {
+  .contact-form {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    margin: 2rem 0;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    
+    &:focus {
+      outline: none;
+      border-color: #5653fa;
+      box-shadow: 0 0 0 3px rgba(86, 83, 250, 0.1);
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .submit-button {
+    background: #5653fa;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    
+    &:hover {
+      background: #4338ca;
+    }
+  }
+
+  .contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .info-card {
     padding: 1.5rem;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-`;
-
-const EmailLink = styled.a`
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  word-break: break-all;
-  max-width: 100%;
-  flex-wrap: wrap;
-  justify-content: center;
-  
-  &:hover {
-    color: #f0f9ff;
-    transform: translateY(-2px);
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-    flex-direction: column;
-    gap: 0.25rem;
-    word-break: break-word;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
     text-align: center;
   }
-  
-  @media (max-width: 480px) {
-    font-size: 1rem;
+
+  .info-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
-`;
 
-const ContactInfo = styled.div`
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 2rem;
-  margin: 2rem 0;
-`;
+  .info-title {
+    font-weight: 600;
+    color: #5653fa;
+    margin-bottom: 0.5rem;
+  }
 
-const InfoGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
-`;
-
-const InfoCard = styled.div`
-  padding: 1.5rem;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  text-align: center;
-`;
-
-const InfoTitle = styled.h3`
-  color: #5653fa;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-`;
-
-const CopyButton = styled.button`
-  background: #5653fa;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.2s;
-  
-  &:hover {
-    background: #4338ca;
+  .highlight {
+    background: linear-gradient(120deg, rgba(86, 83, 250, 0.1) 0%, rgba(86, 83, 250, 0.2) 100%);
+    padding: 1.5rem;
+    border-left: 4px solid #5653fa;
+    border-radius: 8px;
+    margin: 2rem 0;
   }
 `;
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
-  const [copied, setCopied] = useState(false);
-  
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('info@freeimagedescriber.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <PageContainer>
@@ -184,69 +132,64 @@ const Contact: React.FC = () => {
         {t('contact.intro')}
       </p>
 
-      <ContactCard>
-        <h2 style={{ margin: '0 0 1rem 0', color: 'white' }}>{t('contact.getInTouch')}</h2>
-        <EmailLink href="mailto:info@freeimagedescriber.com">
-          📧 {t('contact.email')}
-        </EmailLink>
-        <CopyButton onClick={handleCopyEmail}>
-          {copied ? t('contact.copied') : t('contact.copyEmail')}
-        </CopyButton>
-      </ContactCard>
-
-      <h2>{t('contact.whatContact')}</h2>
-
-      <InfoGrid>
-        <InfoCard>
-          <InfoTitle>🐛 {t('contact.support.title')}</InfoTitle>
-          <p>{t('contact.support.description')}</p>
-        </InfoCard>
-
-        <InfoCard>
-          <InfoTitle>💡 {t('contact.features.title')}</InfoTitle>
-          <p>{t('contact.features.description')}</p>
-        </InfoCard>
-
-        <InfoCard>
-          <InfoTitle>🤝 {t('contact.business.title')}</InfoTitle>
-          <p>{t('contact.business.description')}</p>
-        </InfoCard>
-
-        <InfoCard>
-          <InfoTitle>📝 {t('contact.feedback.title')}</InfoTitle>
-          <p>{t('contact.feedback.description')}</p>
-        </InfoCard>
-      </InfoGrid>
-
-      <ContactInfo>
-        <h2>{t('contact.responseTime.title')}</h2>
-        <p>
-          {t('contact.responseTime.description')}
-        </p>
-        
-        <h2>{t('contact.beforeContact.title')}</h2>
-        <p>
-          <strong>{t('contact.beforeContact.technical')}</strong>
-        </p>
-        
-        <p>
-          <strong>{t('contact.beforeContact.privacy')}</strong>
-        </p>
-        
-        <p>
-          <strong>{t('contact.beforeContact.general')}</strong>
-        </p>
-      </ContactInfo>
-
-      <div style={{ 
-        background: 'linear-gradient(120deg, rgba(86, 83, 250, 0.1) 0%, rgba(86, 83, 250, 0.2) 100%)', 
-        padding: '1.5rem', 
-        borderLeft: '4px solid #5653fa', 
-        borderRadius: '8px', 
-        margin: '2rem 0' 
-      }}>
-        <p><strong>Note:</strong> {t('contact.note')}</p>
+      <div className="highlight">
+        <p><strong>{t('contact.responseTime')}</strong></p>
       </div>
+
+      <div className="contact-info">
+        <div className="info-card">
+          <div className="info-icon">📧</div>
+          <div className="info-title">{t('contact.email.title')}</div>
+          <p>info@freeimagedescriber.com</p>
+        </div>
+        
+        <div className="info-card">
+          <div className="info-icon">💬</div>
+          <div className="info-title">{t('contact.chat.title')}</div>
+          <p>{t('contact.chat.description')}</p>
+        </div>
+        
+        <div className="info-card">
+          <div className="info-icon">🌍</div>
+          <div className="info-title">{t('contact.global.title')}</div>
+          <p>{t('contact.global.description')}</p>
+        </div>
+      </div>
+
+      <h2>{t('contact.form.title')}</h2>
+      
+      <div className="contact-form">
+        <form>
+          <div className="form-group">
+            <label htmlFor="name">{t('contact.form.name')}</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="email">{t('contact.form.email')}</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="subject">{t('contact.form.subject')}</label>
+            <input type="text" id="subject" name="subject" required />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="message">{t('contact.form.message')}</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          
+          <button type="submit" className="submit-button">
+            {t('contact.form.submit')}
+          </button>
+        </form>
+      </div>
+
+      <h2>{t('contact.faq.title')}</h2>
+      <p>
+        {t('contact.faq.description')}
+      </p>
     </PageContainer>
   );
 };

@@ -6,6 +6,7 @@ const OpenAI = require('openai');
 const path = require('path');
 const fs = require('fs');
 const cron = require('node-cron');
+const sharp = require('sharp');
 
 dotenv.config();
 
@@ -113,10 +114,43 @@ fastify.get('/cors-test', async (request, reply) => {
   return { message: 'CORS test successful', timestamp: new Date().toISOString() };
 });
 
-// Main route - ENHANCED SECURITY
+// Optimized image processing function
+async function optimizeImage(buffer, mimetype) {
+  const startTime = Date.now();
+  
+  try {
+    // Optimize image: resize if too large, compress, and convert to JPEG for better compression
+    const optimizedBuffer = await sharp(buffer)
+      .resize(1024, 1024, { 
+        fit: 'inside', 
+        withoutEnlargement: true 
+      })
+      .jpeg({ 
+        quality: 85, 
+        progressive: true 
+      })
+      .toBuffer();
+    
+    const processingTime = Date.now() - startTime;
+    console.log(`Image optimization completed in ${processingTime}ms. Original: ${buffer.length} bytes, Optimized: ${optimizedBuffer.length} bytes`);
+    
+    return {
+      buffer: optimizedBuffer,
+      mimetype: 'image/jpeg'
+    };
+  } catch (error) {
+    console.warn('Image optimization failed, using original:', error.message);
+    return {
+      buffer,
+      mimetype
+    };
+  }
+}
+
+// Main route - PERFORMANCE OPTIMIZED
 fastify.post('/api/describe', async (request, reply) => {
+  const requestStartTime = Date.now();
   fastify.log.info('Describe endpoint hit');
-  let filePath;
   
   try {
     const data = await request.file();
@@ -126,53 +160,74 @@ fastify.post('/api/describe', async (request, reply) => {
       return reply.status(400).send({ error: 'No image file provided' });
     }
 
-    // Get description type from query parameters
-    const descriptionType = request.query?.descriptionType || 'detailed';
+    // Get description type from form data or query parameters
+    const descriptionType = request.body?.type || request.query?.descriptionType || 'detailed';
     fastify.log.info('Description type received:', descriptionType);
 
-    fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', data.file.bytesRead);
+    const fileSize = data.file.bytesRead || 0;
+    fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', fileSize);
 
-    // Additional server-side validation
-    if (!validateImageFile(data.mimetype || '', data.file.bytesRead)) {
-      throw new Error('Invalid file type or size');
+    // Fast validation
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    
+    if (!allowedTypes.includes(data.mimetype?.toLowerCase() || '')) {
+      return reply.status(400).send({ 
+        error: 'Unsupported file format',
+        message: `Please upload a valid image file. Supported formats: JPG, PNG, GIF, WebP. You uploaded: ${data.mimetype || 'unknown'}`,
+        code: 'INVALID_FILE_TYPE'
+      });
+    }
+    
+    if (fileSize > maxSize) {
+      return reply.status(400).send({ 
+        error: 'File too large',
+        message: `File size must be less than 5MB. Your file is ${Math.round(fileSize / 1024 / 1024 * 100) / 100}MB`,
+        code: 'FILE_TOO_LARGE'
+      });
     }
 
-    // Save file temporarily
-    const uploadDir = 'uploads/';
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    const sanitizedName = sanitizeFilename(data.filename || 'image');
-    const fileExt = path.extname(sanitizedName);
-    filePath = path.join(uploadDir, `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`);
-
-    // Save file
+    // PERFORMANCE OPTIMIZATION: Process image in memory without file system operations
     const buffer = await data.toBuffer();
-    fs.writeFileSync(filePath, buffer);
+    const bufferTime = Date.now();
+    fastify.log.info(`Buffer conversion completed in ${bufferTime - requestStartTime}ms`);
 
-    // Convert image to base64
-    const base64Image = buffer.toString('base64');
-    fastify.log.info('Image converted to base64, length:', base64Image.length);
+    // Optimize image for faster processing
+    const { buffer: optimizedBuffer, mimetype: optimizedMimetype } = await optimizeImage(buffer, data.mimetype);
+    const optimizationTime = Date.now();
+    fastify.log.info(`Image optimization completed in ${optimizationTime - bufferTime}ms`);
 
-    // Prepare prompt based on description type
+    // Convert optimized image to base64
+    const base64Image = optimizedBuffer.toString('base64');
+    const base64Time = Date.now();
+    fastify.log.info(`Base64 conversion completed in ${base64Time - optimizationTime}ms. Size: ${base64Image.length} chars`);
+
+    // Prepare optimized prompt based on description type
     let prompt = '';
+    let maxTokens = 300; // Reduced default for faster responses
+    
     switch (descriptionType) {
       case 'title':
         prompt = 'Generate a concise, catchy product title for this image. Keep it under 10 words.';
+        maxTokens = 50;
         break;
       case 'brief':
         prompt = 'Provide a brief, one-paragraph description of this image. Focus on the main elements and purpose.';
+        maxTokens = 150;
         break;
       case 'detailed':
       default:
         prompt = 'Provide a detailed description of this image, including all notable features, colors, composition, and context.';
+        maxTokens = 300;
         break;
     }
 
     fastify.log.info('Calling OpenAI API...');
+    const apiStartTime = Date.now();
+    
+    // PERFORMANCE OPTIMIZATION: Use faster model and optimized parameters
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o-mini", // This is actually the fastest vision model
       messages: [
         {
           role: "user",
@@ -181,38 +236,44 @@ fastify.post('/api/describe', async (request, reply) => {
             {
               type: "image_url",
               image_url: {
-                url: `data:${data.mimetype};base64,${base64Image}`,
+                url: `data:${optimizedMimetype};base64,${base64Image}`,
+                detail: "low" // CRITICAL: Use low detail for 3x faster processing
               },
             },
           ],
         },
       ],
-      max_tokens: descriptionType === 'title' ? 100 : 500,
+      max_tokens: maxTokens,
+      temperature: 0.3, // Lower temperature for faster, more consistent responses
+      stream: false
     });
 
+    const apiTime = Date.now();
+    fastify.log.info(`OpenAI API call completed in ${apiTime - apiStartTime}ms`);
+
     const description = response.choices[0]?.message?.content || 'No description generated';
-    return { description };
+    const totalTime = Date.now() - requestStartTime;
+    
+    fastify.log.info(`Total request processing time: ${totalTime}ms`);
+    
+    return { 
+      description,
+      processingTime: totalTime
+    };
+    
   } catch (error) {
+    const totalTime = Date.now() - requestStartTime;
     fastify.log.error('Server Error:', {
       name: error?.name,
       message: error?.message,
-      stack: error?.stack
+      stack: error?.stack,
+      processingTime: totalTime
     });
     
     return reply.status(500).send({ 
       error: 'Failed to process image',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
-  } finally {
-    // CRITICAL: Always clean up the uploaded file, even if processing fails
-    if (filePath && fs.existsSync(filePath)) {
-      try {
-        fs.unlinkSync(filePath);
-        fastify.log.info(`Cleaned up file: ${filePath}`);
-      } catch (cleanupError) {
-        fastify.log.error(`Failed to cleanup file ${filePath}:`, cleanupError);
-      }
-    }
   }
 });
 
