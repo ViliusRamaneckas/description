@@ -156,7 +156,7 @@ const PrivacyPage: React.FC = () => {
 
       <h2>{t('privacy.contact.title')}</h2>
       <p>
-        {t('privacy.contact.description')} support@imagealt.ai
+        {t('privacy.contact.description')} info@freeimagedescriber.com
       </p>
     </PageContainer>
   );
