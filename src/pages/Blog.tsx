@@ -100,6 +100,13 @@ const ReadMoreLink = styled(Link)`
 
 const blogPosts = [
   {
+    id: 'seo-optimization-ai-image-descriptions',
+    title: 'Complete Guide to SEO Optimization with AI-Generated Image Descriptions',
+    excerpt: 'Master the art of search engine optimization using AI-powered image descriptions. Learn how to improve rankings, drive organic traffic, and dominate search results.',
+    date: 'January 28, 2025',
+    readTime: '12 min read'
+  },
+  {
     id: 'future-of-ai-accessibility-2025',
     title: 'The Future of AI-Powered Accessibility: Trends and Innovations in 2025',
     excerpt: 'Discover the latest developments in AI accessibility technology and how they are transforming digital inclusion for millions of users worldwide.',
