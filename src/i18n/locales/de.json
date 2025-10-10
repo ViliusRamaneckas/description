@@ -26,7 +26,7 @@
   "upload": {
     "title": "Ihr Bild hochladen",
     "dragDrop": "Ziehen Sie Ihr Bild hierher oder klicken Sie zum Auswählen",
-    "fileTypes": "Unterstützt JPG, PNG, GIF bis zu 10MB",
+    "fileTypes": "Unterstützt JPG, PNG, GIF, WebP, AVIF bis zu 20MB",
     "selectImage": "Bild auswählen",
     "uploading": "Lade hoch..."
   },
@@ -48,8 +48,8 @@
   },
   "errors": {
     "fileRequired": "Bitte wählen Sie zuerst eine Bilddatei aus.",
-    "fileTooLarge": "Die Dateigröße muss weniger als 10MB betragen.",
-    "invalidFileType": "Bitte wählen Sie eine gültige Bilddatei (JPG, PNG, GIF).",
+    "fileTooLarge": "Die Dateigröße muss weniger als 20MB betragen.",
+    "invalidFileType": "Bitte wählen Sie eine gültige Bilddatei (JPG, PNG, GIF, WebP, AVIF).",
     "uploadFailed": "Fehler beim Hochladen des Bildes. Bitte versuchen Sie es erneut.",
     "generationFailed": "Fehler beim Generieren der Beschreibung. Bitte versuchen Sie es erneut."
   },
@@ -200,7 +200,7 @@
       "title": "Leistungsstarke KI-Bildbeschreibungs-Funktionen",
       "types": "Mehrere Beschreibungstypen: Wählen Sie zwischen Produkttitel, kurzer Beschreibung oder detaillierter Beschreibung.",
       "technology": "Fortgeschrittene KI-Technologie: Unser kostenloser KI-Beschreibungsgenerator nutzt GPT-4 Vision-Technologie.",
-      "instant": "Sofortige Ergebnisse: Laden Sie jedes JPEG-, PNG- oder GIF-Bild bis zu 5MB hoch und erhalten Sie professionelle Beschreibungen in Sekundenschnelle.",
+      "instant": "Sofortige Ergebnisse: Laden Sie jedes JPEG-, PNG-, GIF-, WebP- oder AVIF-Bild bis zu 20MB hoch und erhalten Sie professionelle Beschreibungen in Sekundenschnelle.",
       "seo": "SEO-optimierte Beschreibungen: Generierte Beschreibungen sind natürlich schlüsselwortreich.",
       "privacy": "Datenschutz und Sicherheit: Alle hochgeladenen Bilder werden automatisch innerhalb einer Stunde gelöscht.",
       "free": "100% kostenlos und unbegrenzt: Keine Registrierung erforderlich, keine versteckten Kosten, keine Nutzungsbeschränkungen."

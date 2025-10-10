@@ -26,7 +26,7 @@
   "upload": {
     "title": "Sube tu Imagen",
     "dragDrop": "Arrastra y suelta tu imagen aquí, o haz clic para seleccionar",
-    "fileTypes": "Soporta JPG, PNG, GIF hasta 10MB",
+    "fileTypes": "Soporta JPG, PNG, GIF, WebP, AVIF hasta 20MB",
     "selectImage": "Seleccionar Imagen",
     "uploading": "Subiendo..."
   },
@@ -48,8 +48,8 @@
   },
   "errors": {
     "fileRequired": "Por favor selecciona primero un archivo de imagen.",
-    "fileTooLarge": "El tamaño del archivo debe ser menor a 10MB.",
-    "invalidFileType": "Por favor selecciona un archivo de imagen válido (JPG, PNG, GIF).",
+    "fileTooLarge": "El tamaño del archivo debe ser menor a 20MB.",
+    "invalidFileType": "Por favor selecciona un archivo de imagen válido (JPG, PNG, GIF, WebP, AVIF).",
     "uploadFailed": "Error al subir la imagen. Por favor intenta de nuevo.",
     "generationFailed": "Error al generar la descripción. Por favor intenta de nuevo."
   },
@@ -223,7 +223,7 @@
       "title": "Características Poderosas del Generador de Descripciones de Imágenes con IA",
       "types": "Múltiples Tipos de Descripción: Elige entre Título de Producto (marca concisa), Descripción Breve (resumen de un párrafo), o Descripción Detallada (análisis comprensivo) para satisfacer tus necesidades específicas.",
       "technology": "Tecnología de IA Avanzada: Nuestro generador gratuito de descripciones con IA usa tecnología GPT-4 Vision para identificar objetos, personas, colores, composición y contexto con precisión notable. Perfecto para descripciones de productos de comercio electrónico, texto alternativo de accesibilidad y creación de contenido.",
-      "instant": "Resultados Instantáneos: Sube cualquier imagen JPEG, PNG o GIF hasta 5MB y recibe descripciones profesionales en segundos. Sin esperas, sin colas - solo descripciones inmediatas y precisas para tus imágenes.",
+      "instant": "Resultados Instantáneos: Sube cualquier imagen JPEG, PNG, GIF, WebP o AVIF hasta 20MB y recibe descripciones profesionales en segundos. Sin esperas, sin colas - solo descripciones inmediatas y precisas para tus imágenes.",
       "seo": "Descripciones Optimizadas para SEO: Las descripciones generadas son naturalmente ricas en palabras clave y perfectas para mejorar la visibilidad en motores de búsqueda de tu contenido. Ideal para sitios web de comercio electrónico, publicaciones de blog y contenido de redes sociales.",
       "privacy": "Privacidad y Seguridad: Todas las imágenes subidas se eliminan automáticamente en 1 hora. Nunca almacenamos tus imágenes permanentemente ni las compartimos con terceros, asegurando protección completa de privacidad.",
       "free": "100% Gratis e Ilimitado: Sin registro requerido, sin costos ocultos, sin límites de uso. Nuestro descriptor de imágenes con IA permanece completamente gratuito para uso personal y comercial, haciéndolo accesible para todos."

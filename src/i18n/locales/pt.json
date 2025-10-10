@@ -26,7 +26,7 @@
   "upload": {
     "title": "Carregue Sua Imagem",
     "dragDrop": "Arraste e solte sua imagem aqui, ou clique para selecionar",
-    "fileTypes": "Suporta JPG, PNG, GIF até 10MB",
+    "fileTypes": "Suporta JPG, PNG, GIF, WebP, AVIF até 20MB",
     "selectImage": "Selecionar Imagem",
     "uploading": "Carregando..."
   },
@@ -48,8 +48,8 @@
   },
   "errors": {
     "fileRequired": "Por favor, selecione primeiro um arquivo de imagem.",
-    "fileTooLarge": "O tamanho do arquivo deve ser menor que 10MB.",
-    "invalidFileType": "Por favor, selecione um arquivo de imagem válido (JPG, PNG, GIF).",
+    "fileTooLarge": "O tamanho do arquivo deve ser menor que 20MB.",
+    "invalidFileType": "Por favor, selecione um arquivo de imagem válido (JPG, PNG, GIF, WebP, AVIF).",
     "uploadFailed": "Falha ao carregar a imagem. Tente novamente.",
     "generationFailed": "Falha ao gerar a descrição. Tente novamente."
   },
@@ -200,7 +200,7 @@
       "title": "Recursos Poderosos do Gerador de Descrições de Imagens IA",
       "types": "Múltiplos Tipos de Descrição: Escolha entre Título do Produto, Descrição Breve, ou Descrição Detalhada para atender suas necessidades específicas.",
       "technology": "Tecnologia IA Avançada: Nosso gerador gratuito de descrições IA usa tecnologia GPT-4 Vision.",
-      "instant": "Resultados Instantâneos: Carregue qualquer imagem JPEG, PNG ou GIF até 5MB e receba descrições profissionais em segundos.",
+      "instant": "Resultados Instantâneos: Carregue qualquer imagem JPEG, PNG, GIF, WebP ou AVIF até 20MB e receba descrições profissionais em segundos.",
       "seo": "Descrições Otimizadas para SEO: As descrições geradas são naturalmente ricas em palavras-chave.",
       "privacy": "Privacidade e Segurança: Todas as imagens carregadas são automaticamente excluídas em 1 hora.",
       "free": "100% Gratuito e Ilimitado: Sem registro necessário, sem custos ocultos, sem limites de uso."

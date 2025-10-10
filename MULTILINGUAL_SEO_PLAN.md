@@ -105,3 +105,5 @@ const SEOHead = ({ currentLang }) => (
 ## Recommendation
 
 **Implement URL-based multilingual structure** for significantly better SEO performance and user experience. The current implementation already has all the translations - we just need to restructure the routing to make each language accessible via dedicated URLs.
+
+

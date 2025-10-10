@@ -26,7 +26,7 @@
   "upload": {
     "title": "Upload Your Image",
     "dragDrop": "Drag and drop your image here, or click to select",
-    "fileTypes": "Supports JPG, PNG, GIF up to 10MB",
+    "fileTypes": "Supports JPG, PNG, GIF, WebP, AVIF up to 20MB",
     "selectImage": "Select Image",
     "uploading": "Uploading..."
   },
@@ -48,8 +48,8 @@
   },
   "errors": {
     "fileRequired": "Please select an image file first.",
-    "fileTooLarge": "File size must be less than 10MB.",
-    "invalidFileType": "Please select a valid image file (JPG, PNG, GIF).",
+    "fileTooLarge": "File size must be less than 20MB.",
+    "invalidFileType": "Please select a valid image file (JPG, PNG, GIF, WebP, AVIF).",
     "uploadFailed": "Failed to upload image. Please try again.",
     "generationFailed": "Failed to generate description. Please try again."
   },
@@ -348,7 +348,7 @@
       "title": "Powerful Free Image Describer Features",
       "types": "Multiple Description Types: Choose from Product Title (concise branding), Brief Description (one-paragraph overview), or Detailed Description (comprehensive analysis) to match your specific needs.",
       "technology": "Advanced AI Technology: Our free image describer uses GPT-4 Vision technology to identify objects, people, colors, composition, and context with remarkable accuracy. Perfect for e-commerce product descriptions, accessibility alt text, and content creation.",
-      "instant": "Instant Results: Upload any JPEG, PNG, or GIF image up to 5MB and receive professional descriptions in seconds. No waiting, no queues - just immediate, accurate descriptions from our image describer.",
+      "instant": "Instant Results: Upload any JPEG, PNG, GIF, WebP, or AVIF image up to 20MB and receive professional descriptions in seconds. No waiting, no queues - just immediate, accurate descriptions from our image describer.",
       "seo": "SEO-Optimized Descriptions: Generated descriptions are naturally keyword-rich and perfect for improving your content's search engine visibility. Ideal for e-commerce websites, blog posts, and social media content.",
       "privacy": "Privacy & Security: All uploaded images are automatically deleted within 1 hour. We never store your images permanently or share them with third parties, ensuring complete privacy protection.",
       "free": "100% Free & Unlimited: No registration required, no hidden costs, no usage limits. Our free image describer remains completely free for personal and commercial use, making it accessible to everyone."

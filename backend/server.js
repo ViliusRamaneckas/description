@@ -33,7 +33,7 @@ fastify.register(cors, {
 
 fastify.register(multipart, {
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB
+    fileSize: 20 * 1024 * 1024 // 20MB
   }
 });
 
@@ -80,8 +80,8 @@ const sanitizeFilename = (originalname) => {
 
 // Enhanced file validation
 const validateImageFile = (mimetype, size) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-  const maxSize = 5 * 1024 * 1024; // 5MB
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
+  const maxSize = 20 * 1024 * 1024; // 20MB
   
   // Check MIME type
   if (!allowedTypes.includes(mimetype)) {
@@ -168,13 +168,13 @@ fastify.post('/api/describe', async (request, reply) => {
     fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', fileSize);
 
     // Fast validation
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
+    const maxSize = 20 * 1024 * 1024; // 20MB
     
     if (!allowedTypes.includes(data.mimetype?.toLowerCase() || '')) {
       return reply.status(400).send({ 
         error: 'Unsupported file format',
-        message: `Please upload a valid image file. Supported formats: JPG, PNG, GIF, WebP. You uploaded: ${data.mimetype || 'unknown'}`,
+        message: `Please upload a valid image file. Supported formats: JPG, PNG, GIF, WebP, AVIF. You uploaded: ${data.mimetype || 'unknown'}`,
         code: 'INVALID_FILE_TYPE'
       });
     }
@@ -182,7 +182,7 @@ fastify.post('/api/describe', async (request, reply) => {
     if (fileSize > maxSize) {
       return reply.status(400).send({ 
         error: 'File too large',
-        message: `File size must be less than 5MB. Your file is ${Math.round(fileSize / 1024 / 1024 * 100) / 100}MB`,
+        message: `File size must be less than 20MB. Your file is ${Math.round(fileSize / 1024 / 1024 * 100) / 100}MB`,
         code: 'FILE_TOO_LARGE'
       });
     }

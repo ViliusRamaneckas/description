@@ -26,7 +26,7 @@
   "upload": {
     "title": "Téléchargez votre Image",
     "dragDrop": "Glissez-déposez votre image ici, ou cliquez pour sélectionner",
-    "fileTypes": "Supporte JPG, PNG, GIF jusqu'à 10MB",
+    "fileTypes": "Supporte JPG, PNG, GIF, WebP, AVIF jusqu'à 20MB",
     "selectImage": "Sélectionner Image",
     "uploading": "Téléchargement..."
   },
@@ -48,8 +48,8 @@
   },
   "errors": {
     "fileRequired": "Veuillez d'abord sélectionner un fichier image.",
-    "fileTooLarge": "La taille du fichier doit être inférieure à 10MB.",
-    "invalidFileType": "Veuillez sélectionner un fichier image valide (JPG, PNG, GIF).",
+    "fileTooLarge": "La taille du fichier doit être inférieure à 20MB.",
+    "invalidFileType": "Veuillez sélectionner un fichier image valide (JPG, PNG, GIF, WebP, AVIF).",
     "uploadFailed": "Échec du téléchargement de l'image. Veuillez réessayer.",
     "generationFailed": "Échec de la génération de description. Veuillez réessayer."
   },
@@ -200,7 +200,7 @@
       "title": "Fonctionnalités Puissantes du Générateur de Descriptions d'Images IA",
       "types": "Types de Descriptions Multiples : Choisissez parmi Titre de Produit (marque concise), Description Brève (aperçu d'un paragraphe), ou Description Détaillée (analyse complète) pour correspondre à vos besoins spécifiques.",
       "technology": "Technologie IA Avancée : Notre générateur gratuit de descriptions IA utilise la technologie GPT-4 Vision pour identifier objets, personnes, couleurs, composition et contexte avec une précision remarquable. Parfait pour les descriptions de produits e-commerce, le texte alternatif d'accessibilité et la création de contenu.",
-      "instant": "Résultats Instantanés : Téléchargez n'importe quelle image JPEG, PNG ou GIF jusqu'à 5MB et recevez des descriptions professionnelles en secondes. Pas d'attente, pas de files - juste des descriptions immédiates et précises pour vos images.",
+      "instant": "Résultats Instantanés : Téléchargez n'importe quelle image JPEG, PNG, GIF, WebP ou AVIF jusqu'à 20MB et recevez des descriptions professionnelles en secondes. Pas d'attente, pas de files - juste des descriptions immédiates et précises pour vos images.",
       "seo": "Descriptions Optimisées SEO : Les descriptions générées sont naturellement riches en mots-clés et parfaites pour améliorer la visibilité de votre contenu dans les moteurs de recherche. Idéal pour les sites web e-commerce, articles de blog et contenu réseaux sociaux.",
       "privacy": "Confidentialité et Sécurité : Toutes les images téléchargées sont automatiquement supprimées dans l'heure. Nous ne stockons jamais vos images de manière permanente ni ne les partageons avec des tiers, assurant une protection complète de la confidentialité.",
       "free": "100% Gratuit et Illimité : Aucune inscription requise, aucun coût caché, aucune limite d'utilisation. Notre descripteur d'images IA reste entièrement gratuit pour usage personnel et commercial, le rendant accessible à tous."

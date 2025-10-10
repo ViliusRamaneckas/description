@@ -590,7 +590,7 @@ const AppContent: React.FC = () => {
     }
     
     // Check file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
     const fileType = file.type.toLowerCase();
     
     if (!allowedTypes.includes(fileType)) {
@@ -598,8 +598,8 @@ const AppContent: React.FC = () => {
       return;
     }
     
-    // Check file size (5MB limit)
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    // Check file size (20MB limit)
+    const maxSize = 20 * 1024 * 1024; // 20MB
     if (file.size > maxSize) {
       const fileSizeMB = Math.round(file.size / 1024 / 1024 * 100) / 100;
       setError(`${t('errors.fileTooLarge')} File size: ${fileSizeMB}MB`);
@@ -795,7 +795,7 @@ const AppContent: React.FC = () => {
                     <FileInput
                       id="image-upload"
                       type="file"
-                      accept="image/jpeg,image/jpg,image/png,image/gif"
+                      accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,image/avif"
                       onChange={handleFileInputChange}
                     />
                   </UploadSection>

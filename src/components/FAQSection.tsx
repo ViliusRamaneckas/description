@@ -95,8 +95,10 @@ const faqData = [
     • **JPEG/JPG** - Most widely used format for photos
     • **PNG** - Great for images with transparency
     • **GIF** - Animated and static GIF files
+    • **WebP** - Modern format with superior compression
+    • **AVIF** - Next-generation format with excellent quality
     
-    The maximum file size is 5MB, which covers most standard images you'll want to describe.`
+    The maximum file size is 20MB, which covers most standard images you'll want to describe.`
   },
   {
     question: "What types of descriptions can this AI generator create?",

@@ -135,7 +135,7 @@ const TermsPage: React.FC = () => {
 
       <h2>{t('terms.contact.title')}</h2>
       <p>
-        {t('terms.contact.description')} info@freeimagedescriber.com
+        {t('terms.contact.description')} support@imagealt.ai
       </p>
     </PageContainer>
   );
