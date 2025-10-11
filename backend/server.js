@@ -163,28 +163,38 @@ fastify.post('/api/describe', async (request, reply) => {
   fastify.log.info('Describe endpoint hit');
   
   try {
-    const data = await request.file();
+    // Parse multipart data to get both file and fields
+    let imageFile = null;
+    let descriptionType = 'detailed';
     
-    if (!data) {
+    const parts = request.parts();
+    for await (const part of parts) {
+      if (part.type === 'file') {
+        imageFile = part;
+        // Don't break - continue to get other fields
+      } else if (part.type === 'field' && part.fieldname === 'type') {
+        descriptionType = part.value;
+      }
+    }
+    
+    if (!imageFile) {
       fastify.log.info('No file received in request');
       return reply.status(400).send({ error: 'No image file provided' });
     }
 
-    // Get description type from form data or query parameters
-    const descriptionType = request.body?.type || request.query?.descriptionType || 'detailed';
     fastify.log.info('Description type received:', descriptionType);
 
-    const fileSize = data.file.bytesRead || 0;
-    fastify.log.info('File received:', data.filename, 'MIME type:', data.mimetype, 'Size:', fileSize);
+    const fileSize = imageFile.file.bytesRead || 0;
+    fastify.log.info('File received:', imageFile.filename, 'MIME type:', imageFile.mimetype, 'Size:', fileSize);
 
     // Fast validation
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
     const maxSize = 20 * 1024 * 1024; // 20MB
     
-    if (!allowedTypes.includes(data.mimetype?.toLowerCase() || '')) {
+    if (!allowedTypes.includes(imageFile.mimetype?.toLowerCase() || '')) {
       return reply.status(400).send({ 
         error: 'Unsupported file format',
-        message: `Please upload a valid image file. Supported formats: JPG, PNG, GIF, WebP, AVIF. You uploaded: ${data.mimetype || 'unknown'}`,
+        message: `Please upload a valid image file. Supported formats: JPG, PNG, GIF, WebP, AVIF. You uploaded: ${imageFile.mimetype || 'unknown'}`,
         code: 'INVALID_FILE_TYPE'
       });
     }
@@ -198,12 +208,12 @@ fastify.post('/api/describe', async (request, reply) => {
     }
 
     // PERFORMANCE OPTIMIZATION: Process image in memory without file system operations
-    const buffer = await data.toBuffer();
+    const buffer = await imageFile.toBuffer();
     const bufferTime = Date.now();
     fastify.log.info(`Buffer conversion completed in ${bufferTime - requestStartTime}ms`);
 
     // Optimize image for faster processing
-    const { buffer: optimizedBuffer, mimetype: optimizedMimetype } = await optimizeImage(buffer, data.mimetype);
+    const { buffer: optimizedBuffer, mimetype: optimizedMimetype } = await optimizeImage(buffer, imageFile.mimetype);
     const optimizationTime = Date.now();
     fastify.log.info(`Image optimization completed in ${optimizationTime - bufferTime}ms`);
 
