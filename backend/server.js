@@ -107,6 +107,16 @@ fastify.get('/test', async (request, reply) => {
   return { message: 'Server is running!' };
 });
 
+// Health check route - for keeping server warm
+fastify.get('/health', async (request, reply) => {
+  fastify.log.info('Health check endpoint hit');
+  return { 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  };
+});
+
 // CORS test route
 fastify.get('/cors-test', async (request, reply) => {
   fastify.log.info('CORS test endpoint hit');

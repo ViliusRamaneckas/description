@@ -577,6 +577,17 @@ const AppContent: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const [slowLoadingWarning, setSlowLoadingWarning] = useState<boolean>(false);
+
+  // Start keep-alive service on component mount
+  React.useEffect(() => {
+    const { startKeepAlive, stopKeepAlive } = require('./services/keepAlive');
+    startKeepAlive();
+    
+    return () => {
+      stopKeepAlive();
+    };
+  }, []);
 
   const handleFileSelect = (file: File) => {
     // Clear previous errors
@@ -647,6 +658,12 @@ const AppContent: React.FC = () => {
     setIsLoading(true);
     setError('');
     setGeneratedDescription('');
+    setSlowLoadingWarning(false);
+
+    // Show warning after 15 seconds if still loading (cold start indicator)
+    const slowLoadingTimer = setTimeout(() => {
+      setSlowLoadingWarning(true);
+    }, 15000);
 
     try {
       const formData = new FormData();
@@ -659,8 +676,8 @@ const AppContent: React.FC = () => {
       const response = await fetch(`${API_BASE_URL}/api/describe`, {
         method: 'POST',
         body: formData,
-        // Add timeout for better error handling
-        signal: AbortSignal.timeout(30000) // 30 second timeout
+        // Increased timeout to handle cold starts on Render.com
+        signal: AbortSignal.timeout(90000) // 90 second timeout for cold starts
       });
 
       if (!response.ok) {
@@ -688,9 +705,25 @@ const AppContent: React.FC = () => {
       setGeneratedDescription(data.description);
     } catch (err) {
       console.error('Error generating description:', err);
-      const errorMessage = err instanceof Error ? err.message : t('errors.generationFailed');
+      
+      // Better error handling for timeout and network issues
+      let errorMessage: string;
+      if (err instanceof Error) {
+        if (err.name === 'TimeoutError' || err.message.includes('timeout')) {
+          errorMessage = 'Server is waking up from sleep mode. This usually takes 30-60 seconds on first visit. Please try again in a moment.';
+        } else if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+          errorMessage = 'Network error. Please check your internet connection and try again.';
+        } else {
+          errorMessage = err.message;
+        }
+      } else {
+        errorMessage = t('errors.generationFailed');
+      }
+      
       setError(errorMessage);
     } finally {
+      clearTimeout(slowLoadingTimer);
+      setSlowLoadingWarning(false);
       setIsLoading(false);
     }
   };
@@ -844,6 +877,12 @@ const AppContent: React.FC = () => {
                     <UploadNewButton onClick={handleUploadNewImage}>
                       {t('generate.uploadNew')}
                     </UploadNewButton>
+                    
+                    {slowLoadingWarning && (
+                      <InfoText style={{ color: '#f59e0b', fontSize: '0.9rem', marginTop: '0.5rem', textAlign: 'center' }}>
+                        ⏳ Server is waking up... This may take up to 60 seconds on first visit.
+                      </InfoText>
+                    )}
                   </ActionSection>
                 )}
 
