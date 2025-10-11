@@ -660,10 +660,11 @@ const AppContent: React.FC = () => {
     setGeneratedDescription('');
     setSlowLoadingWarning(false);
 
-    // Show warning after 15 seconds if still loading (cold start indicator)
+    // Show warning after 30 seconds if still loading (cold start indicator)
+    // Normal processing takes 10-20 seconds, so 30+ seconds indicates cold start
     const slowLoadingTimer = setTimeout(() => {
       setSlowLoadingWarning(true);
-    }, 15000);
+    }, 30000);
 
     try {
       const formData = new FormData();
@@ -880,7 +881,7 @@ const AppContent: React.FC = () => {
                     
                     {slowLoadingWarning && (
                       <InfoText style={{ color: '#f59e0b', fontSize: '0.9rem', marginTop: '0.5rem', textAlign: 'center' }}>
-                        ⏳ Server is waking up... This may take up to 60 seconds on first visit.
+                        ⏳ Server is waking up from sleep mode. Please wait, this can take up to 60 seconds...
                       </InfoText>
                     )}
                   </ActionSection>
