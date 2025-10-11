@@ -228,7 +228,7 @@ fastify.post('/api/describe', async (request, reply) => {
     let maxTokens = 300; // Reduced default for faster responses
     
     switch (descriptionType) {
-      case 'title':
+      case 'productTitle':
         prompt = 'Generate a concise, catchy product title for this image. Keep it under 10 words.';
         maxTokens = 50;
         break;
