@@ -17,6 +17,16 @@ import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import { API_BASE_URL } from './config/api';
 
+// Ezoic global declarations
+declare global {
+  interface Window {
+    ezstandalone: {
+      cmd: Array<() => void>;
+      showAds: (...ids: number[]) => void;
+    };
+  }
+}
+
 // All the existing styled components from App.tsx
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -24,6 +34,7 @@ const AppContainer = styled.div`
   flex-direction: column;
   background-color: #ffffff;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  position: relative;
 `;
 
 const MainContent = styled.main`
@@ -589,6 +600,24 @@ const AppContent: React.FC = () => {
     };
   }, []);
 
+  // Initialize Ezoic ads on component mount
+  React.useEffect(() => {
+    // Wait for Ezoic to load, then initialize all ad placements
+    const initializeAds = () => {
+      if (window.ezstandalone && window.ezstandalone.cmd) {
+        // Initialize all ad placements in a single call for better performance
+        window.ezstandalone.cmd.push(function () {
+          window.ezstandalone.showAds(109, 110, 111, 112, 115, 106, 107);
+        });
+      } else {
+        // Retry if Ezoic hasn't loaded yet
+        setTimeout(initializeAds, 100);
+      }
+    };
+    
+    initializeAds();
+  }, []);
+
   const handleFileSelect = (file: File) => {
     // Clear previous errors
       setError('');
@@ -752,6 +781,11 @@ const AppContent: React.FC = () => {
     <AppContainer>
       <SEOHead currentLang={lang} />
       <Navbar />
+      
+      {/* Ezoic Sidebar Ad Placements - Desktop Only */}
+      <div id="ezoic-pub-ad-placeholder-107" style={{ display: 'none' }}></div>
+      <div id="ezoic-pub-ad-placeholder-106" style={{ display: 'none' }}></div>
+      
       <MainContent>
         <Routes>
           <Route path="blog" element={<Blog />} />
@@ -769,6 +803,9 @@ const AppContent: React.FC = () => {
                   <IntroDescription>
                     {t('hero.intro')}
                   </IntroDescription>
+                  
+                  {/* Ezoic Ad Placement - under_first_paragraph (ID: 109) */}
+                  <div id="ezoic-pub-ad-placeholder-109"></div>
                   
                   <InstructionsContainer>
                     <InstructionsTitle>{t('hero.instructions.title')}</InstructionsTitle>
@@ -808,6 +845,9 @@ const AppContent: React.FC = () => {
                       </StepText>
                     </InstructionStep>
                   </InstructionsContainer>
+                  
+                  {/* Ezoic Ad Placement - under_second_paragraph (ID: 110) */}
+                  <div id="ezoic-pub-ad-placeholder-110"></div>
                 </HeroSection>
 
                 {!previewUrl && (
@@ -840,6 +880,9 @@ const AppContent: React.FC = () => {
                     <PreviewImage src={previewUrl} alt="Preview" />
                   </PreviewSection>
                 )}
+
+                {/* Ezoic Ad Placement - mid_content (ID: 111) */}
+                <div id="ezoic-pub-ad-placeholder-111"></div>
 
                 {selectedFile && (
                   <OptionsSection>
@@ -904,6 +947,9 @@ const AppContent: React.FC = () => {
                   </ResultSection>
                 )}
 
+                {/* Ezoic Ad Placement - incontent_5 (ID: 115) */}
+                <div id="ezoic-pub-ad-placeholder-115"></div>
+
                 <InfoSection>
                   <InfoTitle>{t('info.title')}</InfoTitle>
                   <InfoText>{t('info.description1')}</InfoText>
@@ -936,6 +982,9 @@ const AppContent: React.FC = () => {
                   <InfoText>{t('info.benefits.creators')}</InfoText>
                   <InfoText>{t('info.benefits.developers')}</InfoText>
                   <InfoText>{t('info.benefits.educators')}</InfoText>
+                  
+                  {/* Ezoic Ad Placement - long_content (ID: 112) */}
+                  <div id="ezoic-pub-ad-placeholder-112"></div>
                 </InfoSection>
 
                 <Showcase />
