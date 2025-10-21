@@ -117,6 +117,18 @@ fastify.get('/health', async (request, reply) => {
   };
 });
 
+// Keepalive endpoint to prevent Render from sleeping
+fastify.get('/keepalive', async (request, reply) => {
+  const timestamp = new Date().toISOString();
+  fastify.log.info(`Keepalive ping received at ${timestamp}`);
+  return { 
+    status: 'alive', 
+    timestamp,
+    uptime: process.uptime(),
+    message: 'Server is awake and running'
+  };
+});
+
 // CORS test route
 fastify.get('/cors-test', async (request, reply) => {
   fastify.log.info('CORS test endpoint hit');
