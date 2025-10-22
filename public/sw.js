@@ -1,6 +1,10 @@
-self.options = {
-    "domain": "5gvci.com",
-    "zoneId": 10077230
-}
-self.lary = ""
-importScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw')
+// Minimal, safe service worker
+self.addEventListener('install', () => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', () => {
+  self.clients.claim();
+});
+
+// No fetch handlers; acts as a placeholder only
