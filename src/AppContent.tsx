@@ -17,16 +17,6 @@ import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import { API_BASE_URL } from './config/api';
 
-// Ezoic global declarations
-declare global {
-  interface Window {
-    ezstandalone: {
-      cmd: Array<() => void>;
-      showAds: (...ids: number[]) => void;
-    };
-  }
-}
-
 // All the existing styled components from App.tsx
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -34,7 +24,6 @@ const AppContainer = styled.div`
   flex-direction: column;
   background-color: #ffffff;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  position: relative;
 `;
 
 const MainContent = styled.main`
@@ -588,35 +577,6 @@ const AppContent: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
-  const [slowLoadingWarning, setSlowLoadingWarning] = useState<boolean>(false);
-
-  // Start keep-alive service on component mount
-  React.useEffect(() => {
-    const { startKeepAlive, stopKeepAlive } = require('./services/keepAlive');
-    startKeepAlive();
-    
-    return () => {
-      stopKeepAlive();
-    };
-  }, []);
-
-  // Initialize Ezoic ads on component mount
-  React.useEffect(() => {
-    // Wait for Ezoic to load, then initialize all ad placements
-    const initializeAds = () => {
-      if (window.ezstandalone && window.ezstandalone.cmd) {
-        // Initialize all ad placements in a single call for better performance
-        window.ezstandalone.cmd.push(function () {
-          window.ezstandalone.showAds(109, 110, 111, 112, 115, 106, 107);
-        });
-      } else {
-        // Retry if Ezoic hasn't loaded yet
-        setTimeout(initializeAds, 100);
-      }
-    };
-    
-    initializeAds();
-  }, []);
 
   const handleFileSelect = (file: File) => {
     // Clear previous errors
@@ -687,13 +647,6 @@ const AppContent: React.FC = () => {
     setIsLoading(true);
     setError('');
     setGeneratedDescription('');
-    setSlowLoadingWarning(false);
-
-    // Show warning after 30 seconds if still loading (cold start indicator)
-    // Normal processing takes 10-20 seconds, so 30+ seconds indicates cold start
-    const slowLoadingTimer = setTimeout(() => {
-      setSlowLoadingWarning(true);
-    }, 30000);
 
     try {
       const formData = new FormData();
@@ -706,8 +659,8 @@ const AppContent: React.FC = () => {
       const response = await fetch(`${API_BASE_URL}/api/describe`, {
         method: 'POST',
         body: formData,
-        // Increased timeout to handle cold starts on Render.com
-        signal: AbortSignal.timeout(90000) // 90 second timeout for cold starts
+        // Add timeout for better error handling
+        signal: AbortSignal.timeout(30000) // 30 second timeout
       });
 
       if (!response.ok) {
@@ -735,25 +688,9 @@ const AppContent: React.FC = () => {
       setGeneratedDescription(data.description);
     } catch (err) {
       console.error('Error generating description:', err);
-      
-      // Better error handling for timeout and network issues
-      let errorMessage: string;
-      if (err instanceof Error) {
-        if (err.name === 'TimeoutError' || err.message.includes('timeout')) {
-          errorMessage = 'Server is waking up from sleep mode. This usually takes 30-60 seconds on first visit. Please try again in a moment.';
-        } else if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-          errorMessage = 'Network error. Please check your internet connection and try again.';
-        } else {
-          errorMessage = err.message;
-        }
-      } else {
-        errorMessage = t('errors.generationFailed');
-      }
-      
+      const errorMessage = err instanceof Error ? err.message : t('errors.generationFailed');
       setError(errorMessage);
     } finally {
-      clearTimeout(slowLoadingTimer);
-      setSlowLoadingWarning(false);
       setIsLoading(false);
     }
   };
@@ -781,11 +718,6 @@ const AppContent: React.FC = () => {
     <AppContainer>
       <SEOHead currentLang={lang} />
       <Navbar />
-      
-      {/* Ezoic Sidebar Ad Placements - Desktop Only */}
-      <div id="ezoic-pub-ad-placeholder-107" style={{ display: 'none' }}></div>
-      <div id="ezoic-pub-ad-placeholder-106" style={{ display: 'none' }}></div>
-      
       <MainContent>
         <Routes>
           <Route path="blog" element={<Blog />} />
@@ -803,9 +735,6 @@ const AppContent: React.FC = () => {
                   <IntroDescription>
                     {t('hero.intro')}
                   </IntroDescription>
-                  
-                  {/* Ezoic Ad Placement - under_first_paragraph (ID: 109) */}
-                  <div id="ezoic-pub-ad-placeholder-109"></div>
                   
                   <InstructionsContainer>
                     <InstructionsTitle>{t('hero.instructions.title')}</InstructionsTitle>
@@ -845,9 +774,6 @@ const AppContent: React.FC = () => {
                       </StepText>
                     </InstructionStep>
                   </InstructionsContainer>
-                  
-                  {/* Ezoic Ad Placement - under_second_paragraph (ID: 110) */}
-                  <div id="ezoic-pub-ad-placeholder-110"></div>
                 </HeroSection>
 
                 {!previewUrl && (
@@ -880,9 +806,6 @@ const AppContent: React.FC = () => {
                     <PreviewImage src={previewUrl} alt="Preview" />
                   </PreviewSection>
                 )}
-
-                {/* Ezoic Ad Placement - mid_content (ID: 111) */}
-                <div id="ezoic-pub-ad-placeholder-111"></div>
 
                 {selectedFile && (
                   <OptionsSection>
@@ -921,12 +844,6 @@ const AppContent: React.FC = () => {
                     <UploadNewButton onClick={handleUploadNewImage}>
                       {t('generate.uploadNew')}
                     </UploadNewButton>
-                    
-                    {slowLoadingWarning && (
-                      <InfoText style={{ color: '#f59e0b', fontSize: '0.9rem', marginTop: '0.5rem', textAlign: 'center' }}>
-                        ⏳ Server is waking up from sleep mode. Please wait, this can take up to 60 seconds...
-                      </InfoText>
-                    )}
                   </ActionSection>
                 )}
 
@@ -946,9 +863,6 @@ const AppContent: React.FC = () => {
                     </ResultContainer>
                   </ResultSection>
                 )}
-
-                {/* Ezoic Ad Placement - incontent_5 (ID: 115) */}
-                <div id="ezoic-pub-ad-placeholder-115"></div>
 
                 <InfoSection>
                   <InfoTitle>{t('info.title')}</InfoTitle>
@@ -982,9 +896,6 @@ const AppContent: React.FC = () => {
                   <InfoText>{t('info.benefits.creators')}</InfoText>
                   <InfoText>{t('info.benefits.developers')}</InfoText>
                   <InfoText>{t('info.benefits.educators')}</InfoText>
-                  
-                  {/* Ezoic Ad Placement - long_content (ID: 112) */}
-                  <div id="ezoic-pub-ad-placeholder-112"></div>
                 </InfoSection>
 
                 <Showcase />

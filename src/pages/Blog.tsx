@@ -2,16 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-// Ezoic global declarations
-declare global {
-  interface Window {
-    ezstandalone: {
-      cmd: Array<() => void>;
-      showAds: (...ids: number[]) => void;
-    };
-  }
-}
-
 const BlogContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -110,13 +100,6 @@ const ReadMoreLink = styled(Link)`
 
 const blogPosts = [
   {
-    id: 'seo-optimization-ai-image-descriptions',
-    title: 'Complete Guide to SEO Optimization with AI-Generated Image Descriptions',
-    excerpt: 'Master the art of search engine optimization using AI-powered image descriptions. Learn how to improve rankings, drive organic traffic, and dominate search results.',
-    date: 'January 28, 2025',
-    readTime: '12 min read'
-  },
-  {
     id: 'future-of-ai-accessibility-2025',
     title: 'The Future of AI-Powered Accessibility: Trends and Innovations in 2025',
     excerpt: 'Discover the latest developments in AI accessibility technology and how they are transforming digital inclusion for millions of users worldwide.',
@@ -161,21 +144,6 @@ const blogPosts = [
 ];
 
 const Blog: React.FC = () => {
-  // Initialize Ezoic ads on component mount
-  React.useEffect(() => {
-    const initializeAds = () => {
-      if (window.ezstandalone && window.ezstandalone.cmd) {
-        window.ezstandalone.cmd.push(function () {
-          window.ezstandalone.showAds(109, 112);
-        });
-      } else {
-        setTimeout(initializeAds, 100);
-      }
-    };
-    
-    initializeAds();
-  }, []);
-
   return (
     <BlogContainer>
       <HomeButton to="/">
@@ -188,9 +156,6 @@ const Blog: React.FC = () => {
           and making your content more accessible and engaging.
         </BlogSubtitle>
       </BlogHeader>
-      
-      {/* Ezoic Ad Placement - under_first_paragraph (ID: 109) */}
-      <div id="ezoic-pub-ad-placeholder-109"></div>
       
       <BlogGrid>
         {blogPosts.map((post) => (
@@ -206,9 +171,6 @@ const Blog: React.FC = () => {
           </BlogPost>
         ))}
       </BlogGrid>
-      
-      {/* Ezoic Ad Placement - long_content (ID: 112) */}
-      <div id="ezoic-pub-ad-placeholder-112"></div>
     </BlogContainer>
   );
 };
